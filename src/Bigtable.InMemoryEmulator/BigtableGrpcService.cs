@@ -122,8 +122,8 @@ internal sealed class BigtableGrpcService : Google.Cloud.Bigtable.V2.Bigtable.Bi
 
             rowsSeen++;
 
-            // Get cells, apply filter if present
-            var cells = row.GetCells();
+            // Get cells, filter out GC-expired cells at read time, apply user filter
+            var cells = table.FilterCellsByGcRules(row.GetCells());
             cellsSeen += cells.Count;
 
             IReadOnlyList<CellData> filteredCells;

@@ -457,4 +457,25 @@ public class RowFilterEvaluatorTests
     }
 
     #endregion
+
+    #region Sink
+
+    [Fact]
+    public void Sink_true_passes_all_cells()
+    {
+        // Ref: RowFilter.sink — "Hook for introspection into the RowFilter."
+        var filter = new RowFilter { Sink = true };
+        var result = RowFilterEvaluator.Apply(filter, SampleCells());
+        result.Should().HaveCount(4);
+    }
+
+    [Fact]
+    public void Sink_false_blocks_all_cells()
+    {
+        var filter = new RowFilter { Sink = false };
+        var result = RowFilterEvaluator.Apply(filter, SampleCells());
+        result.Should().BeEmpty();
+    }
+
+    #endregion
 }

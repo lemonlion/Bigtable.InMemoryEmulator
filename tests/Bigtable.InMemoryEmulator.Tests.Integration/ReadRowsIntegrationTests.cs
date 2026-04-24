@@ -112,4 +112,32 @@ public sealed class ReadRowsIntegrationTests : IAsyncLifetime
         var rows = await ReadAll(tn);
         rows.Should().BeEmpty();
     }
+
+    [Fact]
+    public async Task ReadRows_reversed_returns_descending_order()
+    {
+        // Ref: ReadRowsRequest.reversed — "Return rows in lexicographical descending order"
+        // BigtableClient.ReadRows wraps the stream with RowAsyncEnumerator which enforces ascending key order,
+        // so we must use the raw BigtableServiceApiClient to test reversed scans.
+        var request = new ReadRowsRequest
+        {
+            TableName = TN.ToString(),
+            Reversed = true,
+        };
+        var stream = _fixture.ServiceApiClient.ReadRows(request);
+        var keys = new List<string>();
+        await using var enumerator = stream.GetResponseStream().GetAsyncEnumerator();
+        while (await enumerator.MoveNextAsync())
+        {
+            foreach (var chunk in enumerator.Current.Chunks)
+            {
+                if (chunk.RowKey is { Length: > 0 })
+                    keys.Add(chunk.RowKey.ToStringUtf8());
+            }
+        }
+
+        keys.Should().HaveCount(5);
+        keys[0].Should().Be("e");
+        keys[4].Should().Be("a");
+    }
 }

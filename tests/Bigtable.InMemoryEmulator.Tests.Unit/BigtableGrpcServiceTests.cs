@@ -431,4 +431,88 @@ public class BigtableGrpcServiceTests : IDisposable
     }
 
     #endregion
+
+    #region RequestStats
+
+    [Fact]
+    public async Task ReadRows_request_stats_full_returns_stats()
+    {
+        // Seed data
+        await _client.MutateRowAsync(_tableName, "stats-r1",
+            Mutations.SetCell(Family, "col", "v1", new BigtableVersion(1000)));
+        await _client.MutateRowAsync(_tableName, "stats-r2",
+            Mutations.SetCell(Family, "col", "v2", new BigtableVersion(1000)));
+
+        // Use low-level API to set RequestStatsView
+        // Ref: ReadRowsRequest.request_stats_view — when REQUEST_STATS_FULL, include stats
+        var serviceApiClient = new BigtableServiceApiClientBuilder
+        {
+            CallInvoker = _server.Channel.CreateCallInvoker()
+        }.Build();
+
+        var request = new ReadRowsRequest
+        {
+            TableName = _tableName.ToString(),
+            RequestStatsView = ReadRowsRequest.Types.RequestStatsView.RequestStatsFull,
+        };
+
+        var stream = serviceApiClient.ReadRows(request);
+        var responses = new List<ReadRowsResponse>();
+        var enumerator = stream.GetResponseStream().GetAsyncEnumerator(default);
+        while (await enumerator.MoveNextAsync())
+        {
+            responses.Add(enumerator.Current);
+        }
+
+        // The last response should contain stats
+        var statsResponse = responses.Last();
+        statsResponse.RequestStats.Should().NotBeNull();
+        statsResponse.RequestStats.FullReadStatsView.Should().NotBeNull();
+        statsResponse.RequestStats.FullReadStatsView.ReadIterationStats.RowsReturnedCount.Should().Be(2);
+    }
+
+    #endregion
+
+    #region GC MaxAge On Reads
+
+    [Fact]
+    public async Task ReadRows_filters_MaxAge_expired_cells_at_read_time()
+    {
+        // Create a table with MaxAge GC rule
+        // Ref: https://cloud.google.com/bigtable/docs/garbage-collection
+        var gcRules = new Dictionary<string, Google.Cloud.Bigtable.Admin.V2.GcRule?>
+        {
+            ["gcf"] = new Google.Cloud.Bigtable.Admin.V2.GcRule
+            {
+                MaxAge = Google.Protobuf.WellKnownTypes.Duration.FromTimeSpan(TimeSpan.FromHours(1))
+            }
+        };
+        _server.Store.CreateTable("gc-age-table", ["gcf"], gcRules);
+        var gcServer = InMemoryBigtableServer.Create(_server.Store);
+        var gcClient = gcServer.Client;
+        var gcTableName = new TableName(ProjectId, InstanceId, "gc-age-table");
+
+        // Write a cell with a very old timestamp (expired by MaxAge)
+        var oldTimestamp = new BigtableVersion(
+            DateTimeOffset.UtcNow.AddHours(-2).ToUnixTimeMilliseconds());
+        await gcClient.MutateRowAsync(gcTableName, "r1",
+            Mutations.SetCell("gcf", "col", "old-value", oldTimestamp));
+
+        // Write a cell with a recent timestamp (not expired)
+        var recentTimestamp = new BigtableVersion(
+            DateTimeOffset.UtcNow.ToUnixTimeMilliseconds());
+        await gcClient.MutateRowAsync(gcTableName, "r1",
+            Mutations.SetCell("gcf", "col", "new-value", recentTimestamp));
+
+        // Read — expired cell should be filtered out
+        var row = await gcClient.ReadRowAsync(gcTableName, "r1");
+        row.Should().NotBeNull();
+        var cells = row!.Families[0].Columns[0].Cells;
+        cells.Should().HaveCount(1);
+        cells[0].Value.ToStringUtf8().Should().Be("new-value");
+
+        gcServer.Dispose();
+    }
+
+    #endregion
 }

@@ -40,17 +40,45 @@ internal sealed class BigtableTableAdminGrpcService : BigtableTableAdmin.Bigtabl
 
         var families = new List<string>();
         var gcRules = new Dictionary<string, GcRule?>();
+        var aggregateFamilies = new Dictionary<string, AggregateConfig>();
 
         if (request.Table?.ColumnFamilies != null)
         {
             foreach (var (name, cf) in request.Table.ColumnFamilies)
             {
-                families.Add(name);
-                gcRules[name] = cf.GcRule?.RuleCase != GcRule.RuleOneofCase.None ? cf.GcRule : null;
+                // Ref: https://cloud.google.com/bigtable/docs/reference/admin/rpc/google.bigtable.admin.v2#columnfamily
+                //   ColumnFamily.value_type — if set with aggregate_type, the family is an aggregate family.
+                if (cf.ValueType?.AggregateType != null)
+                {
+                    var aggConfig = ParseAggregateConfig(cf.ValueType.AggregateType);
+                    aggregateFamilies[name] = aggConfig;
+                }
+                else
+                {
+                    families.Add(name);
+                    gcRules[name] = cf.GcRule?.RuleCase != GcRule.RuleOneofCase.None ? cf.GcRule : null;
+                }
             }
         }
 
-        _store.CreateTable(tableId, families, gcRules.Count > 0 ? gcRules : null);
+        if (aggregateFamilies.Count > 0)
+        {
+            _store.CreateTableWithAggregates(tableId, families, aggregateFamilies);
+            // Apply GC rules to regular families after creation
+            if (gcRules.Count > 0)
+            {
+                var table = _store.GetTable(tableId);
+                foreach (var (family, gcRule) in gcRules)
+                {
+                    if (gcRule != null)
+                        table.Config.ColumnFamilies[family] = gcRule;
+                }
+            }
+        }
+        else
+        {
+            _store.CreateTable(tableId, families, gcRules.Count > 0 ? gcRules : null);
+        }
 
         return Task.FromResult(BuildTableProto(tableId));
     }
@@ -165,12 +193,70 @@ internal sealed class BigtableTableAdminGrpcService : BigtableTableAdmin.Bigtabl
             result.ColumnFamilies.Add(familyName, cf);
         }
 
-        foreach (var (familyName, _) in table.Config.AggregateFamilies)
+        foreach (var (familyName, aggConfig) in table.Config.AggregateFamilies)
         {
-            result.ColumnFamilies.Add(familyName, new ColumnFamily());
+            result.ColumnFamilies.Add(familyName, new ColumnFamily
+            {
+                ValueType = BuildAggregateValueType(aggConfig),
+            });
         }
 
         return result;
+    }
+
+    /// <summary>
+    /// Parses a ColumnFamily.ValueType.AggregateType proto into our internal AggregateConfig.
+    /// Ref: https://cloud.google.com/bigtable/docs/reference/admin/rpc/google.bigtable.admin.v2#type
+    /// </summary>
+    private static AggregateConfig ParseAggregateConfig(Google.Cloud.Bigtable.Admin.V2.Type.Types.Aggregate aggregate)
+    {
+        return aggregate.AggregatorCase switch
+        {
+            Google.Cloud.Bigtable.Admin.V2.Type.Types.Aggregate.AggregatorOneofCase.Sum => AggregateConfig.Sum(),
+            Google.Cloud.Bigtable.Admin.V2.Type.Types.Aggregate.AggregatorOneofCase.Min => AggregateConfig.Min(),
+            Google.Cloud.Bigtable.Admin.V2.Type.Types.Aggregate.AggregatorOneofCase.Max => AggregateConfig.Max(),
+            Google.Cloud.Bigtable.Admin.V2.Type.Types.Aggregate.AggregatorOneofCase.HllppUniqueCount
+                => AggregateConfig.HllppUniqueCount(),
+            _ => AggregateConfig.Sum(), // Default to Sum if unspecified
+        };
+    }
+
+    /// <summary>
+    /// Converts an AggregateConfig back to a ValueType proto for table metadata responses.
+    /// </summary>
+    private static Google.Cloud.Bigtable.Admin.V2.Type BuildAggregateValueType(AggregateConfig config)
+    {
+        var aggregate = new Google.Cloud.Bigtable.Admin.V2.Type.Types.Aggregate
+        {
+            StateType = new Google.Cloud.Bigtable.Admin.V2.Type
+            {
+                Int64Type = new Google.Cloud.Bigtable.Admin.V2.Type.Types.Int64
+                {
+                    Encoding = new Google.Cloud.Bigtable.Admin.V2.Type.Types.Int64.Types.Encoding
+                    {
+                        BigEndianBytes = new Google.Cloud.Bigtable.Admin.V2.Type.Types.Int64.Types.Encoding.Types.BigEndianBytes()
+                    }
+                }
+            },
+        };
+
+        switch (config.Aggregator)
+        {
+            case AggregatorType.Sum:
+                aggregate.Sum = new Google.Cloud.Bigtable.Admin.V2.Type.Types.Aggregate.Types.Sum();
+                break;
+            case AggregatorType.Min:
+                aggregate.Min = new Google.Cloud.Bigtable.Admin.V2.Type.Types.Aggregate.Types.Min();
+                break;
+            case AggregatorType.Max:
+                aggregate.Max = new Google.Cloud.Bigtable.Admin.V2.Type.Types.Aggregate.Types.Max();
+                break;
+            case AggregatorType.HllppUniqueCount:
+                aggregate.HllppUniqueCount = new Google.Cloud.Bigtable.Admin.V2.Type.Types.Aggregate.Types.HyperLogLogPlusPlusUniqueCount();
+                break;
+        }
+
+        return new Google.Cloud.Bigtable.Admin.V2.Type { AggregateType = aggregate };
     }
 
     /// <summary>

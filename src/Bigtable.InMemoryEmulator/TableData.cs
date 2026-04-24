@@ -676,6 +676,65 @@ internal sealed class TableData : IDisposable
     }
 
     /// <summary>
+    /// Filters cells at read time, removing those that should have been GC'd by MaxAge rules.
+    /// MaxNumVersions is already enforced eagerly on writes; MaxAge cells may become stale
+    /// between writes, so we filter them at read time.
+    /// Ref: https://cloud.google.com/bigtable/docs/garbage-collection
+    /// </summary>
+    public IReadOnlyList<CellData> FilterCellsByGcRules(IReadOnlyList<CellData> cells)
+    {
+        List<CellData>? filtered = null;
+        for (int i = 0; i < cells.Count; i++)
+        {
+            var cell = cells[i];
+            if (IsCellExpiredByMaxAge(cell.Family, cell.TimestampMicros))
+            {
+                // Lazily create filtered list on first expiration
+                if (filtered == null)
+                {
+                    filtered = new List<CellData>(cells.Count);
+                    for (int j = 0; j < i; j++)
+                        filtered.Add(cells[j]);
+                }
+            }
+            else
+            {
+                filtered?.Add(cell);
+            }
+        }
+        return filtered ?? cells;
+    }
+
+    private bool IsCellExpiredByMaxAge(string family, long timestampMicros)
+    {
+        if (!Config.ColumnFamilies.TryGetValue(family, out var gcRule) || gcRule == null)
+            return false;
+        return IsExpiredByMaxAge(gcRule, timestampMicros);
+    }
+
+    private static bool IsExpiredByMaxAge(GcRule gcRule, long timestampMicros)
+    {
+        switch (gcRule.RuleCase)
+        {
+            case GcRule.RuleOneofCase.MaxAge:
+                var maxAge = gcRule.MaxAge.ToTimeSpan();
+                var cutoff = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() * 1000 - (long)maxAge.TotalMicroseconds;
+                return timestampMicros < cutoff;
+
+            case GcRule.RuleOneofCase.Union:
+                // Any sub-rule triggers expiration
+                return gcRule.Union.Rules.Any(r => IsExpiredByMaxAge(r, timestampMicros));
+
+            case GcRule.RuleOneofCase.Intersection:
+                // All sub-rules must agree for expiration
+                return gcRule.Intersection.Rules.All(r => IsExpiredByMaxAge(r, timestampMicros));
+
+            default:
+                return false;
+        }
+    }
+
+    /// <summary>
     /// Applies GC rules for a specific column after a SetCell.
     /// Currently supports MaxNumVersions (eager eviction).
     /// </summary>
