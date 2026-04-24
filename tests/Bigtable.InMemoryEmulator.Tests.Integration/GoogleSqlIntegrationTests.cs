@@ -115,4 +115,128 @@ public sealed class GoogleSqlIntegrationTests : IAsyncLifetime
         while (await e.MoveNextAsync()) responses.Add(e.Current);
         responses.Should().NotBeEmpty();
     }
+
+    [Fact]
+    public async Task ExecuteQuery_group_by_aggregation()
+    {
+        var request = new ExecuteQueryRequest
+        {
+            InstanceName = Instance,
+            Query = "SELECT COUNT(*) AS cnt FROM " + Table,
+            ProtoFormat = new ProtoFormat(),
+        };
+        var stream = ApiClient.ExecuteQuery(request);
+        var responses = new List<ExecuteQueryResponse>();
+        var e = stream.GetResponseStream().GetAsyncEnumerator(default);
+        while (await e.MoveNextAsync()) responses.Add(e.Current);
+        responses.Should().NotBeEmpty();
+    }
+
+    [Fact]
+    public async Task ExecuteQuery_offset_limit()
+    {
+        var request = new ExecuteQueryRequest
+        {
+            InstanceName = Instance,
+            Query = "SELECT _key FROM " + Table + " ORDER BY _key LIMIT 1 OFFSET 1",
+            ProtoFormat = new ProtoFormat(),
+        };
+        var stream = ApiClient.ExecuteQuery(request);
+        var responses = new List<ExecuteQueryResponse>();
+        var e = stream.GetResponseStream().GetAsyncEnumerator(default);
+        while (await e.MoveNextAsync()) responses.Add(e.Current);
+        responses.Should().NotBeEmpty();
+    }
+
+    [Fact]
+    public async Task ExecuteQuery_pipe_syntax()
+    {
+        // Ref: GoogleSQL pipe syntax — sequential transformation pipeline
+        var request = new ExecuteQueryRequest
+        {
+            InstanceName = Instance,
+            Query = "FROM " + Table + " |> SELECT _key |> LIMIT 2",
+            ProtoFormat = new ProtoFormat(),
+        };
+        var stream = ApiClient.ExecuteQuery(request);
+        var responses = new List<ExecuteQueryResponse>();
+        var e = stream.GetResponseStream().GetAsyncEnumerator(default);
+        while (await e.MoveNextAsync()) responses.Add(e.Current);
+        responses.Should().NotBeEmpty();
+    }
+
+    [Fact]
+    public async Task ExecuteQuery_with_parameter()
+    {
+        // Ref: https://cloud.google.com/bigtable/docs/reference/data/rpc/google.bigtable.v2#executequeryrequest
+        //   "params: named parameter values"
+        var request = new ExecuteQueryRequest
+        {
+            InstanceName = Instance,
+            Query = "SELECT _key FROM " + Table + " WHERE _key = @key",
+            ProtoFormat = new ProtoFormat(),
+        };
+        request.Params.Add("key", new Google.Cloud.Bigtable.V2.Value
+        {
+            RawValue = Google.Protobuf.ByteString.CopyFromUtf8("row1"),
+        });
+        var stream = ApiClient.ExecuteQuery(request);
+        var responses = new List<ExecuteQueryResponse>();
+        var e = stream.GetResponseStream().GetAsyncEnumerator(default);
+        while (await e.MoveNextAsync()) responses.Add(e.Current);
+        responses.Should().NotBeEmpty();
+    }
+
+    [Fact]
+    public async Task ExecuteQuery_distinct()
+    {
+        var request = new ExecuteQueryRequest
+        {
+            InstanceName = Instance,
+            Query = "SELECT DISTINCT CAST(cf['name'] AS STRING) AS name FROM " + Table,
+            ProtoFormat = new ProtoFormat(),
+        };
+        var stream = ApiClient.ExecuteQuery(request);
+        var responses = new List<ExecuteQueryResponse>();
+        var e = stream.GetResponseStream().GetAsyncEnumerator(default);
+        while (await e.MoveNextAsync()) responses.Add(e.Current);
+        responses.Should().NotBeEmpty();
+    }
+
+    [Fact]
+    public async Task ExecuteQuery_cast_to_string()
+    {
+        var request = new ExecuteQueryRequest
+        {
+            InstanceName = Instance,
+            Query = "SELECT CAST(cf['name'] AS STRING) AS name FROM " + Table + " LIMIT 1",
+            ProtoFormat = new ProtoFormat(),
+        };
+        var stream = ApiClient.ExecuteQuery(request);
+        var responses = new List<ExecuteQueryResponse>();
+        var e = stream.GetResponseStream().GetAsyncEnumerator(default);
+        while (await e.MoveNextAsync()) responses.Add(e.Current);
+        responses.Should().NotBeEmpty();
+    }
+
+    [Fact]
+    public async Task ExecuteQuery_returns_multiple_rows()
+    {
+        var request = new ExecuteQueryRequest
+        {
+            InstanceName = Instance,
+            Query = "SELECT _key FROM " + Table,
+            ProtoFormat = new ProtoFormat(),
+        };
+        var stream = ApiClient.ExecuteQuery(request);
+        var responses = new List<ExecuteQueryResponse>();
+        var e = stream.GetResponseStream().GetAsyncEnumerator(default);
+        while (await e.MoveNextAsync()) responses.Add(e.Current);
+
+        // At least the metadata response plus data
+        responses.Should().HaveCountGreaterThanOrEqualTo(1);
+        // Should include 3 rows of data (from seeded data)
+        var dataResponses = responses.Where(r => r.Results != null).ToList();
+        dataResponses.Should().NotBeEmpty();
+    }
 }

@@ -58,13 +58,11 @@ internal sealed class BigtableGrpcService : Google.Cloud.Bigtable.V2.Bigtable.Bi
                 throw new RpcException(faultStatus.Value);
             }
         }
-    }
 
-    private void LogSuccess(ServerCallContext context, string? tableName = null)
-    {
+        // Record the RPC call (success path — will be logged before execution)
         _rpcLog?.Record(new RpcLogEntry
         {
-            Method = context.Method,
+            Method = method,
             TableName = tableName,
             Succeeded = true,
             StatusCode = StatusCode.OK,
@@ -233,7 +231,6 @@ internal sealed class BigtableGrpcService : Google.Cloud.Bigtable.V2.Bigtable.Bi
         CheckFaultAndLog(context, tableName, request.RowKey.ToStringUtf8());
         var table = _store.GetTable(tableName);
         table.MutateRow(request.RowKey, request.Mutations);
-        LogSuccess(context, tableName);
         return Task.FromResult(new MutateRowResponse());
     }
 
@@ -562,6 +559,8 @@ internal sealed class BigtableGrpcService : Google.Cloud.Bigtable.V2.Bigtable.Bi
         IServerStreamWriter<ExecuteQueryResponse> responseStream,
         ServerCallContext context)
     {
+        _queryLog?.Record(new QueryLogEntry { Sql = request.Query });
+
         // Parse the SQL query
         SelectQuery query;
         try
