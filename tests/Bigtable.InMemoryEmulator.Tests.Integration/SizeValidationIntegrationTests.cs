@@ -27,6 +27,10 @@ public sealed class SizeValidationIntegrationTests : IAsyncLifetime
 
     #region Row key size validation
 
+    // Go emulator divergence: does not enforce row key size limit of 4 KiB.
+    // Ref: https://cloud.google.com/bigtable/docs/schema-design#row-keys
+    //   "The maximum size for a row key is 4 KB."
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task RowKey_exceeds_4KiB_throws()
     {
@@ -42,6 +46,10 @@ public sealed class SizeValidationIntegrationTests : IAsyncLifetime
 
     #region Column qualifier size validation
 
+    // Go emulator divergence: does not enforce column qualifier size limit of 16 KiB.
+    // Ref: https://cloud.google.com/bigtable/docs/schema-design#column-qualifiers
+    //   "The maximum size for a column qualifier is 16 KB."
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task Qualifier_exceeds_16KiB_throws()
     {
@@ -69,6 +77,10 @@ public sealed class SizeValidationIntegrationTests : IAsyncLifetime
 
     #region Timestamp alignment
 
+    // Go emulator divergence: returns StatusCode.Unknown instead of InvalidArgument for non-ms-aligned timestamps.
+    // Ref: https://cloud.google.com/bigtable/docs/reference/data/rpc/google.bigtable.v2#google.bigtable.v2.Mutation.SetCell
+    //   "The timestamp must be a microsecond value with at most millisecond granularity."
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task Timestamp_not_millisecond_aligned_throws()
     {
@@ -168,6 +180,9 @@ public sealed class SizeValidationIntegrationTests : IAsyncLifetime
 
     #region Family name validation
 
+    // Go emulator divergence: returns StatusCode.Unknown instead of InvalidArgument for non-existent family.
+    // Ref: https://cloud.google.com/bigtable/docs/reference/data/rpc/google.bigtable.v2#google.bigtable.v2.Bigtable.MutateRow
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task MutateRow_nonexistent_family_throws()
     {
@@ -181,6 +196,10 @@ public sealed class SizeValidationIntegrationTests : IAsyncLifetime
         ex.Which.StatusCode.Should().Be(StatusCode.InvalidArgument);
     }
 
+    // Go emulator divergence: does not enforce column family name character restrictions.
+    // Ref: https://cloud.google.com/bigtable/docs/reference/admin/rpc/google.bigtable.admin.v2#google.bigtable.admin.v2.ColumnFamily
+    //   Family names must match [_a-zA-Z0-9][-_.a-zA-Z0-9]*
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task CreateTable_family_name_invalid_chars_throws()
     {
@@ -201,6 +220,9 @@ public sealed class SizeValidationIntegrationTests : IAsyncLifetime
         ex.Which.StatusCode.Should().Be(StatusCode.InvalidArgument);
     }
 
+    // Go emulator divergence: does not enforce column family name length limit of 64 characters.
+    // Ref: https://cloud.google.com/bigtable/docs/reference/admin/rpc/google.bigtable.admin.v2#google.bigtable.admin.v2.ColumnFamily
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task CreateTable_family_name_exceeds_64_chars_throws()
     {

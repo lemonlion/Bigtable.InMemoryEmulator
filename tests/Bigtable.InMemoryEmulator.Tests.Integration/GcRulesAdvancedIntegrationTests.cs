@@ -111,6 +111,10 @@ public sealed class GcRulesAdvancedIntegrationTests : IAsyncLifetime
 
     #region MaxVersions variations
 
+    // Go emulator divergence: does not apply GC rules at read time; cells are only removed during compaction.
+    // Ref: https://cloud.google.com/bigtable/docs/garbage-collection#when_data_is_deleted
+    //   "Until the data is deleted, it appears in read results."
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task MaxVersions_1_keeps_only_latest()
     {
@@ -127,6 +131,9 @@ public sealed class GcRulesAdvancedIntegrationTests : IAsyncLifetime
         cells[0].Value.ToStringUtf8().Should().Be("v5");
     }
 
+    // Go emulator divergence: does not apply GC rules at read time; cells are only removed during compaction.
+    // Ref: https://cloud.google.com/bigtable/docs/garbage-collection#when_data_is_deleted
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task MaxVersions_3_retains_newest_three()
     {
@@ -158,6 +165,9 @@ public sealed class GcRulesAdvancedIntegrationTests : IAsyncLifetime
         cells.Should().HaveCount(2);
     }
 
+    // Go emulator divergence: does not apply GC rules at read time; cells are only removed during compaction.
+    // Ref: https://cloud.google.com/bigtable/docs/garbage-collection#when_data_is_deleted
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task MaxVersions_applies_per_column()
     {
@@ -210,6 +220,9 @@ public sealed class GcRulesAdvancedIntegrationTests : IAsyncLifetime
         row!.Families.First(f => f.Name == "ma1h").Columns.First().Cells.Should().HaveCount(1);
     }
 
+    // Go emulator divergence: does not apply GC rules at read time; cells are only removed during compaction.
+    // Ref: https://cloud.google.com/bigtable/docs/garbage-collection#when_data_is_deleted
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task MaxAge_old_cells_are_filtered()
     {
@@ -226,6 +239,9 @@ public sealed class GcRulesAdvancedIntegrationTests : IAsyncLifetime
         }
     }
 
+    // Go emulator divergence: does not apply GC rules at read time; cells are only removed during compaction.
+    // Ref: https://cloud.google.com/bigtable/docs/garbage-collection#when_data_is_deleted
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task MaxAge_mixed_old_and_new_keeps_only_new()
     {
@@ -251,6 +267,9 @@ public sealed class GcRulesAdvancedIntegrationTests : IAsyncLifetime
 
     #region Union rules
 
+    // Go emulator divergence: does not apply GC rules at read time; cells are only removed during compaction.
+    // Ref: https://cloud.google.com/bigtable/docs/garbage-collection#when_data_is_deleted
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task Union_maxversions_or_maxage_applies_either()
     {
@@ -273,6 +292,9 @@ public sealed class GcRulesAdvancedIntegrationTests : IAsyncLifetime
         cells.Should().HaveCountLessThanOrEqualTo(2);
     }
 
+    // Go emulator divergence: does not apply GC rules at read time; cells are only removed during compaction.
+    // Ref: https://cloud.google.com/bigtable/docs/garbage-collection#when_data_is_deleted
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task Union_maxage_triggers_even_within_version_limit()
     {
@@ -297,6 +319,9 @@ public sealed class GcRulesAdvancedIntegrationTests : IAsyncLifetime
 
     #region Intersection rules
 
+    // Go emulator divergence: does not apply GC rules at read time; cells are only removed during compaction.
+    // Ref: https://cloud.google.com/bigtable/docs/garbage-collection#when_data_is_deleted
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task Intersection_requires_both_rules_to_trigger()
     {
@@ -348,6 +373,9 @@ public sealed class GcRulesAdvancedIntegrationTests : IAsyncLifetime
 
     #region GC rule updates
 
+    // Go emulator divergence: does not apply GC rules at read time; cells are only removed during compaction.
+    // Ref: https://cloud.google.com/bigtable/docs/garbage-collection#when_data_is_deleted
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task Update_gc_rule_affects_subsequent_reads()
     {
@@ -418,6 +446,9 @@ public sealed class GcRulesAdvancedIntegrationTests : IAsyncLifetime
             .Should().HaveCountLessThanOrEqualTo(5); // some old may linger but new GC applies
     }
 
+    // Go emulator divergence: does not apply GC rules at read time; cells are only removed during compaction.
+    // Ref: https://cloud.google.com/bigtable/docs/garbage-collection#when_data_is_deleted
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task Remove_gc_rule_retains_all_versions()
     {
@@ -476,6 +507,9 @@ public sealed class GcRulesAdvancedIntegrationTests : IAsyncLifetime
 
     #region GC rules with multiple columns
 
+    // Go emulator divergence: does not apply GC rules at read time; cells are only removed during compaction.
+    // Ref: https://cloud.google.com/bigtable/docs/garbage-collection#when_data_is_deleted
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task MaxVersions_applied_independently_to_each_column()
     {
@@ -500,6 +534,9 @@ public sealed class GcRulesAdvancedIntegrationTests : IAsyncLifetime
         colB.Cells.Should().HaveCount(2); // under limit
     }
 
+    // Go emulator divergence: does not apply GC rules at read time; cells are only removed during compaction.
+    // Ref: https://cloud.google.com/bigtable/docs/garbage-collection#when_data_is_deleted
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task MaxVersions_with_multiple_families_independent()
     {

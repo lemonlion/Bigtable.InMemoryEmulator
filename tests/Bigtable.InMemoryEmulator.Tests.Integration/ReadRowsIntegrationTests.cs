@@ -113,6 +113,10 @@ public sealed class ReadRowsIntegrationTests : IAsyncLifetime
         rows.Should().BeEmpty();
     }
 
+    // Go emulator divergence: does not support reversed ReadRows scans.
+    // Ref: https://cloud.google.com/bigtable/docs/reference/data/rpc/google.bigtable.v2#google.bigtable.v2.ReadRowsRequest
+    //   "If true, rows are returned in reverse order of the row key."
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task ReadRows_reversed_returns_descending_order()
     {

@@ -64,6 +64,10 @@ public sealed class GcRulesIntegrationTests : IAsyncLifetime
     private BigtableClient Client => _fixture.Client;
     private TableName TN => _fixture.GetTableName(Table);
 
+    // Go emulator divergence: does not apply GC rules at read time; cells are only removed during compaction.
+    // Ref: https://cloud.google.com/bigtable/docs/garbage-collection#when_data_is_deleted
+    //   "Until the data is deleted, it appears in read results."
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task MaxVersions_rule_limits_returned_cells()
     {
@@ -92,6 +96,9 @@ public sealed class GcRulesIntegrationTests : IAsyncLifetime
         cells[1].Value.ToStringUtf8().Should().Be("v3");
     }
 
+    // Go emulator divergence: does not apply GC rules at read time; cells are only removed during compaction.
+    // Ref: https://cloud.google.com/bigtable/docs/garbage-collection#when_data_is_deleted
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task MaxAge_rule_filters_expired_cells()
     {

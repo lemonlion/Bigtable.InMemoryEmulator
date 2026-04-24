@@ -53,6 +53,9 @@ public sealed class FilterCompositionIntegrationTests : IAsyncLifetime
 
     #region Nested chains
 
+    // Go emulator divergence: does not correctly handle nested Chain(Chain(...), Chain(...)) filter composition.
+    // Ref: https://cloud.google.com/bigtable/docs/reference/data/rpc/google.bigtable.v2#google.bigtable.v2.RowFilter.Chain
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task Chain_of_chains()
     {

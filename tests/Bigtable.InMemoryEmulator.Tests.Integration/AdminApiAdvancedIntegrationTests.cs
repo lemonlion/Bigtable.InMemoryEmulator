@@ -247,6 +247,9 @@ public sealed class AdminApiAdvancedIntegrationTests : IAsyncLifetime
         ex.Which.StatusCode.Should().Be(StatusCode.NotFound);
     }
 
+    // Go emulator divergence: returns StatusCode.Unknown instead of NotFound for updating non-existent family.
+    // Ref: https://cloud.google.com/bigtable/docs/reference/admin/rpc/google.bigtable.admin.v2#google.bigtable.admin.v2.BigtableTableAdmin.ModifyColumnFamilies
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task ModifyColumnFamilies_update_nonexistent_family_throws()
     {

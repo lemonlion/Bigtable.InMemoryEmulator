@@ -267,6 +267,10 @@ public sealed class AdvancedFilterIntegrationTests : IAsyncLifetime
 
     #region RowSampleFilter
 
+    // Go emulator divergence: RowSampleFilter with probability 1.0 does not guarantee returning all rows.
+    // Ref: https://cloud.google.com/bigtable/docs/reference/data/rpc/google.bigtable.v2#google.bigtable.v2.RowFilter
+    //   "Matches all cells from a row with probability p"
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task RowSampleFilter_probability_1_returns_all()
     {
@@ -276,6 +280,9 @@ public sealed class AdvancedFilterIntegrationTests : IAsyncLifetime
         rows.Count.Should().BeGreaterThanOrEqualTo(8); // all seeded rows
     }
 
+    // Go emulator divergence: RowSampleFilter with probability 0.0 does not guarantee returning no rows.
+    // Ref: https://cloud.google.com/bigtable/docs/reference/data/rpc/google.bigtable.v2#google.bigtable.v2.RowFilter
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task RowSampleFilter_probability_0_returns_none()
     {

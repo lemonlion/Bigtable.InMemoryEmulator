@@ -81,6 +81,9 @@ public sealed class ErrorValidationIntegrationTests : IAsyncLifetime
 
     #region Admin validation
 
+    // Go emulator divergence: returns wrong status code for duplicate table creation.
+    // Ref: https://cloud.google.com/bigtable/docs/reference/admin/rpc/google.bigtable.admin.v2#google.bigtable.admin.v2.BigtableTableAdmin.CreateTable
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task CreateTable_duplicate_returns_AlreadyExists()
     {
@@ -131,6 +134,9 @@ public sealed class ErrorValidationIntegrationTests : IAsyncLifetime
         ex.Which.StatusCode.Should().Be(StatusCode.AlreadyExists);
     }
 
+    // Go emulator divergence: returns wrong status code for dropping non-existent family.
+    // Ref: https://cloud.google.com/bigtable/docs/reference/admin/rpc/google.bigtable.admin.v2#google.bigtable.admin.v2.BigtableTableAdmin.ModifyColumnFamilies
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task ModifyColumnFamilies_drop_nonexistent_returns_NotFound()
     {
@@ -188,6 +194,9 @@ public sealed class ErrorValidationIntegrationTests : IAsyncLifetime
 
     #region ExecuteQuery validation
 
+    // Go emulator divergence: does not implement the ExecuteQuery RPC (GoogleSQL).
+    // Ref: https://cloud.google.com/bigtable/docs/reference/data/rpc/google.bigtable.v2#google.bigtable.v2.Bigtable.ExecuteQuery
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task ExecuteQuery_invalid_sql_throws_InvalidArgument()
     {
@@ -213,6 +222,10 @@ public sealed class ErrorValidationIntegrationTests : IAsyncLifetime
 
     #region AuthorizedView validation
 
+    // Go emulator divergence: does not implement authorized_view_name; ignores the field instead of returning Unimplemented.
+    // Ref: https://cloud.google.com/bigtable/docs/reference/data/rpc/google.bigtable.v2#google.bigtable.v2.ReadRowsRequest
+    //   authorized_view_name field
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task ReadRows_with_authorized_view_name_throws_Unimplemented()
     {
@@ -233,6 +246,10 @@ public sealed class ErrorValidationIntegrationTests : IAsyncLifetime
             .Where(e => e.StatusCode == StatusCode.Unimplemented);
     }
 
+    // Go emulator divergence: does not implement authorized_view_name; ignores the field instead of returning Unimplemented.
+    // Ref: https://cloud.google.com/bigtable/docs/reference/data/rpc/google.bigtable.v2#google.bigtable.v2.MutateRowRequest
+    //   authorized_view_name field
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task MutateRow_with_authorized_view_name_throws_Unimplemented()
     {
@@ -250,6 +267,10 @@ public sealed class ErrorValidationIntegrationTests : IAsyncLifetime
             .Where(e => e.StatusCode == StatusCode.Unimplemented);
     }
 
+    // Go emulator divergence: does not implement authorized_view_name; ignores the field instead of returning Unimplemented.
+    // Ref: https://cloud.google.com/bigtable/docs/reference/data/rpc/google.bigtable.v2#google.bigtable.v2.SampleRowKeysRequest
+    //   authorized_view_name field
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task SampleRowKeys_with_authorized_view_name_throws_Unimplemented()
     {

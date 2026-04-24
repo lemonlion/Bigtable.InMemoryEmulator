@@ -232,6 +232,9 @@ public sealed class ReadRowsAdvancedIntegrationTests : IAsyncLifetime
         rows.Should().BeEmpty();
     }
 
+    // Go emulator divergence: throws InvalidArgument for start_key == end_key range instead of returning empty.
+    // Ref: https://cloud.google.com/bigtable/docs/reference/data/rpc/google.bigtable.v2#google.bigtable.v2.RowRange
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task ReadRows_empty_range_returns_empty()
     {

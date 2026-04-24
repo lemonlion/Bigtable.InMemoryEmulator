@@ -51,6 +51,9 @@ public sealed class ErrorConditionsIntegrationTests : IAsyncLifetime
 
     #region Family validation
 
+    // Go emulator divergence: returns StatusCode.Unknown instead of InvalidArgument for non-existent family.
+    // Ref: https://cloud.google.com/bigtable/docs/reference/data/rpc/google.bigtable.v2#google.bigtable.v2.Bigtable.MutateRow
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task MutateRow_to_nonexistent_family_throws()
     {
@@ -60,6 +63,9 @@ public sealed class ErrorConditionsIntegrationTests : IAsyncLifetime
         ex.Which.StatusCode.Should().Be(StatusCode.InvalidArgument);
     }
 
+    // Go emulator divergence: silently ignores delete from non-existent family instead of throwing.
+    // Ref: https://cloud.google.com/bigtable/docs/reference/data/rpc/google.bigtable.v2#google.bigtable.v2.Mutation.DeleteFromFamily
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task DeleteFromFamily_nonexistent_throws()
     {
@@ -69,6 +75,9 @@ public sealed class ErrorConditionsIntegrationTests : IAsyncLifetime
         ex.Which.StatusCode.Should().Be(StatusCode.InvalidArgument);
     }
 
+    // Go emulator divergence: returns StatusCode.Unknown instead of InvalidArgument for non-existent family.
+    // Ref: https://cloud.google.com/bigtable/docs/reference/data/rpc/google.bigtable.v2#google.bigtable.v2.Mutation.DeleteFromColumn
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task DeleteFromColumn_nonexistent_family_throws()
     {
@@ -168,6 +177,9 @@ public sealed class ErrorConditionsIntegrationTests : IAsyncLifetime
         ex.Which.StatusCode.Should().Be(StatusCode.AlreadyExists);
     }
 
+    // Go emulator divergence: returns StatusCode.Unknown instead of NotFound for dropping non-existent family.
+    // Ref: https://cloud.google.com/bigtable/docs/reference/admin/rpc/google.bigtable.admin.v2#google.bigtable.admin.v2.BigtableTableAdmin.ModifyColumnFamilies
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task ModifyColumnFamilies_drop_nonexistent_throws()
     {
@@ -188,6 +200,9 @@ public sealed class ErrorConditionsIntegrationTests : IAsyncLifetime
         ex.Which.StatusCode.Should().Be(StatusCode.NotFound);
     }
 
+    // Go emulator divergence: returns StatusCode.Unknown instead of NotFound for updating non-existent family.
+    // Ref: https://cloud.google.com/bigtable/docs/reference/admin/rpc/google.bigtable.admin.v2#google.bigtable.admin.v2.BigtableTableAdmin.ModifyColumnFamilies
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task ModifyColumnFamilies_update_nonexistent_throws()
     {
@@ -254,6 +269,9 @@ public sealed class ErrorConditionsIntegrationTests : IAsyncLifetime
         ex.Which.StatusCode.Should().Be(StatusCode.NotFound);
     }
 
+    // Go emulator divergence: returns StatusCode.Unknown instead of InvalidArgument for non-existent family.
+    // Ref: https://cloud.google.com/bigtable/docs/reference/data/rpc/google.bigtable.v2#google.bigtable.v2.Bigtable.ReadModifyWriteRow
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task ReadModifyWrite_nonexistent_family_throws()
     {
@@ -315,6 +333,10 @@ public sealed class ErrorConditionsIntegrationTests : IAsyncLifetime
 
     #region Timestamp validation
 
+    // Go emulator divergence: returns StatusCode.Unknown instead of InvalidArgument for non-ms-aligned timestamps.
+    // Ref: https://cloud.google.com/bigtable/docs/reference/data/rpc/google.bigtable.v2#google.bigtable.v2.Mutation.SetCell
+    //   "The timestamp must be a microsecond value with at most millisecond granularity."
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task Timestamp_not_ms_aligned_throws()
     {
@@ -342,6 +364,9 @@ public sealed class ErrorConditionsIntegrationTests : IAsyncLifetime
         ex.Which.StatusCode.Should().Be(StatusCode.InvalidArgument);
     }
 
+    // Go emulator divergence: returns StatusCode.Unknown instead of InvalidArgument for negative timestamps.
+    // Ref: https://cloud.google.com/bigtable/docs/reference/data/rpc/google.bigtable.v2#google.bigtable.v2.Mutation.SetCell
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task Timestamp_negative_below_minus_one_throws()
     {
