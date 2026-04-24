@@ -1,0 +1,109 @@
+name: Emulator Parity Validation
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    - cron: '0 6 * * 1'  # Weekly Monday 6am UTC
+  workflow_dispatch:
+    inputs:
+      filter:
+        description: 'dotnet test filter expression (overrides default PARITY_FILTER when provided)'
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+# Integration test classes to run against the Go emulator.
+# Expand this filter one class at a time and verify the workflow completes
+# without infra failures before adding the next.
+env:
+  PARITY_FILTER: ${{ inputs.filter || '' }}
+
+jobs:
+  test-inmemory:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v5
+      - uses: ./.github/actions/setup-dotnet-build
+
+      - name: Run Tests (inmemory)
+        shell: pwsh
+        run: |
+          $filterArg = if ($env:PARITY_FILTER) { "-Filter '$env:PARITY_FILTER'" } else { '' }
+          Invoke-Expression "./scripts/run-tests.ps1 -Target inmemory -Project integration $filterArg"
+
+      - name: Upload TRX
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: trx-inmemory
+          path: test-results/
+
+  test-emulator-go:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    services:
+      bigtable-emulator:
+        image: google/cloud-sdk:latest
+        ports:
+          - 8086:8086
+        options: >-
+          --entrypoint gcloud
+        command: beta emulators bigtable start --host-port=0.0.0.0:8086
+
+    steps:
+      - uses: actions/checkout@v5
+      - uses: ./.github/actions/setup-dotnet-build
+
+      - uses: ./.github/actions/wait-for-emulator
+        with:
+          host: localhost
+          port: '8086'
+          timeout: '120'
+
+      - name: Run Tests (emulator-go)
+        shell: pwsh
+        run: |
+          $filterArg = if ($env:PARITY_FILTER) { "-Filter '$env:PARITY_FILTER'" } else { '' }
+          Invoke-Expression "./scripts/run-tests.ps1 -Target emulator-go -Project integration $filterArg"
+
+      - name: Upload TRX
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: trx-emulator-go
+          path: test-results/
+
+  compare:
+    needs: [test-inmemory, test-emulator-go]
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Download all TRX artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: trx-*
+          path: test-results/
+          merge-multiple: true
+
+      - name: Parity Report
+        shell: pwsh
+        run: ./scripts/compare-trx.ps1 -ResultsDir test-results -OutputFormat markdown >> $env:GITHUB_STEP_SUMMARY
+
+      - name: Upload Combined Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: parity-results
+          path: test-results/

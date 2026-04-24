@@ -1,0 +1,112 @@
+name: GCP Parity Validation
+
+on:
+  schedule:
+    - cron: '0 6 * * 1'  # Weekly Monday 6am UTC
+  workflow_dispatch:
+    inputs:
+      filter:
+        description: 'dotnet test filter expression'
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  test-inmemory:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v5
+      - uses: ./.github/actions/setup-dotnet-build
+
+      - name: Run Tests (inmemory baseline)
+        shell: pwsh
+        run: |
+          $filterArg = if ('${{ inputs.filter }}') { "-Filter '${{ inputs.filter }}'" } else { '' }
+          Invoke-Expression "./scripts/run-tests.ps1 -Target inmemory -Project integration $filterArg"
+
+      - name: Upload TRX
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: trx-inmemory-gcp
+          path: test-results/
+
+  test-gcp:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - uses: actions/checkout@v5
+      - uses: ./.github/actions/setup-dotnet-build
+
+      - name: Authenticate to GCP
+        uses: google-github-actions/auth@v3
+        with:
+          workload_identity_provider: projects/${{ secrets.GCP_PROJECT_NUMBER }}/locations/global/workloadIdentityPools/github-pool/providers/github-oidc
+          service_account: bigtable-ci@bigtable-emulator-ci.iam.gserviceaccount.com
+
+      - name: Setup gcloud
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Create Bigtable Instance
+        run: |
+          gcloud bigtable instances create ci-${{ github.run_id }} \
+            --project=bigtable-emulator-ci \
+            --cluster=ci-cluster-${{ github.run_id }} \
+            --cluster-zone=us-central1-a \
+            --cluster-num-nodes=1 \
+            --instance-type=PRODUCTION
+
+      - name: Run GCP Parity Tests
+        shell: pwsh
+        env:
+          BIGTABLE_TEST_TARGET: gcp
+          BIGTABLE_PROJECT: bigtable-emulator-ci
+          BIGTABLE_INSTANCE: ci-${{ github.run_id }}
+        run: |
+          $filterArg = if ('${{ inputs.filter }}') { "-Filter '${{ inputs.filter }}'" } else { '' }
+          Invoke-Expression "./scripts/run-tests.ps1 -Target gcp -Project integration $filterArg"
+
+      - name: Upload TRX
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: trx-gcp
+          path: test-results/
+
+      - name: Delete Bigtable Instance
+        if: always()
+        run: |
+          gcloud bigtable instances delete ci-${{ github.run_id }} \
+            --project=bigtable-emulator-ci --quiet
+
+  compare:
+    needs: [test-inmemory, test-gcp]
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Download all TRX artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: trx-*
+          path: test-results/
+          merge-multiple: true
+
+      - name: Parity Report
+        shell: pwsh
+        run: ./scripts/compare-trx.ps1 -ResultsDir test-results -OutputFormat markdown >> $env:GITHUB_STEP_SUMMARY
+
+      - name: Upload Combined Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gcp-parity-results
+          path: test-results/

@@ -1,0 +1,51 @@
+name: Release
+
+on:
+  push:
+    tags: [ 'v*' ]
+
+jobs:
+  test:
+    uses: ./.github/workflows/_build-and-test.yml
+
+  release:
+    needs: [test]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v5
+      - uses: ./.github/actions/setup-dotnet-build
+        with:
+          build: false
+
+      - name: Extract version from tag
+        id: version
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+          if [[ "$VERSION" == *-* ]]; then
+            echo "PRERELEASE=true" >> $GITHUB_OUTPUT
+          else
+            echo "PRERELEASE=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Build
+        run: dotnet build Bigtable.InMemoryEmulator.sln --configuration Release -p:Version=${{ steps.version.outputs.VERSION }}
+
+      - name: Pack
+        run: dotnet pack Bigtable.InMemoryEmulator.sln --configuration Release --no-build --output ./nupkgs -p:Version=${{ steps.version.outputs.VERSION }}
+
+      - name: Push to NuGet
+        run: dotnet nuget push ./nupkgs/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          prerelease: ${{ steps.version.outputs.PRERELEASE == 'true' }}
+          make_latest: ${{ steps.version.outputs.PRERELEASE != 'true' }}
+          files: |
+            ./nupkgs/*.nupkg
+            ./nupkgs/*.snupkg

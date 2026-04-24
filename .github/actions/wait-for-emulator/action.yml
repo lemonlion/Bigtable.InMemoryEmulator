@@ -1,0 +1,34 @@
+name: Wait for Bigtable Emulator
+description: Polls the Go Bigtable emulator gRPC port until it accepts connections.
+
+inputs:
+  host:
+    description: 'Emulator host'
+    default: 'localhost'
+  port:
+    description: 'Emulator port'
+    default: '8086'
+  timeout:
+    description: 'Maximum seconds to wait before failing'
+    default: '120'
+
+runs:
+  using: composite
+  steps:
+    - name: Wait for Bigtable Emulator
+      shell: bash
+      run: |
+        echo "Waiting for Bigtable emulator at ${{ inputs.host }}:${{ inputs.port }}..."
+        timeout=${{ inputs.timeout }}
+        elapsed=0
+        while [ $elapsed -lt $timeout ]; do
+          if nc -z ${{ inputs.host }} ${{ inputs.port }} 2>/dev/null; then
+            echo "Emulator ready after ${elapsed}s"
+            exit 0
+          fi
+          sleep 5
+          elapsed=$((elapsed + 5))
+          echo "Still waiting... (${elapsed}s)"
+        done
+        echo "::error::Bigtable Emulator did not start within ${timeout}s"
+        exit 1
