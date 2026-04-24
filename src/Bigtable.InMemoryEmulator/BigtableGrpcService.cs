@@ -392,6 +392,11 @@ AddTrailingMetadata(context);
         return Task.FromResult(new PingAndWarmResponse());
     }
 
+    // Note: PrepareQuery RPC is defined in the Bigtable V2 proto
+    // (https://cloud.google.com/bigtable/docs/reference/data/rpc/google.bigtable.v2#preparequeryrequest)
+    // but the types are not yet exposed in Google.Cloud.Bigtable.V2 NuGet v3.15.0.
+    // Will implement when the SDK adds PrepareQueryRequest/PrepareQueryResponse types.
+
     /// <summary>
     /// Streams change feed entries for a table.
     /// Ref: https://cloud.google.com/bigtable/docs/reference/data/rpc/google.bigtable.v2#readchangestreamrequest
@@ -412,6 +417,26 @@ AddTrailingMetadata(context);
 
         if (request.StartFromCase == ReadChangeStreamRequest.StartFromOneofCase.ContinuationTokens)
         {
+            // Ref: https://cloud.google.com/bigtable/docs/reference/data/rpc/google.bigtable.v2#readchangestreamrequest
+            //   "If a single token is provided, the token's partition must exactly match the
+            //    request's partition. [...] Otherwise, INVALID_ARGUMENT will be returned."
+            foreach (var tokenEntry in request.ContinuationTokens.Tokens)
+            {
+                if (tokenEntry.Partition != null && tokenEntry.Partition.RowRange != null)
+                {
+                    var tokenRange = tokenEntry.Partition.RowRange;
+                    // The full-table partition is ["", "") — both empty ByteStrings
+                    bool isFullTable = (tokenRange.StartKeyClosed.IsEmpty || tokenRange.StartKeyClosed.Length == 0)
+                        && (tokenRange.EndKeyOpen.IsEmpty || tokenRange.EndKeyOpen.Length == 0);
+                    if (!isFullTable)
+                    {
+                        throw new RpcException(new Status(StatusCode.InvalidArgument,
+                            "Continuation token partition does not match the table partition. " +
+                            "Expected full-table partition [\"\", \"\")."));
+                    }
+                }
+            }
+
             // Resume from continuation token — token is the sequence number
             if (request.ContinuationTokens.Tokens.Count > 0)
             {

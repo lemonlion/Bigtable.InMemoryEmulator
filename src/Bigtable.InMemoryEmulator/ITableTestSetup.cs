@@ -1,3 +1,4 @@
+using Google.Cloud.Bigtable.Admin.V2;
 using Google.Cloud.Bigtable.Common.V2;
 
 namespace Bigtable.InMemoryEmulator;
@@ -34,6 +35,17 @@ public interface ITableTestSetup
     /// Gets the configured column family names.
     /// </summary>
     IReadOnlyList<string> ColumnFamilies { get; }
+
+    /// <summary>
+    /// Gets the GC rules for each column family.
+    /// Ref: https://cloud.google.com/bigtable/docs/garbage-collection
+    /// </summary>
+    IReadOnlyDictionary<string, GcRule?> GcRules { get; }
+
+    /// <summary>
+    /// Gets the auto-persistence file path, or null if auto-persist is not configured.
+    /// </summary>
+    string? StateFilePath { get; }
 }
 
 /// <summary>
@@ -42,10 +54,12 @@ public interface ITableTestSetup
 internal sealed class InMemoryTableTestSetup : ITableTestSetup
 {
     private readonly TableData _table;
+    private readonly string? _stateFilePath;
 
-    public InMemoryTableTestSetup(TableData table)
+    public InMemoryTableTestSetup(TableData table, string? stateFilePath = null)
     {
         _table = table;
+        _stateFilePath = stateFilePath;
     }
 
     public string ExportState() => StatePersistence.ExportTableState(_table);
@@ -60,4 +74,9 @@ internal sealed class InMemoryTableTestSetup : ITableTestSetup
         _table.Config.ColumnFamilies.Keys
             .Concat(_table.Config.AggregateFamilies.Keys)
             .ToList();
+
+    public IReadOnlyDictionary<string, GcRule?> GcRules =>
+        _table.Config.ColumnFamilies;
+
+    public string? StateFilePath => _stateFilePath;
 }

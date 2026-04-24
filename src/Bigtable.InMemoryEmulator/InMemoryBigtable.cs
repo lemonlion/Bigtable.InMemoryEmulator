@@ -239,7 +239,10 @@ public sealed class InMemoryBigtableResult : IDisposable
     public ITableTestSetup SetupTable(string tableName)
     {
         var table = _server.Store.GetTable(tableName);
-        return new InMemoryTableTestSetup(table);
+        var stateFile = _statePersistenceDirectory != null
+            ? Path.Combine(_statePersistenceDirectory, "bigtable-state.json")
+            : null;
+        return new InMemoryTableTestSetup(table, stateFile);
     }
 
     /// <summary>

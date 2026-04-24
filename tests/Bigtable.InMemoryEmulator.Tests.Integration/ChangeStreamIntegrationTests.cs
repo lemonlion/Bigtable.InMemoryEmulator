@@ -1,3 +1,4 @@
+using Google.Cloud.Bigtable.Admin.V2;
 using Google.Cloud.Bigtable.Common.V2;
 using Google.Cloud.Bigtable.V2;
 using Google.Protobuf;
@@ -287,6 +288,132 @@ public sealed class ChangeStreamIntegrationTests : IAsyncLifetime
         dataChanges.Should().HaveCount(1);
         var change = dataChanges[0].DataChange;
         change.Chunks.Should().HaveCount(3);
+    }
+
+    [Fact]
+    [Trait(TestTraits.Target, TestTraits.InMemoryOnly)]
+    public async Task ReadChangeStream_emits_GarbageCollection_type_for_gc_eviction()
+    {
+        // Create a table with MaxVersions=2 GC rule
+        const string gcTable = "cs-gc-tests";
+        const string gcFamily = "gcf";
+
+        await _fixture.CreateTableAsync(gcTable, new[] { gcFamily });
+
+        var tablePath = _fixture.InstanceName + "/tables/" + gcTable;
+        await _fixture.AdminClient.ModifyColumnFamiliesAsync(new ModifyColumnFamiliesRequest
+        {
+            Name = tablePath,
+            Modifications =
+            {
+                new ModifyColumnFamiliesRequest.Types.Modification
+                {
+                    Id = gcFamily,
+                    Update = new Google.Cloud.Bigtable.Admin.V2.ColumnFamily
+                    {
+                        GcRule = new Google.Cloud.Bigtable.Admin.V2.GcRule
+                        {
+                            MaxNumVersions = 2,
+                        }
+                    }
+                }
+            }
+        });
+
+        var gcTN = _fixture.GetTableName(gcTable);
+        var rowKey = new BigtableByteString("cs-gc-row");
+
+        // Write 3 versions — the 3rd write should trigger GC of the 1st version
+        await Client.MutateRowAsync(gcTN, rowKey,
+            Mutations.SetCell(gcFamily, "col", "v1", new BigtableVersion(1000)));
+        await Client.MutateRowAsync(gcTN, rowKey,
+            Mutations.SetCell(gcFamily, "col", "v2", new BigtableVersion(2000)));
+        await Client.MutateRowAsync(gcTN, rowKey,
+            Mutations.SetCell(gcFamily, "col", "v3", new BigtableVersion(3000)));
+
+        // Read the change stream for the GC table
+        var request = new ReadChangeStreamRequest
+        {
+            TableNameAsTableName = gcTN,
+            EndTime = Timestamp.FromDateTimeOffset(DateTimeOffset.UtcNow.AddMilliseconds(500)),
+        };
+
+        var stream = ServiceApiClient.ReadChangeStream(request);
+        var responses = new List<ReadChangeStreamResponse>();
+        var enumerator = stream.GetResponseStream().GetAsyncEnumerator(default);
+        using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(5));
+        try
+        {
+            while (await enumerator.MoveNextAsync())
+            {
+                responses.Add(enumerator.Current);
+                if (enumerator.Current.StreamRecordCase == ReadChangeStreamResponse.StreamRecordOneofCase.CloseStream)
+                    break;
+                cts.Token.ThrowIfCancellationRequested();
+            }
+        }
+        catch (OperationCanceledException) { }
+        catch (RpcException ex) when (ex.StatusCode == StatusCode.Cancelled) { }
+
+        var dataChanges = responses
+            .Where(r => r.StreamRecordCase == ReadChangeStreamResponse.StreamRecordOneofCase.DataChange)
+            .Select(r => r.DataChange)
+            .ToList();
+
+        // Should have at least one GARBAGE_COLLECTION type entry
+        // Ref: https://cloud.google.com/bigtable/docs/reference/data/rpc/google.bigtable.v2#type
+        //   "GARBAGE_COLLECTION = 2 — A system-initiated mutation as part of garbage collection."
+        var gcChanges = dataChanges
+            .Where(d => d.Type == ReadChangeStreamResponse.Types.DataChange.Types.Type.GarbageCollection)
+            .ToList();
+        gcChanges.Should().HaveCountGreaterThanOrEqualTo(1,
+            "GC eviction of version 1 should produce a GARBAGE_COLLECTION change stream entry");
+
+        // The GC entry's mutation should be a DeleteFromColumn for the evicted cell
+        var gcMutation = gcChanges[0].Chunks[0].Mutation;
+        gcMutation.DeleteFromColumn.Should().NotBeNull();
+        gcMutation.DeleteFromColumn.FamilyName.Should().Be(gcFamily);
+    }
+
+    [Fact]
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
+    public async Task ReadChangeStream_continuation_token_with_invalid_partition_returns_InvalidArgument()
+    {
+        // Ref: https://cloud.google.com/bigtable/docs/reference/data/rpc/google.bigtable.v2#readchangestreamrequest
+        //   "the token's partition must exactly match the request's partition. Otherwise, INVALID_ARGUMENT."
+        var request = new ReadChangeStreamRequest
+        {
+            TableNameAsTableName = TN,
+            ContinuationTokens = new StreamContinuationTokens
+            {
+                Tokens =
+                {
+                    new StreamContinuationToken
+                    {
+                        // Token partition doesn't match the full-table partition ["", "")
+                        Partition = new StreamPartition
+                        {
+                            RowRange = new Google.Cloud.Bigtable.V2.RowRange
+                            {
+                                StartKeyClosed = ByteString.CopyFromUtf8("a"),
+                                EndKeyOpen = ByteString.CopyFromUtf8("z"),
+                            }
+                        },
+                        Token = "0"
+                    }
+                }
+            }
+        };
+
+        var stream = ServiceApiClient.ReadChangeStream(request);
+        var enumerator = stream.GetResponseStream().GetAsyncEnumerator(default);
+        using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(5));
+        var act = async () =>
+        {
+            while (await enumerator.MoveNextAsync()) { cts.Token.ThrowIfCancellationRequested(); }
+        };
+        await act.Should().ThrowAsync<RpcException>()
+            .Where(e => e.StatusCode == StatusCode.InvalidArgument);
     }
 
     /// <summary>

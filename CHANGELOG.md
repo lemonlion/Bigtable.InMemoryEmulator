@@ -7,13 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.5] - 2026-04-25
+
 ### Added
-- Authorized view rejection: all Data API RPCs now return UNIMPLEMENTED if `authorized_view_name` is set
-- gRPC trailing metadata: synthetic `server-timing` and `ResponseParams` (zone_id, cluster_id) on unary RPCs
-- EmulatorGo test fixture: connects to Google's Go Bigtable emulator via BIGTABLE_EMULATOR_HOST
-- GCP test fixture: connects to real GCP Bigtable with Application Default Credentials
-- DI extension integration tests (6 tests for UseInMemoryBigtable/UseInMemoryBigtableAdmin)
-- Performance benchmark tests: MutateRow, ReadRows, filtered reads, CheckAndMutateRow, concurrent writes, ExecuteQuery throughput
+- `ITableTestSetup.GcRules` property: exposes GC rules per column family for test inspection
+- `ITableTestSetup.StateFilePath` property: exposes the auto-persistence file path
+- ReadChangeStream GARBAGE_COLLECTION entries: GC evictions (MaxVersions/MaxAge) now emit change stream entries with Type.GarbageCollection
+- ReadChangeStream partition validation: continuation token partitions are validated against the full-table partition (INVALID_ARGUMENT on mismatch)
+- PrepareQuery RPC: documented as deferred — types not yet available in Google.Cloud.Bigtable.V2 NuGet v3.15.0
+
+### Changed
+- `InMemoryTableTestSetup` constructor now accepts optional `stateFilePath` parameter
 
 ## [0.1.3] - 2026-04-24
 

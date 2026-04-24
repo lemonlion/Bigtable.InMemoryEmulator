@@ -743,7 +743,39 @@ internal sealed class TableData : IDisposable
         if (!Config.ColumnFamilies.TryGetValue(family, out var gcRule) || gcRule == null)
             return;
 
+        // Snapshot cells before GC to detect what gets evicted
+        var cellsBefore = row.GetCellsForColumn(family, qualifier);
+
         ApplyGcRule(row, family, qualifier, gcRule);
+
+        // Detect which cells were evicted and log them as GARBAGE_COLLECTION
+        // Ref: https://cloud.google.com/bigtable/docs/reference/data/rpc/google.bigtable.v2#type
+        //   "GARBAGE_COLLECTION = 2 — A system-initiated mutation as part of garbage collection."
+        var cellsAfter = row.GetCellsForColumn(family, qualifier);
+        var afterTimestamps = new HashSet<long>(cellsAfter.Select(c => c.TimestampMicros));
+        var evicted = cellsBefore.Where(c => !afterTimestamps.Contains(c.TimestampMicros)).ToList();
+
+        if (evicted.Count > 0)
+        {
+            var gcMutations = evicted.Select(c => new Google.Cloud.Bigtable.V2.Mutation
+            {
+                DeleteFromColumn = new Google.Cloud.Bigtable.V2.Mutation.Types.DeleteFromColumn
+                {
+                    FamilyName = family,
+                    ColumnQualifier = qualifier,
+                    TimeRange = new Google.Cloud.Bigtable.V2.TimestampRange
+                    {
+                        StartTimestampMicros = c.TimestampMicros,
+                        EndTimestampMicros = c.TimestampMicros + 1,
+                    }
+                }
+            }).ToList<Google.Cloud.Bigtable.V2.Mutation>();
+
+            AppendToLog(
+                row.Key,
+                gcMutations,
+                ReadChangeStreamResponse.Types.DataChange.Types.Type.GarbageCollection);
+        }
     }
 
     private void ApplyGcRule(RowData row, string family, ByteString qualifier, GcRule gcRule)

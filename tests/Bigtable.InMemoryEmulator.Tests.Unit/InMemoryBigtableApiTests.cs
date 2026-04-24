@@ -1,4 +1,5 @@
 using Bigtable.InMemoryEmulator;
+using Google.Cloud.Bigtable.Admin.V2;
 using Google.Cloud.Bigtable.Common.V2;
 using Google.Cloud.Bigtable.V2;
 using Google.Protobuf;
@@ -157,6 +158,87 @@ public class InMemoryBigtableApiTests
         result.Dispose();
 
         // Should not throw — just verifying cleanup doesn't crash
+    }
+
+    #endregion
+
+    #region SetupTable — GcRules property
+
+    [Fact]
+    public void SetupTable_GcRules_returns_configured_gc_rules()
+    {
+        using var result = InMemoryBigtable.Builder()
+            .AddTable("t1", ["cf1"], gc => gc.MaxVersions("cf1", 3))
+            .Build();
+
+        var setup = result.SetupTable("t1");
+
+        setup.GcRules.Should().ContainKey("cf1");
+        setup.GcRules["cf1"]!.MaxNumVersions.Should().Be(3);
+    }
+
+    [Fact]
+    public void SetupTable_GcRules_returns_null_for_family_without_gc_rule()
+    {
+        using var result = InMemoryBigtable.Create("t1", ["cf1"]);
+
+        var setup = result.SetupTable("t1");
+
+        setup.GcRules.Should().ContainKey("cf1");
+        setup.GcRules["cf1"].Should().BeNull();
+    }
+
+    [Fact]
+    public void SetupTable_GcRules_includes_multiple_families()
+    {
+        using var result = InMemoryBigtable.Builder()
+            .AddTable("t1", ["cf1", "cf2"], gc =>
+            {
+                gc.MaxVersions("cf1", 5);
+                gc.MaxAge("cf2", TimeSpan.FromHours(2));
+            })
+            .Build();
+
+        var setup = result.SetupTable("t1");
+
+        setup.GcRules.Should().HaveCount(2);
+        setup.GcRules["cf1"]!.MaxNumVersions.Should().Be(5);
+        setup.GcRules["cf2"]!.MaxAge.Should().NotBeNull();
+    }
+
+    #endregion
+
+    #region SetupTable — StateFilePath property
+
+    [Fact]
+    public void SetupTable_StateFilePath_returns_null_when_not_configured()
+    {
+        using var result = InMemoryBigtable.Create("t1", ["cf1"]);
+        var setup = result.SetupTable("t1");
+
+        setup.StateFilePath.Should().BeNull();
+    }
+
+    [Fact]
+    public void SetupTable_StateFilePath_returns_path_when_configured()
+    {
+        var dir = Path.Combine(Path.GetTempPath(), "bt-test-" + Guid.NewGuid().ToString("N"));
+        try
+        {
+            using var result = InMemoryBigtable.Builder()
+                .AddTable("t1", ["cf1"])
+                .StatePersistenceDirectory(dir)
+                .Build();
+
+            var setup = result.SetupTable("t1");
+
+            setup.StateFilePath.Should().NotBeNull();
+            setup.StateFilePath.Should().Be(Path.Combine(dir, "bigtable-state.json"));
+        }
+        finally
+        {
+            if (Directory.Exists(dir)) Directory.Delete(dir, true);
+        }
     }
 
     #endregion
