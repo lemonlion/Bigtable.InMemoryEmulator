@@ -478,7 +478,7 @@ public class InMemoryBigtableStoreTests : IDisposable
     }
 
     [Fact]
-    public void ReadRows_with_rows_limit_respects_limit()
+    public void ReadRows_returns_all_rows_without_limit()
     {
         var table = _store.GetTable(TableName);
 
@@ -487,8 +487,8 @@ public class InMemoryBigtableStoreTests : IDisposable
             table.MutateRow(ByteString.CopyFromUtf8($"row{i:D2}"), [NewSetCell(Family, ByteString.CopyFromUtf8("c"), 1000, ByteString.CopyFromUtf8("v"))]);
         }
 
-        var rows = table.ReadRows(rowsLimit: 3).ToList();
-        rows.Should().HaveCount(3);
+        var rows = table.ReadRows().ToList();
+        rows.Should().HaveCount(10);
     }
 
     [Fact]

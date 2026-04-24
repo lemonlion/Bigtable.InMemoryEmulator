@@ -293,6 +293,9 @@ internal sealed class InMemoryBigtableStore : IDisposable
                         throw new RpcException(new Status(StatusCode.NotFound,
                             $"Column family '{familyId}' does not exist in table '{tableName}'."));
                     }
+                    // Ref: https://cloud.google.com/bigtable/docs/reference/admin/rpc/google.bigtable.admin.v2#modifycolumnfamiliesrequest
+                    //   "Drop (delete) all cells in the column family."
+                    table.DeleteCellsInFamily(familyId);
                     break;
             }
         }

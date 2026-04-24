@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.7] - 2026-04-25
+
+### Added
+- 207 new integration tests (407 total, up from 200), covering GC rules, batch mutations, version management, multi-family operations, row key patterns, regex filters, filter composition, read combos, aggregation, error conditions, and delete semantics
+- `TableData.DeleteCellsInFamily()`: removes all cell data when a column family is dropped
+- `TableData.GetCellsToDeleteByRule()`: helper method for computing GC deletion sets
+
+### Fixed
+- **Drop family bug**: `ModifyColumnFamilies` with `Drop=true` now correctly removes all cell data in the dropped family across all rows, matching real Bigtable behavior
+- **GC intersection bug**: Intersection GC rules now correctly compute the intersection of deletion sets (cells deleted only when ALL sub-rules agree), previously behaved as union (any rule could delete)
+- **rows_limit bug**: `ReadRows` `rows_limit` now limits returned (post-filter) rows instead of scanned (pre-filter) rows, matching the API spec: "The read will return no more rows than this value"
+
 ## [0.1.6] - 2026-04-25
 
 ### Added

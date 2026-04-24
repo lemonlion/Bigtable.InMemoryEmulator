@@ -309,7 +309,6 @@ internal sealed class TableData : IDisposable
     public IEnumerable<RowData> ReadRows(
         IReadOnlyList<ByteString>? rowKeys = null,
         IReadOnlyList<RowRange>? rowRanges = null,
-        long rowsLimit = 0,
         bool reversed = false)
     {
         _rwLock.EnterReadLock();
@@ -346,12 +345,6 @@ internal sealed class TableData : IDisposable
                     // If no keys and no ranges specified, include all rows
                     return keySet == null && rowRanges == null;
                 });
-            }
-
-            // Apply rows_limit
-            if (rowsLimit > 0)
-            {
-                rows = rows.Take((int)rowsLimit);
             }
 
             // Only return non-empty rows
@@ -398,6 +391,37 @@ internal sealed class TableData : IDisposable
         try
         {
             _rows.Clear();
+        }
+        finally
+        {
+            _rwLock.ExitWriteLock();
+        }
+    }
+
+    /// <summary>
+    /// Deletes all cells belonging to the specified column family across all rows.
+    /// Rows that become empty after the deletion are removed.
+    ///
+    /// Ref: https://cloud.google.com/bigtable/docs/reference/admin/rpc/google.bigtable.admin.v2#modifycolumnfamiliesrequest
+    ///   "Drop (delete) all cells in the column family."
+    /// </summary>
+    public void DeleteCellsInFamily(string familyId)
+    {
+        _rwLock.EnterWriteLock();
+        try
+        {
+            var emptyKeys = new List<Google.Protobuf.ByteString>();
+            foreach (var (key, row) in _rows)
+            {
+                lock (row.Lock)
+                {
+                    row.DeleteFromFamily(familyId);
+                    if (row.IsEmpty)
+                        emptyKeys.Add(key);
+                }
+            }
+            foreach (var key in emptyKeys)
+                _rows.Remove(key);
         }
         finally
         {
@@ -802,23 +826,80 @@ internal sealed class TableData : IDisposable
                 break;
 
             case GcRule.RuleOneofCase.Intersection:
-                // Intersection: delete only when ALL rules agree
-                // For simplicity, apply each rule and intersect
-                // In practice, this is complex — for now, just apply all rules
-                foreach (var subRule in gcRule.Intersection.Rules)
+            {
+                // Intersection: delete only when ALL rules agree on a cell.
+                // Compute which cells each sub-rule would delete, then intersect.
+                // Ref: https://cloud.google.com/bigtable/docs/garbage-collection#intersection
+                var currentCells = row.GetCellsForColumn(family, qualifier);
+                var deletionTimestamps = GetCellsToDeleteByRule(currentCells, gcRule);
+                foreach (var ts in deletionTimestamps)
                 {
-                    ApplyGcRule(row, family, qualifier, subRule);
+                    row.DeleteFromColumn(family, qualifier, ts, ts + 1);
+                }
+                break;
+            }
+
+            case GcRule.RuleOneofCase.Union:
+            {
+                // Union: delete when ANY rule triggers.
+                // Compute which cells any sub-rule would delete, then union.
+                var currentCells = row.GetCellsForColumn(family, qualifier);
+                var deletionTimestamps = GetCellsToDeleteByRule(currentCells, gcRule);
+                foreach (var ts in deletionTimestamps)
+                {
+                    row.DeleteFromColumn(family, qualifier, ts, ts + 1);
+                }
+                break;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Computes which cells a GC rule would delete (by timestamp) without modifying the row.
+    /// Handles Intersection (all sub-rules must agree) and Union (any sub-rule triggers).
+    /// </summary>
+    private static HashSet<long> GetCellsToDeleteByRule(IReadOnlyList<CellData> cells, GcRule gcRule)
+    {
+        var toDelete = new HashSet<long>();
+        switch (gcRule.RuleCase)
+        {
+            case GcRule.RuleOneofCase.MaxNumVersions:
+                if (cells.Count > gcRule.MaxNumVersions)
+                {
+                    foreach (var cell in cells.Skip(gcRule.MaxNumVersions))
+                        toDelete.Add(cell.TimestampMicros);
                 }
                 break;
 
+            case GcRule.RuleOneofCase.MaxAge:
+                var maxAgeDuration = gcRule.MaxAge.ToTimeSpan();
+                var ageCutoff = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() * 1000 - (long)maxAgeDuration.TotalMicroseconds;
+                foreach (var cell in cells.Where(c => c.TimestampMicros < ageCutoff))
+                    toDelete.Add(cell.TimestampMicros);
+                break;
+
+            case GcRule.RuleOneofCase.Intersection:
+                HashSet<long>? intersected = null;
+                foreach (var subRule in gcRule.Intersection.Rules)
+                {
+                    var subDeletes = GetCellsToDeleteByRule(cells, subRule);
+                    if (intersected == null)
+                        intersected = subDeletes;
+                    else
+                        intersected.IntersectWith(subDeletes);
+                }
+                if (intersected != null) toDelete = intersected;
+                break;
+
             case GcRule.RuleOneofCase.Union:
-                // Union: delete when ANY rule triggers
                 foreach (var subRule in gcRule.Union.Rules)
                 {
-                    ApplyGcRule(row, family, qualifier, subRule);
+                    var subDeletes = GetCellsToDeleteByRule(cells, subRule);
+                    toDelete.UnionWith(subDeletes);
                 }
                 break;
         }
+        return toDelete;
     }
 
     /// <summary>

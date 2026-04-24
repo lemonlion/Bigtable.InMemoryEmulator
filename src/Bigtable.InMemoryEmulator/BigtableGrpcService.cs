@@ -139,7 +139,7 @@ internal sealed class BigtableGrpcService : Google.Cloud.Bigtable.V2.Bigtable.Bi
             }
         }
 
-        var rows = table.ReadRows(rowKeys, rowRanges, request.RowsLimit, request.Reversed);
+        var rows = table.ReadRows(rowKeys, rowRanges, reversed: request.Reversed);
 
         long rowsSeen = 0;
         long rowsReturned = 0;
@@ -149,6 +149,12 @@ internal sealed class BigtableGrpcService : Google.Cloud.Bigtable.V2.Bigtable.Bi
         foreach (var row in rows)
         {
             if (context.CancellationToken.IsCancellationRequested)
+                break;
+
+            // Ref: https://cloud.google.com/bigtable/docs/reference/data/rpc/google.bigtable.v2#readrowsrequest
+            //   "rows_limit: The read will return no more rows than this value."
+            //   Limit applies to returned (post-filter) rows, not scanned rows.
+            if (request.RowsLimit > 0 && rowsReturned >= request.RowsLimit)
                 break;
 
             rowsSeen++;
