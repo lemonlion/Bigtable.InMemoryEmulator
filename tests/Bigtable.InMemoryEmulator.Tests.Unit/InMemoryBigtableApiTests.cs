@@ -95,7 +95,7 @@ public class InMemoryBigtableApiTests
     public async Task Builder_with_gc_rules()
     {
         using var result = InMemoryBigtable.Builder()
-            .AddTable("t1", ["cf"], gc => gc.MaxVersions("cf", 2))
+            .AddTable("t1", ["cf"], opts => opts.MaxVersions("cf", 2))
             .Build();
 
         var client = result.Client;
@@ -168,7 +168,7 @@ public class InMemoryBigtableApiTests
     public void SetupTable_GcRules_returns_configured_gc_rules()
     {
         using var result = InMemoryBigtable.Builder()
-            .AddTable("t1", ["cf1"], gc => gc.MaxVersions("cf1", 3))
+            .AddTable("t1", ["cf1"], opts => opts.MaxVersions("cf1", 3))
             .Build();
 
         var setup = result.SetupTable("t1");
@@ -192,10 +192,10 @@ public class InMemoryBigtableApiTests
     public void SetupTable_GcRules_includes_multiple_families()
     {
         using var result = InMemoryBigtable.Builder()
-            .AddTable("t1", ["cf1", "cf2"], gc =>
+            .AddTable("t1", ["cf1", "cf2"], opts =>
             {
-                gc.MaxVersions("cf1", 5);
-                gc.MaxAge("cf2", TimeSpan.FromHours(2));
+                opts.MaxVersions("cf1", 5);
+                opts.MaxAge("cf2", TimeSpan.FromHours(2));
             })
             .Build();
 

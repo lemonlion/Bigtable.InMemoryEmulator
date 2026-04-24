@@ -1,0 +1,65 @@
+name: Cleanup Orphan Instances
+
+# Ref: ci-pipeline.md — "Orphan Instance Cleanup"
+#   Separate scheduled workflow (daily at midnight) to delete stale ci-* Bigtable instances
+#   that may have been left behind by failed/cancelled GCP parity runs.
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Daily at midnight UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Authenticate to GCP
+        uses: google-github-actions/auth@v3
+        with:
+          workload_identity_provider: projects/${{ secrets.GCP_PROJECT_NUMBER }}/locations/global/workloadIdentityPools/github-pool/providers/github-oidc
+          service_account: bigtable-ci@bigtable-emulator-ci.iam.gserviceaccount.com
+
+      - name: Set up gcloud CLI
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Delete orphan ci-* instances
+        shell: bash
+        run: |
+          # List all instances matching the ci-* pattern
+          instances=$(gcloud bigtable instances list \
+            --project=bigtable-emulator-ci \
+            --format="value(name)" \
+            --filter="name~^ci-" 2>/dev/null || true)
+
+          if [ -z "$instances" ]; then
+            echo "No ci-* instances found."
+            exit 0
+          fi
+
+          echo "$instances" | while read instance; do
+            # Get creation time
+            created=$(gcloud bigtable instances describe "$instance" \
+              --project=bigtable-emulator-ci \
+              --format="value(createTime)" 2>/dev/null || true)
+
+            if [ -z "$created" ]; then
+              echo "Could not retrieve createTime for $instance, skipping."
+              continue
+            fi
+
+            # Calculate age in hours
+            age_hours=$(( ($(date +%s) - $(date -d "$created" +%s)) / 3600 ))
+
+            if [ "$age_hours" -gt 2 ]; then
+              echo "Deleting orphan instance: $instance (${age_hours}h old)"
+              gcloud bigtable instances delete "$instance" \
+                --project=bigtable-emulator-ci --quiet
+            else
+              echo "Keeping recent instance: $instance (${age_hours}h old)"
+            fi
+          done

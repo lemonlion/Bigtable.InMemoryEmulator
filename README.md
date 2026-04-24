@@ -47,7 +47,7 @@ Multi-table:
 ```csharp
 using var bigtable = InMemoryBigtable.Builder()
     .AddTable("users", new[] { "profile", "activity" })
-    .AddTable("events", new[] { "data" }, gc => gc.MaxVersions("data", 5))
+    .AddTable("events", new[] { "data" }, opts => opts.MaxVersions("data", 5))
     .ProjectId("my-project")
     .InstanceId("my-instance")
     .Build();

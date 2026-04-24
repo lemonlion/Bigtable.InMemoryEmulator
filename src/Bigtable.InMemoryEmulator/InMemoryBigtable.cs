@@ -14,7 +14,7 @@ namespace Bigtable.InMemoryEmulator;
 /// Builder usage:
 ///   var result = InMemoryBigtable.Builder()
 ///       .AddTable("users", ["profile", "activity"])
-///       .AddTable("events", ["data"], gc => gc.MaxVersions("data", 5))
+///       .AddTable("events", ["data"], opts => opts.MaxVersions("data", 5))
 ///       .ProjectId("my-project")
 ///       .InstanceId("my-instance")
 ///       .Build();
@@ -75,13 +75,14 @@ public sealed class InMemoryBigtableBuilder
     }
 
     /// <summary>
-    /// Adds a table with column families and GC rule configuration.
+    /// Adds a table with column families and per-table options (GC rules, callbacks).
+    /// Concept mapping: AddContainer(name, pkPath, Action&lt;InMemoryContainerOptions&gt;) → AddTable(name, families, Action&lt;InMemoryTableOptions&gt;)
     /// </summary>
-    public InMemoryBigtableBuilder AddTable(string tableName, IEnumerable<string> columnFamilies, Action<GcRuleBuilder> gcConfigure)
+    public InMemoryBigtableBuilder AddTable(string tableName, IEnumerable<string> columnFamilies, Action<InMemoryTableOptions> configure)
     {
-        var gcBuilder = new GcRuleBuilder();
-        gcConfigure(gcBuilder);
-        _tables.Add(new TableDefinition(tableName, columnFamilies.ToList(), gcBuilder.Build()));
+        var tableOptions = new InMemoryTableOptions();
+        configure(tableOptions);
+        _tables.Add(new TableDefinition(tableName, columnFamilies.ToList(), tableOptions.GcRules.Count > 0 ? new Dictionary<string, GcRule?>(tableOptions.GcRules) : null));
         return this;
     }
 
@@ -153,6 +154,50 @@ public sealed class GcRuleBuilder
     }
 
     internal Dictionary<string, GcRule?> Build() => _rules;
+}
+
+/// <summary>
+/// Per-table configuration options.
+/// Concept mapping: InMemoryContainerOptions → InMemoryTableOptions
+///
+/// Usage:
+///   builder.AddTable("users", ["cf1", "cf2"], opts => {
+///       opts.MaxVersions("cf1", 5);
+///       opts.MaxAge("cf2", TimeSpan.FromDays(7));
+///       opts.OnCreated(table => { /* seed data */ });
+///   });
+/// </summary>
+public sealed class InMemoryTableOptions
+{
+    internal Dictionary<string, GcRule?> GcRules { get; } = new();
+    internal Action<ITableTestSetup>? OnCreatedCallback { get; private set; }
+
+    /// <summary>
+    /// Sets MaxVersions GC rule for a column family.
+    /// </summary>
+    public InMemoryTableOptions MaxVersions(string family, int maxVersions)
+    {
+        GcRules[family] = new GcRule { MaxNumVersions = maxVersions };
+        return this;
+    }
+
+    /// <summary>
+    /// Sets MaxAge GC rule for a column family.
+    /// </summary>
+    public InMemoryTableOptions MaxAge(string family, TimeSpan maxAge)
+    {
+        GcRules[family] = new GcRule { MaxAge = Google.Protobuf.WellKnownTypes.Duration.FromTimeSpan(maxAge) };
+        return this;
+    }
+
+    /// <summary>
+    /// Callback invoked after the table is created. Use for per-table seeding.
+    /// </summary>
+    public InMemoryTableOptions OnCreated(Action<ITableTestSetup> callback)
+    {
+        OnCreatedCallback = callback;
+        return this;
+    }
 }
 
 /// <summary>

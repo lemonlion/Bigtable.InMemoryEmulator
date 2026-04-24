@@ -125,6 +125,19 @@ public sealed class InMemoryBigtableOptions
     }
 
     /// <summary>
+    /// Adds a table with column families and per-table options (GC rules, callbacks).
+    /// Concept mapping: AddContainer(name, pkPath, containerOptions) → AddTable(name, families, tableOptions)
+    /// </summary>
+    public InMemoryBigtableOptions AddTable(string tableName, IEnumerable<string> columnFamilies, Action<InMemoryTableOptions> configure)
+    {
+        var tableOptions = new InMemoryTableOptions();
+        configure(tableOptions);
+        Tables.Add(new TableDefinitionEntry(tableName, columnFamilies.ToList(),
+            tableOptions.GcRules.Count > 0 ? new Dictionary<string, Google.Cloud.Bigtable.Admin.V2.GcRule?>(tableOptions.GcRules) : null));
+        return this;
+    }
+
+    /// <summary>
     /// Callback invoked after the BigtableClient is created.
     /// Use for seeding data.
     /// </summary>

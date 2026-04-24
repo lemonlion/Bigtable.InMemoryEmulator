@@ -5,7 +5,7 @@
 	<!-- Shared NuGet package metadata for all source (packable) projects -->
 	<PropertyGroup>
 		<IsPackable>true</IsPackable>
-		<Version>0.1.5</Version>
+		<Version>0.1.6</Version>
 		<Authors>lemonlion</Authors>
 		<Copyright>Copyright (c) 2026 lemonlion</Copyright>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>

@@ -261,21 +261,8 @@ internal sealed class BigtableTableAdminGrpcService : BigtableTableAdmin.Bigtabl
 
     /// <summary>
     /// Extracts the short table name from a fully-qualified resource name.
-    /// Format: "projects/{project}/instances/{instance}/tables/{table}"
+    /// Delegates to shared Superpower-based ResourceNameParser.
     /// </summary>
     private static string ExtractTableName(string resourceName)
-    {
-        if (string.IsNullOrEmpty(resourceName))
-        {
-            throw new RpcException(new Status(StatusCode.InvalidArgument, "Table name must not be empty."));
-        }
-
-        var parts = resourceName.Split('/');
-        if (parts.Length >= 6 && parts[4] == "tables")
-        {
-            return parts[5];
-        }
-
-        return resourceName;
-    }
+        => ResourceNameParser.ExtractTableName(resourceName);
 }

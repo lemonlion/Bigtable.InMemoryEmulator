@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.6] - 2026-04-25
+
+### Added
+- `ResourceNameParser`: Superpower-based parser for Bigtable resource names, replacing duplicated hand-rolled `Split('/')` logic in both gRPC services
+- `SdkVersionDriftDetector`: detects when the Google.Cloud.Bigtable.V2 SDK version drifts from the tested version (3.15.0), warning about potential breaking changes
+- `InMemoryTableOptions`: per-table configuration class (GC rules, `OnCreated` callback) — concept mapping equivalent of CosmosDB's `InMemoryContainerOptions`
+- `AddTable` overload accepting `Action<InMemoryTableOptions>` on both `InMemoryBigtableBuilder` and `InMemoryBigtableOptions` (DI)
+- `cleanup-orphan-instances.yml`: GitHub Actions workflow for daily cleanup of stale GCP Bigtable test instances
+
+### Changed
+- `ExtractTableName` in `BigtableGrpcService` and `BigtableTableAdminGrpcService` now delegates to shared `ResourceNameParser`
+- `AddTable` with GC rules now uses `Action<InMemoryTableOptions>` instead of `Action<GcRuleBuilder>` (breaking: `gc => gc.MaxVersions(...)` → `opts => opts.MaxVersions(...)`)
+
 ## [0.1.5] - 2026-04-25
 
 ### Added
