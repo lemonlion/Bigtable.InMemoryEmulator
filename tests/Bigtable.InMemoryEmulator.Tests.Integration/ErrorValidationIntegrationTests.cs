@@ -210,4 +210,65 @@ public sealed class ErrorValidationIntegrationTests : IAsyncLifetime
     }
 
     #endregion
+
+    #region AuthorizedView validation
+
+    [Fact]
+    public async Task ReadRows_with_authorized_view_name_throws_Unimplemented()
+    {
+        // Ref: https://cloud.google.com/bigtable/docs/reference/data/rpc/google.bigtable.v2#readrowsrequest
+        //   "authorized_view_name" — not supported by the in-memory emulator.
+        var request = new ReadRowsRequest
+        {
+            TableNameAsTableName = TN,
+            AuthorizedViewName = $"{_fixture.InstanceName}/tables/{Table}/authorizedViews/my-view",
+        };
+        var stream = ServiceApiClient.ReadRows(request);
+        var act = async () =>
+        {
+            var enumerator = stream.GetResponseStream().GetAsyncEnumerator(default);
+            while (await enumerator.MoveNextAsync()) { }
+        };
+        await act.Should().ThrowAsync<RpcException>()
+            .Where(e => e.StatusCode == StatusCode.Unimplemented);
+    }
+
+    [Fact]
+    public async Task MutateRow_with_authorized_view_name_throws_Unimplemented()
+    {
+        // Ref: https://cloud.google.com/bigtable/docs/reference/data/rpc/google.bigtable.v2#mutaterowrequest
+        //   "authorized_view_name" — not supported by the in-memory emulator.
+        var request = new MutateRowRequest
+        {
+            TableNameAsTableName = TN,
+            AuthorizedViewName = $"{_fixture.InstanceName}/tables/{Table}/authorizedViews/my-view",
+            RowKey = ByteString.CopyFromUtf8("row1"),
+        };
+        request.Mutations.Add(Mutations.SetCell(Family, "col", "val", new BigtableVersion(1000)));
+        var act = () => ServiceApiClient.MutateRowAsync(request);
+        await act.Should().ThrowAsync<RpcException>()
+            .Where(e => e.StatusCode == StatusCode.Unimplemented);
+    }
+
+    [Fact]
+    public async Task SampleRowKeys_with_authorized_view_name_throws_Unimplemented()
+    {
+        // Ref: https://cloud.google.com/bigtable/docs/reference/data/rpc/google.bigtable.v2#samplerowkeysrequest
+        //   "authorized_view_name" — not supported by the in-memory emulator.
+        var request = new SampleRowKeysRequest
+        {
+            TableNameAsTableName = TN,
+            AuthorizedViewName = $"{_fixture.InstanceName}/tables/{Table}/authorizedViews/my-view",
+        };
+        var stream = ServiceApiClient.SampleRowKeys(request);
+        var act = async () =>
+        {
+            var enumerator = stream.GetResponseStream().GetAsyncEnumerator(default);
+            while (await enumerator.MoveNextAsync()) { }
+        };
+        await act.Should().ThrowAsync<RpcException>()
+            .Where(e => e.StatusCode == StatusCode.Unimplemented);
+    }
+
+    #endregion
 }

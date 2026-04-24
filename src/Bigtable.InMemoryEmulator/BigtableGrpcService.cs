@@ -70,6 +70,38 @@ internal sealed class BigtableGrpcService : Google.Cloud.Bigtable.V2.Bigtable.Bi
     }
 
     /// <summary>
+    /// Rejects requests that specify an authorized_view_name, which is not supported.
+    /// Ref: https://cloud.google.com/bigtable/docs/reference/data/rpc/google.bigtable.v2#readrowsrequest
+    ///   "authorized_view_name" is an optional field on all Data API requests.
+    ///   The in-memory emulator does not support AuthorizedViews; return UNIMPLEMENTED.
+    /// </summary>
+    private static void RejectAuthorizedView(string? authorizedViewName)
+    {
+        if (!string.IsNullOrEmpty(authorizedViewName))
+        {
+            throw new RpcException(new Status(StatusCode.Unimplemented,
+                "AuthorizedViews are not supported by the in-memory emulator."));
+        }
+    }
+
+    /// <summary>
+    /// Adds synthetic gRPC trailing metadata to the response, mimicking the real Bigtable service.
+    /// Ref: https://cloud.google.com/bigtable/docs/reference/data/rpc/google.bigtable.v2#responseparams
+    ///   The real service returns zone_id, cluster_id in ResponseParams via trailing metadata.
+    ///   We stub these with synthetic values for diagnostics fidelity.
+    /// </summary>
+    private static void AddTrailingMetadata(ServerCallContext context)
+    {
+        context.ResponseTrailers.Add("server-timing", "gfet4t7; dur=0");
+        context.ResponseTrailers.Add("x-goog-ext-425905942-bin",
+            Google.Protobuf.MessageExtensions.ToByteArray(new ResponseParams
+            {
+                ZoneId = "inmemory-zone",
+                ClusterId = "inmemory-cluster",
+            }));
+    }
+
+    /// <summary>
     /// Streams back the contents of all requested rows in key order, optionally applying a RowFilter.
     /// Ref: https://cloud.google.com/bigtable/docs/reference/data/rpc/google.bigtable.v2#readrowsrequest
     /// </summary>
@@ -79,6 +111,7 @@ internal sealed class BigtableGrpcService : Google.Cloud.Bigtable.V2.Bigtable.Bi
         ServerCallContext context)
     {
         var tableName = ExtractTableName(request.TableName);
+        RejectAuthorizedView(request.AuthorizedViewName);
         CheckFaultAndLog(context, tableName);
         var table = _store.GetTable(tableName);
 
@@ -209,6 +242,7 @@ internal sealed class BigtableGrpcService : Google.Cloud.Bigtable.V2.Bigtable.Bi
         ServerCallContext context)
     {
         var tableName = ExtractTableName(request.TableName);
+        RejectAuthorizedView(request.AuthorizedViewName);
         _store.GetTable(tableName); // Verify table exists
 
         // Single tablet — return one entry representing the end boundary
@@ -228,9 +262,11 @@ internal sealed class BigtableGrpcService : Google.Cloud.Bigtable.V2.Bigtable.Bi
         ServerCallContext context)
     {
         var tableName = ExtractTableName(request.TableName);
+        RejectAuthorizedView(request.AuthorizedViewName);
         CheckFaultAndLog(context, tableName, request.RowKey.ToStringUtf8());
         var table = _store.GetTable(tableName);
         table.MutateRow(request.RowKey, request.Mutations);
+        AddTrailingMetadata(context);
         return Task.FromResult(new MutateRowResponse());
     }
 
@@ -244,6 +280,7 @@ internal sealed class BigtableGrpcService : Google.Cloud.Bigtable.V2.Bigtable.Bi
         ServerCallContext context)
     {
         var tableName = ExtractTableName(request.TableName);
+        RejectAuthorizedView(request.AuthorizedViewName);
         CheckFaultAndLog(context, tableName);
         var table = _store.GetTable(tableName);
         var results = table.MutateRows(request.Entries.ToList());
@@ -274,6 +311,7 @@ internal sealed class BigtableGrpcService : Google.Cloud.Bigtable.V2.Bigtable.Bi
         ServerCallContext context)
     {
         var tableName = ExtractTableName(request.TableName);
+        RejectAuthorizedView(request.AuthorizedViewName);
         var table = _store.GetTable(tableName);
 
         // Create predicate evaluator from the filter
@@ -294,6 +332,7 @@ internal sealed class BigtableGrpcService : Google.Cloud.Bigtable.V2.Bigtable.Bi
             request.TrueMutations,
             request.FalseMutations);
 
+        AddTrailingMetadata(context);
         return Task.FromResult(new CheckAndMutateRowResponse
         {
             PredicateMatched = matched,
@@ -309,6 +348,7 @@ internal sealed class BigtableGrpcService : Google.Cloud.Bigtable.V2.Bigtable.Bi
         ServerCallContext context)
     {
         var tableName = ExtractTableName(request.TableName);
+        RejectAuthorizedView(request.AuthorizedViewName);
         var table = _store.GetTable(tableName);
 
         var modifiedCells = table.ReadModifyWriteRow(request.RowKey, request.Rules);
@@ -335,7 +375,8 @@ internal sealed class BigtableGrpcService : Google.Cloud.Bigtable.V2.Bigtable.Bi
             }
             row.Families.Add(family);
         }
-
+AddTrailingMetadata(context);
+        
         return Task.FromResult(new ReadModifyWriteRowResponse { Row = row });
     }
 
@@ -346,7 +387,8 @@ internal sealed class BigtableGrpcService : Google.Cloud.Bigtable.V2.Bigtable.Bi
     public override Task<PingAndWarmResponse> PingAndWarm(
         PingAndWarmRequest request,
         ServerCallContext context)
-    {
+    {AddTrailingMetadata(context);
+        
         return Task.FromResult(new PingAndWarmResponse());
     }
 

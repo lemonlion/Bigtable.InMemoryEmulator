@@ -41,7 +41,9 @@ public sealed class EmulatorSession
         return Target switch
         {
             TestTarget.InMemory => new InMemoryTestFixture(),
-            // EmulatorGo and Gcp fixtures will be implemented when needed
+            TestTarget.EmulatorGo => new EmulatorGoTestFixture(
+                EmulatorHost ?? "localhost:8086", ProjectId!, InstanceId!),
+            TestTarget.Gcp => new GcpTestFixture(ProjectId!, InstanceId!),
             _ => throw new NotSupportedException($"Test target '{Target}' is not yet supported."),
         };
     }

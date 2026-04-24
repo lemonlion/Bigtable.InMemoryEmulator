@@ -12,6 +12,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\src\Bigtable.InMemoryEmulator\Bigtable.InMemoryEmulator.csproj" />
+		<ProjectReference Include="..\Bigtable.InMemoryEmulator.Tests.Shared\Bigtable.InMemoryEmulator.Tests.Shared.csproj" />
 	</ItemGroup>
 
 </Project>

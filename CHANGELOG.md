@@ -8,6 +8,42 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Authorized view rejection: all Data API RPCs now return UNIMPLEMENTED if `authorized_view_name` is set
+- gRPC trailing metadata: synthetic `server-timing` and `ResponseParams` (zone_id, cluster_id) on unary RPCs
+- EmulatorGo test fixture: connects to Google's Go Bigtable emulator via BIGTABLE_EMULATOR_HOST
+- GCP test fixture: connects to real GCP Bigtable with Application Default Credentials
+- DI extension integration tests (6 tests for UseInMemoryBigtable/UseInMemoryBigtableAdmin)
+- Performance benchmark tests: MutateRow, ReadRows, filtered reads, CheckAndMutateRow, concurrent writes, ExecuteQuery throughput
+
+## [0.1.3] - 2026-04-24
+
+### Added
+- ReadChangeStream integration tests (data change, heartbeat, continuation token resume, end_time)
+- Error validation integration tests (nonexistent table/family, empty row key, duplicate table)
+- Concurrency integration tests (parallel MutateRows, CheckAndMutateRow atomicity)
+- GC rules integration tests (MaxVersions, MaxAge expiration at read time)
+- GoogleSQL additional integration tests (pipe syntax, aggregate functions)
+- Fault injection and diagnostics integration tests (FaultInjector, RpcLog, QueryLog recording)
+
+### Fixed
+- RPC logging now records ALL gRPC calls (previously only recorded faulted calls)
+- QueryLog now correctly records ExecuteQuery SQL queries
+- FaultInjection tests use targeted method matching (avoid ReadRows which ReadRowAsync uses internally)
+
+## [0.1.2] - 2026-04-24
+
+### Added
+- 8 new integration tests for aggregation, Admin API aggregate family support
+
+### Fixed
+- Admin API aggregate family parsing: correctly reads `Sum`, `Min`, `Max` properties (not underscored)
+- GC read-time filtering: cells are now filtered by GC rules (MaxVersions, MaxAge) at read time
+- Reversed scan integration test: uses `BigtableServiceApiClient` (SDK `BigtableClient.ReadRows()` lacks `reversed` parameter)
+- Aggregation integration tests: verify AddToCell/MergeToCell via the gRPC pipeline
+
+## [0.1.1] - 2026-04-23
+
+### Added
 - GoogleSQL query engine: tokenizer, parser (Superpower), executor, 125+ built-in functions
 - ExecuteQuery gRPC endpoint with server-streaming response (ResultSetMetadata + ProtoRowsBatch)
 - GoogleSQL support: SELECT, WHERE, GROUP BY, HAVING, ORDER BY, LIMIT, OFFSET, DISTINCT

@@ -45,4 +45,15 @@ public sealed class UtilityIntegrationTests : IAsyncLifetime
         while (await e.MoveNextAsync()) samples.Add(e.Current);
         samples.Should().NotBeEmpty();
     }
+
+    [Fact]
+    public async Task MutateRow_succeeds_and_data_is_readable()
+    {
+        // Verifies the trailing metadata doesn't break the basic write/read cycle
+        await Client.MutateRowAsync(TN, new BigtableByteString("trailer-row"),
+            Mutations.SetCell(Family, "col", "trailer-val", new BigtableVersion(1000)));
+
+        var row = await Client.ReadRowAsync(TN, new BigtableByteString("trailer-row"));
+        row.Should().NotBeNull();
+    }
 }
