@@ -189,14 +189,16 @@ internal static class RowFilterEvaluator
     /// RowKeyRegexFilter: matches rows whose key matches the RE2 regex.
     /// Ref: "Matches only cells from rows whose keys satisfy the given RE2 regex."
     /// Note: We approximate RE2 with .NET Regex (covers 99%+ of patterns).
+    ///       All regex filters use full-string matching (RE2 FullMatch), so we anchor with ^(?:...)$.
     /// </summary>
     private static IReadOnlyList<CellData> ApplyRowKeyRegex(ByteString pattern, IReadOnlyList<CellData> cells, ByteString? rowKey)
     {
         if (cells.Count == 0 || rowKey == null) return cells;
 
         // Ref: "Matches only cells from rows whose keys satisfy the given RE2 regex."
+        // Bigtable regex filters use full-string matching (RE2 FullMatch semantics).
         var patternStr = pattern.ToStringUtf8();
-        var regex = new Regex(patternStr, RegexOptions.Compiled);
+        var regex = new Regex(AnchorPattern(patternStr), RegexOptions.Compiled);
         var keyStr = rowKey.ToStringUtf8();
         return regex.IsMatch(keyStr) ? cells : [];
     }
@@ -204,21 +206,25 @@ internal static class RowFilterEvaluator
     /// <summary>
     /// FamilyNameRegexFilter: matches cells whose family name matches the regex.
     /// Ref: "Matches only cells from columns whose families satisfy the given RE2 regex."
+    ///       Uses full-string matching (RE2 FullMatch), anchored with ^(?:...)$.
     /// </summary>
     private static IReadOnlyList<CellData> ApplyFamilyNameRegex(string pattern, IReadOnlyList<CellData> cells)
     {
-        var regex = new Regex(pattern, RegexOptions.Compiled);
+        // Bigtable regex filters use full-string matching (RE2 FullMatch semantics).
+        var regex = new Regex(AnchorPattern(pattern), RegexOptions.Compiled);
         return cells.Where(c => regex.IsMatch(c.Family)).ToList();
     }
 
     /// <summary>
     /// ColumnQualifierRegexFilter: matches cells whose qualifier matches the regex.
     /// Ref: "Matches only cells from columns whose qualifiers satisfy the given RE2 regex."
+    ///       Uses full-string matching (RE2 FullMatch), anchored with ^(?:...)$.
     /// </summary>
     private static IReadOnlyList<CellData> ApplyColumnQualifierRegex(ByteString pattern, IReadOnlyList<CellData> cells)
     {
+        // Bigtable regex filters use full-string matching (RE2 FullMatch semantics).
         var patternStr = pattern.ToStringUtf8();
-        var regex = new Regex(patternStr, RegexOptions.Compiled);
+        var regex = new Regex(AnchorPattern(patternStr), RegexOptions.Compiled);
         return cells.Where(c => regex.IsMatch(c.Qualifier.ToStringUtf8())).ToList();
     }
 
@@ -264,11 +270,13 @@ internal static class RowFilterEvaluator
     /// <summary>
     /// ValueRegexFilter: matches cells whose value matches the regex.
     /// Ref: "Matches only cells with values that satisfy the given regular expression."
+    ///       Uses full-string matching (RE2 FullMatch), anchored with ^(?:...)$.
     /// </summary>
     private static IReadOnlyList<CellData> ApplyValueRegex(ByteString pattern, IReadOnlyList<CellData> cells)
     {
+        // Bigtable regex filters use full-string matching (RE2 FullMatch semantics).
         var patternStr = pattern.ToStringUtf8();
-        var regex = new Regex(patternStr, RegexOptions.Compiled);
+        var regex = new Regex(AnchorPattern(patternStr), RegexOptions.Compiled);
         return cells.Where(c => regex.IsMatch(c.Value.ToStringUtf8())).ToList();
     }
 
@@ -516,6 +524,13 @@ internal static class RowFilterEvaluator
                 $"ApplyLabelTransformer label '{label}' contains invalid characters. Must match [a-z0-9\\-]+."));
         }
     }
+
+    /// <summary>
+    /// Anchors a regex pattern to match the entire string (RE2 FullMatch semantics).
+    /// Bigtable regex filters match the entire value, not substrings.
+    /// Ref: Go emulator uses regexp.Compile("^(?:" + pat + ")$") for all regex filters.
+    /// </summary>
+    private static string AnchorPattern(string pattern) => $"^(?:{pattern})$";
 
     #endregion
 }

@@ -179,7 +179,9 @@ internal sealed class TableData : IDisposable
         var row = GetOrCreateRow(rowKey);
         lock (row.Lock)
         {
-            bool predicateMatched = predicateFilter?.Invoke(row) ?? false;
+            // Ref: https://cloud.google.com/bigtable/docs/reference/data/rpc/google.bigtable.v2#checkandmutaterowrequest
+            //   "If unset, checks that the row contains any cells at all."
+            bool predicateMatched = predicateFilter?.Invoke(row) ?? row.GetCells().Count > 0;
             var mutations = predicateMatched
                 ? trueMutations?.ToList() ?? []
                 : falseMutations?.ToList() ?? [];
@@ -299,7 +301,17 @@ internal sealed class TableData : IDisposable
             }
         }
 
-        return modifiedCells;
+        // Ref: https://cloud.google.com/bigtable/docs/reference/data/rpc/google.bigtable.v2#readmodifywriterowresponse
+        //   "Returns the new contents of all modified cells."
+        // When multiple rules target the same column (e.g. two appends), only the final
+        // state should be returned. Deduplicate by (family, qualifier, timestamp), keeping
+        // only the last entry per key since rules are processed sequentially.
+        var deduped = new Dictionary<(string, string, long), CellData>();
+        foreach (var cell in modifiedCells)
+        {
+            deduped[(cell.Family, cell.Qualifier.ToStringUtf8(), cell.TimestampMicros)] = cell;
+        }
+        return deduped.Values.ToList();
     }
 
     /// <summary>
@@ -707,6 +719,7 @@ internal sealed class TableData : IDisposable
     /// </summary>
     public IReadOnlyList<CellData> FilterCellsByGcRules(IReadOnlyList<CellData> cells)
     {
+        // First pass: filter by max-age.
         List<CellData>? filtered = null;
         for (int i = 0; i < cells.Count; i++)
         {
@@ -726,7 +739,82 @@ internal sealed class TableData : IDisposable
                 filtered?.Add(cell);
             }
         }
-        return filtered ?? cells;
+
+        var afterAge = (IReadOnlyList<CellData>?)filtered ?? cells;
+
+        // Second pass: enforce MaxNumVersions per (family, qualifier).
+        // Ref: https://cloud.google.com/bigtable/docs/reference/admin/rpc/google.bigtable.admin.v2#google.bigtable.admin.v2.GcRule
+        //   "max_num_versions: Delete all cells in a column except the most recent N."
+        // Cells are already sorted by (family, qualifier, descending timestamp).
+        var hasVersionRule = Config.ColumnFamilies.Any(kv =>
+            kv.Value != null && HasMaxNumVersionsRule(kv.Value));
+
+        if (!hasVersionRule)
+            return afterAge;
+
+        var result = new List<CellData>(afterAge.Count);
+        var columnVersionCounts = new Dictionary<(string Family, string Qualifier), int>();
+
+        foreach (var cell in afterAge)
+        {
+            var maxVersions = GetMaxNumVersions(cell.Family);
+            if (maxVersions <= 0)
+            {
+                result.Add(cell);
+                continue;
+            }
+
+            var key = (cell.Family, cell.Qualifier.ToStringUtf8());
+            columnVersionCounts.TryGetValue(key, out var count);
+            if (count < maxVersions)
+            {
+                result.Add(cell);
+                columnVersionCounts[key] = count + 1;
+            }
+        }
+
+        return result;
+    }
+
+    private int GetMaxNumVersions(string family)
+    {
+        if (!Config.ColumnFamilies.TryGetValue(family, out var gcRule) || gcRule == null)
+            return 0;
+        return GetMaxNumVersionsFromRule(gcRule);
+    }
+
+    private static int GetMaxNumVersionsFromRule(GcRule gcRule)
+    {
+        switch (gcRule.RuleCase)
+        {
+            case GcRule.RuleOneofCase.MaxNumVersions:
+                return gcRule.MaxNumVersions;
+            case GcRule.RuleOneofCase.Intersection:
+                // Intersection: all rules must agree. The most restrictive MaxNumVersions wins.
+                var versions = gcRule.Intersection.Rules
+                    .Select(GetMaxNumVersionsFromRule)
+                    .Where(v => v > 0);
+                return versions.Any() ? versions.Min() : 0;
+            case GcRule.RuleOneofCase.Union:
+                // Union: any rule triggers. The least restrictive MaxNumVersions wins.
+                var unionVersions = gcRule.Union.Rules
+                    .Select(GetMaxNumVersionsFromRule)
+                    .Where(v => v > 0);
+                return unionVersions.Any() ? unionVersions.Max() : 0;
+            default:
+                return 0;
+        }
+    }
+
+    private static bool HasMaxNumVersionsRule(GcRule gcRule)
+    {
+        return gcRule.RuleCase switch
+        {
+            GcRule.RuleOneofCase.MaxNumVersions => true,
+            GcRule.RuleOneofCase.Intersection => gcRule.Intersection.Rules.Any(HasMaxNumVersionsRule),
+            GcRule.RuleOneofCase.Union => gcRule.Union.Rules.Any(HasMaxNumVersionsRule),
+            _ => false,
+        };
     }
 
     private bool IsCellExpiredByMaxAge(string family, long timestampMicros)

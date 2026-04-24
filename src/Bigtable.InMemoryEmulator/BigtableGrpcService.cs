@@ -176,6 +176,16 @@ internal sealed class BigtableGrpcService : Google.Cloud.Bigtable.V2.Bigtable.Bi
             if (filteredCells.Count == 0)
                 continue;
 
+            // Ensure cells are in canonical order (family ASC, qualifier ASC, timestamp DESC).
+            // Filters like Interleave can produce cells out of order, but the SDK's CellChunk
+            // reader expects families and columns to appear in sorted order without repetition.
+            // Ref: https://cloud.google.com/bigtable/docs/reference/data/rpc/google.bigtable.v2#readrowsresponse
+            filteredCells = filteredCells
+                .OrderBy(c => c.Family, StringComparer.Ordinal)
+                .ThenBy(c => c.Qualifier, ByteStringComparer.Instance)
+                .ThenByDescending(c => c.TimestampMicros)
+                .ToList();
+
             rowsReturned++;
             cellsReturned += filteredCells.Count;
 
