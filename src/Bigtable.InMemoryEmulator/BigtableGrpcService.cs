@@ -298,6 +298,24 @@ internal sealed class BigtableGrpcService : Google.Cloud.Bigtable.V2.Bigtable.Bi
         var tableName = ExtractTableName(request.TableName);
         RejectAuthorizedView(request.AuthorizedViewName);
         CheckFaultAndLog(context, tableName);
+
+        // Ref: https://cloud.google.com/bigtable/docs/reference/data/rpc/google.bigtable.v2#mutaterowsrequest
+        //   "entries: Required. The key/mutation pairs to apply in bulk."
+        if (request.Entries.Count == 0)
+        {
+            throw new RpcException(new Status(StatusCode.InvalidArgument,
+                "MutateRowsRequest must contain at least one entry."));
+        }
+
+        foreach (var entry in request.Entries)
+        {
+            if (entry.Mutations.Count == 0)
+            {
+                throw new RpcException(new Status(StatusCode.InvalidArgument,
+                    "Each MutateRowsRequest entry must contain at least one mutation."));
+            }
+        }
+
         var table = _store.GetTable(tableName);
         var results = table.MutateRows(request.Entries.ToList());
 

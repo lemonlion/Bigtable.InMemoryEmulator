@@ -366,6 +366,15 @@ internal static class RowFilterEvaluator
     /// </summary>
     private static IReadOnlyList<CellData> ApplyRowSample(double probability, IReadOnlyList<CellData> cells)
     {
+        // Ref: https://cloud.google.com/bigtable/docs/reference/data/rpc/google.bigtable.v2#rowfilter
+        //   "row_sample_filter: Matches all cells from a row with probability p."
+        //   The SDK validates p in [0.0, 1.0]; server rejects values outside that.
+        if (probability < 0.0 || probability > 1.0)
+        {
+            throw new RpcException(new Status(StatusCode.InvalidArgument,
+                $"row_sample_filter must be >= 0.0 and <= 1.0, got {probability}"));
+        }
+
         if (cells.Count == 0) return cells;
         return Random.Shared.NextDouble() < probability ? cells : [];
     }

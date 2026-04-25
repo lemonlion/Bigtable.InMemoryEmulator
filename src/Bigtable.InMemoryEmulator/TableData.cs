@@ -684,11 +684,9 @@ internal sealed class TableData : IDisposable
 
         if (value.KindCase == Google.Cloud.Bigtable.V2.Value.KindOneofCase.RawTimestampMicros)
         {
-            if (value.RawTimestampMicros == 0)
-            {
-                // Server-assigned timestamp
-                return DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() * 1000;
-            }
+            // Ref: https://cloud.google.com/bigtable/docs/reference/data/rpc/google.bigtable.v2#google.bigtable.v2.Mutation.AddToCell
+            //   "If 0, the cell timestamp will be unset."
+            // 0 means store as timestamp 0, NOT server-assigned.
             return value.RawTimestampMicros;
         }
 
@@ -790,11 +788,11 @@ internal sealed class TableData : IDisposable
             case GcRule.RuleOneofCase.MaxNumVersions:
                 return gcRule.MaxNumVersions;
             case GcRule.RuleOneofCase.Intersection:
-                // Intersection: all rules must agree. The most restrictive MaxNumVersions wins.
-                var versions = gcRule.Intersection.Rules
-                    .Select(GetMaxNumVersionsFromRule)
-                    .Where(v => v > 0);
-                return versions.Any() ? versions.Min() : 0;
+                // Ref: https://cloud.google.com/bigtable/docs/garbage-collection#intersection
+                // Intersection requires ALL conditions to match. MaxNumVersions cannot be applied
+                // independently — it must be evaluated together with other rules (e.g., MaxAge).
+                // Return 0 (no independent limit); the full intersection is handled in ApplyGcRule.
+                return 0;
             case GcRule.RuleOneofCase.Union:
                 // Union: any rule triggers. The least restrictive MaxNumVersions wins.
                 var unionVersions = gcRule.Union.Rules
