@@ -245,6 +245,7 @@ public sealed class RowKeyRegexFilterTests : IAsyncLifetime
         rows.Should().HaveCount(all.Count);
     }
 
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task RowKeyRegex_empty_pattern_matches_empty_key_only()
     {

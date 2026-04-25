@@ -49,6 +49,7 @@ public sealed class FilterLimitTests : IAsyncLifetime
         rows.Should().ContainSingle();
     }
 
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task Deep_nesting_exceeding_limit_throws()
     {
@@ -61,6 +62,7 @@ public sealed class FilterLimitTests : IAsyncLifetime
         await act.Should().ThrowAsync<RpcException>();
     }
 
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task Deeply_nested_interleave_exceeds_limit()
     {
@@ -75,6 +77,7 @@ public sealed class FilterLimitTests : IAsyncLifetime
         await act.Should().ThrowAsync<RpcException>();
     }
 
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task Deeply_nested_condition_exceeds_limit()
     {

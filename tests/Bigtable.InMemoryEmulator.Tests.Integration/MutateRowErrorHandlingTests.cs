@@ -35,6 +35,7 @@ public sealed class MutateRowErrorHandlingTests : IAsyncLifetime
         await act.Should().ThrowAsync<Grpc.Core.RpcException>();
     }
 
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task DeleteFromFamily_nonexistent_throws()
     {

@@ -163,6 +163,7 @@ public sealed class AdminApiAdvancedIntegrationTests : IAsyncLifetime
         table.Name.Should().Contain("/tables/");
     }
 
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task CreateTable_with_multiple_families()
     {
@@ -188,6 +189,7 @@ public sealed class AdminApiAdvancedIntegrationTests : IAsyncLifetime
         table.ColumnFamilies.Should().HaveCount(3);
     }
 
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task CreateTable_with_gc_rules()
     {

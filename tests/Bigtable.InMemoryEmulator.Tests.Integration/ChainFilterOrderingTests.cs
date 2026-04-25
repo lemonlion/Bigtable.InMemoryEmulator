@@ -178,6 +178,7 @@ public sealed class ChainFilterOrderingTests : IAsyncLifetime
         rows.Should().HaveCount(2);
     }
 
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task Chain_single_filter_behaves_like_no_chain()
     {

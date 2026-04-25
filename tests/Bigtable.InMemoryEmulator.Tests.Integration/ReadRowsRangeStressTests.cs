@@ -84,6 +84,7 @@ public sealed class ReadRowsRangeStressTests : IAsyncLifetime
         rows.Should().HaveCount(5); // rng-000..004
     }
 
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task Key_to_unbounded_end()
     {
@@ -91,6 +92,7 @@ public sealed class ReadRowsRangeStressTests : IAsyncLifetime
         rows.Should().HaveCount(5); // rng-045..049
     }
 
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task Fully_unbounded_returns_all()
     {
@@ -98,6 +100,7 @@ public sealed class ReadRowsRangeStressTests : IAsyncLifetime
         rows.Should().HaveCount(50);
     }
 
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task Empty_range_returns_nothing()
     {
@@ -391,6 +394,7 @@ public sealed class ReadRowsRangeStressTests : IAsyncLifetime
 
     #region Reversed reads
 
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task Reversed_returns_descending_order()
     {
@@ -422,6 +426,7 @@ public sealed class ReadRowsRangeStressTests : IAsyncLifetime
         seenKeys.Should().BeInDescendingOrder();
     }
 
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task Reversed_with_range()
     {

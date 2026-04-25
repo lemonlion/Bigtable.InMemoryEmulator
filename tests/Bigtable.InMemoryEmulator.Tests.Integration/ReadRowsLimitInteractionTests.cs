@@ -204,6 +204,7 @@ public sealed class ReadRowsLimitInteractionTests : IAsyncLifetime
 
     #region Limit with reversed
 
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task Reversed_limit_3()
     {
@@ -214,6 +215,7 @@ public sealed class ReadRowsLimitInteractionTests : IAsyncLifetime
         count.Should().Be(3);
     }
 
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task Reversed_limit_with_range()
     {

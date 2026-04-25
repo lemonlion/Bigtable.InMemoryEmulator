@@ -232,6 +232,7 @@ public sealed class EdgeCaseBoundaryTests : IAsyncLifetime
         rows.Should().ContainSingle();
     }
 
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task CellsPerColumnLimit_0_returns_no_cells()
     {

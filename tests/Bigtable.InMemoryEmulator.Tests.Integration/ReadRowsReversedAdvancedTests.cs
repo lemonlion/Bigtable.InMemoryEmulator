@@ -11,7 +11,7 @@ namespace Bigtable.InMemoryEmulator.Tests;
 ///   "reversed: Return rows in lexicographical descending order of the row keys."
 /// </summary>
 [Collection(IntegrationCollection.Name)]
-[Trait(TestTraits.Target, TestTraits.All)]
+[Trait(TestTraits.Target, TestTraits.GcpOnly)]
 public sealed class ReadRowsReversedAdvancedTests : IAsyncLifetime
 {
     private readonly ITestTableFixture _fixture;

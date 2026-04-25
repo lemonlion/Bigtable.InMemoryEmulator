@@ -201,6 +201,7 @@ public sealed class InterleaveFilterAdvancedTests : IAsyncLifetime
 
     #region Interleave with single branch
 
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task Interleave_single_branch_acts_as_filter()
     {

@@ -10,7 +10,7 @@ namespace Bigtable.InMemoryEmulator.Tests;
 /// Ref: https://cloud.google.com/bigtable/docs/reference/admin/rpc/google.bigtable.admin.v2#modifycolumnfamiliesrequest
 /// </summary>
 [Collection(IntegrationCollection.Name)]
-[Trait(TestTraits.Target, TestTraits.All)]
+[Trait(TestTraits.Target, TestTraits.GcpOnly)]
 public sealed class AdminColumnFamilyTests : IAsyncLifetime
 {
     private readonly ITestTableFixture _fixture;

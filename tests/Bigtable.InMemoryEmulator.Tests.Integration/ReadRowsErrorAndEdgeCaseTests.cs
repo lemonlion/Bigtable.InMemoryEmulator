@@ -67,6 +67,7 @@ public sealed class ReadRowsErrorAndEdgeCaseTests : IAsyncLifetime
         row.Should().BeNull();
     }
 
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task ReadRows_empty_range_returns_nothing()
     {

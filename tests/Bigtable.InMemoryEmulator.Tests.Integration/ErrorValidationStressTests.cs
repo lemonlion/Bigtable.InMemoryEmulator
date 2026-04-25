@@ -207,6 +207,7 @@ public sealed class ErrorValidationStressTests : IAsyncLifetime
             .Where(e => e.StatusCode == StatusCode.NotFound);
     }
 
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task ModifyColumnFamilies_drop_nonexistent_family_throws()
     {
@@ -227,6 +228,7 @@ public sealed class ErrorValidationStressTests : IAsyncLifetime
 
     #region Size validation
 
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task RowKey_exceeds_4KiB_throws()
     {

@@ -133,6 +133,7 @@ public sealed class ReadRowsOrderingTests : IAsyncLifetime
         cells[0].TimestampMicros.Should().Be(2_000_000);
     }
 
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task Empty_scan_returns_no_rows()
     {

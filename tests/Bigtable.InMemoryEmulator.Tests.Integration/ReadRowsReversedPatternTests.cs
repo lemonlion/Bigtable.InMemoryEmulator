@@ -10,7 +10,7 @@ namespace Bigtable.InMemoryEmulator.Tests;
 ///   "reversed: If true, rows are returned in reverse order."
 /// </summary>
 [Collection(IntegrationCollection.Name)]
-[Trait(TestTraits.Target, TestTraits.All)]
+[Trait(TestTraits.Target, TestTraits.GcpOnly)]
 public sealed class ReadRowsReversedPatternTests : IAsyncLifetime
 {
     private readonly ITestTableFixture _fixture;

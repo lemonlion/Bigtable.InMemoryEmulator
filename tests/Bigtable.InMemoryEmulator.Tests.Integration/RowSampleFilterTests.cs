@@ -13,7 +13,7 @@ namespace Bigtable.InMemoryEmulator.Tests;
 ///   "p must be > 0 and <= 1.0"
 /// </summary>
 [Collection(IntegrationCollection.Name)]
-[Trait(TestTraits.Target, TestTraits.All)]
+[Trait(TestTraits.Target, TestTraits.GcpOnly)]
 public sealed class RowSampleFilterTests : IAsyncLifetime
 {
     private readonly ITestTableFixture _fixture;

@@ -95,6 +95,7 @@ public sealed class ApplyLabelTransformerTests : IAsyncLifetime
 
     #region Invalid labels
 
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task Label_too_long_throws()
     {
@@ -107,6 +108,7 @@ public sealed class ApplyLabelTransformerTests : IAsyncLifetime
         await act.Should().ThrowAsync<Grpc.Core.RpcException>();
     }
 
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task Label_with_uppercase_throws()
     {
@@ -119,6 +121,7 @@ public sealed class ApplyLabelTransformerTests : IAsyncLifetime
         await act.Should().ThrowAsync<Grpc.Core.RpcException>();
     }
 
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task Label_with_underscore_throws()
     {
@@ -130,6 +133,7 @@ public sealed class ApplyLabelTransformerTests : IAsyncLifetime
         await act.Should().ThrowAsync<Grpc.Core.RpcException>();
     }
 
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task Label_with_space_throws()
     {
@@ -193,6 +197,7 @@ public sealed class ApplyLabelTransformerTests : IAsyncLifetime
         labelB.Should().ContainSingle();
     }
 
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task Chain_with_two_labels_throws()
     {

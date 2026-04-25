@@ -260,6 +260,7 @@ public sealed class DeleteMutationStressTests : IAsyncLifetime
         rows[0].Families[0].Columns[0].Cells.Should().HaveCount(3);
     }
 
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task DeleteFromColumn_empty_time_range_is_noop()
     {

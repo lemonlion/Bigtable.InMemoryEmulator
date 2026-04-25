@@ -146,6 +146,7 @@ public sealed class RowSetCompositionTests : IAsyncLifetime
         rows.Select(r => r.Key.ToStringUtf8()).Should().NotContain("c");
     }
 
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task RowRange_from_key_to_end()
     {

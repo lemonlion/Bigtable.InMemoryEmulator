@@ -134,6 +134,7 @@ public sealed class MutationValidationTests : IAsyncLifetime
 
     #region Row key too large
 
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task Row_key_over_4KB_throws()
     {

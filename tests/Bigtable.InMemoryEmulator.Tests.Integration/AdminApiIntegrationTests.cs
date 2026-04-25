@@ -19,6 +19,7 @@ public sealed class AdminApiIntegrationTests : IAsyncLifetime
     private BigtableTableAdminClient Admin => _fixture.AdminClient;
     private string Instance => _fixture.InstanceName;
 
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task CreateTable_and_GetTable_round_trip()
     {
@@ -39,6 +40,7 @@ public sealed class AdminApiIntegrationTests : IAsyncLifetime
         retrieved.ColumnFamilies.Should().ContainKey("f1");
     }
 
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task CreateTable_with_gc_rule()
     {
@@ -101,6 +103,7 @@ public sealed class AdminApiIntegrationTests : IAsyncLifetime
         ids.Should().Contain(SeedTable);
     }
 
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task ModifyColumnFamilies_adds_family()
     {
@@ -127,6 +130,7 @@ public sealed class AdminApiIntegrationTests : IAsyncLifetime
         result.ColumnFamilies.Should().ContainKey("new_family");
     }
 
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task Admin_created_table_is_usable_for_data()
     {

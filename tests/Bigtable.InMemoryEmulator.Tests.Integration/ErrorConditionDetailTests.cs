@@ -136,6 +136,7 @@ public sealed class ErrorConditionDetailTests : IAsyncLifetime
         rows.Should().BeEmpty();
     }
 
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task ReadRow_empty_range_returns_empty()
     {
@@ -173,6 +174,7 @@ public sealed class ErrorConditionDetailTests : IAsyncLifetime
         rows.Should().ContainSingle();
     }
 
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task DeleteFromFamily_nonexistent_family_throws()
     {

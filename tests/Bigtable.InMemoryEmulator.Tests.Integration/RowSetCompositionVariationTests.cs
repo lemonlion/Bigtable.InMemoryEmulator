@@ -224,6 +224,7 @@ public sealed class RowSetCompositionVariationTests : IAsyncLifetime
         rows.Should().HaveCount(5);
     }
 
+    [Trait(TestTraits.Target, TestTraits.GcpOnly)]
     [Fact]
     public async Task Range_no_match()
     {
