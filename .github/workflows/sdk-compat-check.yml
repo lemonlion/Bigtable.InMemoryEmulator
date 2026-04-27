@@ -50,7 +50,7 @@ jobs:
 
       - name: Override Bigtable SDK version
         run: |
-          dotnet add src/Bigtable.InMemoryEmulator/Bigtable.InMemoryEmulator.csproj \
+          dotnet add src/InMemoryEmulator.Bigtable/InMemoryEmulator.Bigtable.csproj \
             package Google.Cloud.Bigtable.V2 \
             --version ${{ steps.sdk-version.outputs.version }}
 
@@ -61,7 +61,7 @@ jobs:
         id: unit-tests
         continue-on-error: true
         run: |
-          dotnet test tests/Bigtable.InMemoryEmulator.Tests.Unit \
+          dotnet test tests/InMemoryEmulator.Bigtable.Tests.Unit \
             --configuration Release --no-build \
             --framework net8.0 \
             -v quiet \
@@ -71,7 +71,7 @@ jobs:
         id: integration-tests
         continue-on-error: true
         run: |
-          dotnet test tests/Bigtable.InMemoryEmulator.Tests.Integration \
+          dotnet test tests/InMemoryEmulator.Bigtable.Tests.Integration \
             --configuration Release --no-build \
             --framework net8.0 \
             -v quiet \

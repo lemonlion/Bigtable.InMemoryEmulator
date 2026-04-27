@@ -1,0 +1,5 @@
+Test run for C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\bin\Debug\net8.0\InMemoryEmulator.Bigtable.Tests.Integration.dll (.NETCoreApp,Version=v8.0)
+A total of 1 test files matched the specified pattern.
+Results File: C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\TestResults\go-emulator-v2.trx
+
+Passed!  - Failed:     0, Passed:  4695, Skipped:     0, Total:  4695, Duration: 34 m 33 s - InMemoryEmulator.Bigtable.Tests.Integration.dll (net8.0)

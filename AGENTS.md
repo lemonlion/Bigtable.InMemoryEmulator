@@ -82,4 +82,4 @@ The Integration project does **not** have `InternalsVisibleTo` access. If a test
 
 ## Documentation
 
-After any changes are made that might affect the public API or functionality, documentation must be updated to reflect those changes. The documentation should be clear and comprehensive, covering all new features, changes to existing features, and any deprecations or removals. This includes updating the README file (if relevant), but mainly the wiki which can be found in a sister folder to the main repository — `../Bigtable.InMemoryEmulator.wiki`.
+After any changes are made that might affect the public API or functionality, documentation must be updated to reflect those changes. The documentation should be clear and comprehensive, covering all new features, changes to existing features, and any deprecations or removals. This includes updating the README file (if relevant), but mainly the wiki which can be found in a sister folder to the main repository — `../InMemoryEmulator.Bigtable.wiki`.

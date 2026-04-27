@@ -9,8 +9,8 @@
 		<Authors>lemonlion</Authors>
 		<Copyright>Copyright (c) 2026 lemonlion</Copyright>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<PackageProjectUrl>https://github.com/lemonlion/Bigtable.InMemoryEmulator</PackageProjectUrl>
-		<RepositoryUrl>https://github.com/lemonlion/Bigtable.InMemoryEmulator</RepositoryUrl>
+		<PackageProjectUrl>https://github.com/lemonlion/InMemoryEmulator.Bigtable</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/lemonlion/InMemoryEmulator.Bigtable</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageIcon>icon.png</PackageIcon>
 	</PropertyGroup>

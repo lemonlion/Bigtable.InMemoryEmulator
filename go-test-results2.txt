@@ -1,0 +1,1687 @@
+Test run for C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\bin\Debug\net8.0\InMemoryEmulator.Bigtable.Tests.Integration.dll (.NETCoreApp,Version=v8.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:07.54]     InMemoryEmulator.Bigtable.Tests.ErrorValidationStressTests.ModifyColumnFamilies_drop_nonexistent_family_throws [FAIL]
+[xUnit.net 00:00:07.78]     InMemoryEmulator.Bigtable.Tests.ErrorValidationStressTests.RowKey_exceeds_4KiB_throws [FAIL]
+  Failed InMemoryEmulator.Bigtable.Tests.ErrorValidationStressTests.ModifyColumnFamilies_drop_nonexistent_family_throws [117 ms]
+  Error Message:
+   Expected exception where (Convert(e.StatusCode, Int32) == 5), but the condition was not met by:
+
+{Grpc.Core.RpcException: Status(StatusCode="Unknown", Detail="can't delete unknown family "nonexistent-cf"")
+   at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at AwesomeAssertions.Specialized.AsyncFunctionAssertions`2.InvokeWithInterceptionAsync(Func`1 action)}.
+  Stack Trace:
+     at AwesomeAssertions.Execution.LateBoundTestFramework.Throw(String message)
+   at AwesomeAssertions.Specialized.ExceptionAssertions`1.Where(Expression`1 exceptionExpression, String because, Object[] becauseArgs)
+   at AwesomeAssertions.ExceptionAssertionsExtensions.Where[TException](Task`1 task, Expression`1 exceptionExpression, String because, Object[] becauseArgs)
+   at InMemoryEmulator.Bigtable.Tests.ErrorValidationStressTests.ModifyColumnFamilies_drop_nonexistent_family_throws() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ErrorValidationStressTests.cs:line 222
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.ErrorValidationStressTests.RowKey_exceeds_4KiB_throws [55 ms]
+  Error Message:
+   Expected a <System.Exception> to be thrown, but no exception was thrown.
+  Stack Trace:
+     at AwesomeAssertions.Execution.LateBoundTestFramework.Throw(String message)
+   at AwesomeAssertions.Specialized.DelegateAssertionsBase`2.<>c__DisplayClass8_0`1.<ThrowInternal>b__0(AssertionChain chain)
+   at AwesomeAssertions.Execution.AssertionChain.WithExpectation(String message, Action`1 chain, Object[] args)
+   at AwesomeAssertions.Execution.AssertionChain.WithExpectation(String message, Object arg1, Action`1 chain)
+   at AwesomeAssertions.Specialized.DelegateAssertionsBase`2.ThrowInternal[TException](Exception exception, String because, Object[] becauseArgs)
+   at AwesomeAssertions.Specialized.AsyncFunctionAssertions`2.ThrowAsync[TException](String because, Object[] becauseArgs)
+   at InMemoryEmulator.Bigtable.Tests.ErrorValidationStressTests.RowKey_exceeds_4KiB_throws() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ErrorValidationStressTests.cs:line 237
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:17.01]     InMemoryEmulator.Bigtable.Tests.ReadRowsErrorAndEdgeCaseTests.ReadRows_empty_range_returns_nothing [FAIL]
+  Failed InMemoryEmulator.Bigtable.Tests.ReadRowsErrorAndEdgeCaseTests.ReadRows_empty_range_returns_nothing [888 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="InvalidArgument", Detail="Error in element #0: start_key_closed must be less than end_key_closed")
+  Stack Trace:
+     at Grpc.Net.Client.Internal.HttpContentClientStreamReader`2.MoveNextCore(CancellationToken cancellationToken)
+   at Google.Api.Gax.Grpc.Gcp.GcpClientResponseStream`2.MoveNext(CancellationToken token)
+   at Google.Cloud.Bigtable.V2.RowAsyncEnumerator.MoveNextAsync()
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsErrorAndEdgeCaseTests.ReadRows_empty_range_returns_nothing() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsErrorAndEdgeCaseTests.cs:line 74
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsErrorAndEdgeCaseTests.ReadRows_empty_range_returns_nothing() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsErrorAndEdgeCaseTests.cs:line 74
+--- End of stack trace from previous location ---
+[xUnit.net 00:01:49.11]     InMemoryEmulator.Bigtable.Tests.ReadRowsRangeStressTests.Reversed_with_range [FAIL]
+  Failed InMemoryEmulator.Bigtable.Tests.ReadRowsRangeStressTests.Reversed_with_range [2 s]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="Unimplemented", Detail="Client doesn't support reverse scans yet")
+  Stack Trace:
+     at Grpc.Net.Client.Internal.HttpContentClientStreamReader`2.MoveNextCore(CancellationToken cancellationToken)
+   at Google.Api.Gax.Grpc.Gcp.GcpClientResponseStream`2.MoveNext(CancellationToken token)
+   at Google.Api.Gax.Grpc.AsyncResponseStream`1.MoveNextAsync(CancellationToken cancellationToken)
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsRangeStressTests.Reversed_with_range() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsRangeStressTests.cs:line 443
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsRangeStressTests.Reversed_with_range() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsRangeStressTests.cs:line 443
+--- End of stack trace from previous location ---
+[xUnit.net 00:01:57.62]     InMemoryEmulator.Bigtable.Tests.ReadRowsRangeStressTests.Fully_unbounded_returns_all [FAIL]
+  Failed InMemoryEmulator.Bigtable.Tests.ReadRowsRangeStressTests.Fully_unbounded_returns_all [2 s]
+  Error Message:
+   Expected rows to contain 50 item(s), but found 0: {empty}.
+  Stack Trace:
+     at AwesomeAssertions.Execution.LateBoundTestFramework.Throw(String message)
+   at AwesomeAssertions.Collections.GenericCollectionAssertions`3.HaveCount(Int32 expected, String because, Object[] becauseArgs)
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsRangeStressTests.Fully_unbounded_returns_all() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsRangeStressTests.cs:line 98
+--- End of stack trace from previous location ---
+[xUnit.net 00:02:14.37]     InMemoryEmulator.Bigtable.Tests.ReadRowsRangeStressTests.Empty_range_returns_nothing [FAIL]
+  Failed InMemoryEmulator.Bigtable.Tests.ReadRowsRangeStressTests.Empty_range_returns_nothing [2 s]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="InvalidArgument", Detail="Error in element #0: start_key_closed must be less than end_key_open")
+  Stack Trace:
+     at Grpc.Net.Client.Internal.HttpContentClientStreamReader`2.MoveNextCore(CancellationToken cancellationToken)
+   at Google.Api.Gax.Grpc.Gcp.GcpClientResponseStream`2.MoveNext(CancellationToken token)
+   at Google.Cloud.Bigtable.V2.RowAsyncEnumerator.MoveNextAsync()
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsRangeStressTests.ReadAll(RowSet rows, RowFilter filter, Nullable`1 limit) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsRangeStressTests.cs:line 39
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsRangeStressTests.ReadAll(RowSet rows, RowFilter filter, Nullable`1 limit) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsRangeStressTests.cs:line 39
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsRangeStressTests.Empty_range_returns_nothing() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsRangeStressTests.cs:line 105
+--- End of stack trace from previous location ---
+[xUnit.net 00:02:29.02]     InMemoryEmulator.Bigtable.Tests.ReadRowsRangeStressTests.Key_to_unbounded_end [FAIL]
+  Failed InMemoryEmulator.Bigtable.Tests.ReadRowsRangeStressTests.Key_to_unbounded_end [2 s]
+  Error Message:
+   Expected rows to contain 5 item(s), but found 0: {empty}.
+  Stack Trace:
+     at AwesomeAssertions.Execution.LateBoundTestFramework.Throw(String message)
+   at AwesomeAssertions.Collections.GenericCollectionAssertions`3.HaveCount(Int32 expected, String because, Object[] becauseArgs)
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsRangeStressTests.Key_to_unbounded_end() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsRangeStressTests.cs:line 91
+--- End of stack trace from previous location ---
+[xUnit.net 00:02:33.17]     InMemoryEmulator.Bigtable.Tests.ReadRowsRangeStressTests.Reversed_returns_descending_order [FAIL]
+  Failed InMemoryEmulator.Bigtable.Tests.ReadRowsRangeStressTests.Reversed_returns_descending_order [2 s]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="Unimplemented", Detail="Client doesn't support reverse scans yet")
+  Stack Trace:
+     at Grpc.Net.Client.Internal.HttpContentClientStreamReader`2.MoveNextCore(CancellationToken cancellationToken)
+   at Google.Api.Gax.Grpc.Gcp.GcpClientResponseStream`2.MoveNext(CancellationToken token)
+   at Google.Api.Gax.Grpc.AsyncResponseStream`1.MoveNextAsync(CancellationToken cancellationToken)
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsRangeStressTests.Reversed_returns_descending_order() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsRangeStressTests.cs:line 408
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsRangeStressTests.Reversed_returns_descending_order() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsRangeStressTests.cs:line 408
+--- End of stack trace from previous location ---
+[xUnit.net 00:03:09.38]     InMemoryEmulator.Bigtable.Tests.AdminApiAdvancedIntegrationTests.CreateTable_with_gc_rules [FAIL]
+[xUnit.net 00:03:09.49]     InMemoryEmulator.Bigtable.Tests.AdminApiAdvancedIntegrationTests.CreateTable_with_multiple_families [FAIL]
+  Failed InMemoryEmulator.Bigtable.Tests.AdminApiAdvancedIntegrationTests.CreateTable_with_gc_rules [50 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/gc-create" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.AdminApiAdvancedIntegrationTests.CreateTable_with_gc_rules() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AdminApiAdvancedIntegrationTests.cs:line 195
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.AdminApiAdvancedIntegrationTests.CreateTable_with_multiple_families [50 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/multi-cf-create" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.AdminApiAdvancedIntegrationTests.CreateTable_with_multiple_families() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AdminApiAdvancedIntegrationTests.cs:line 170
+--- End of stack trace from previous location ---
+[xUnit.net 00:03:29.24]     InMemoryEmulator.Bigtable.Tests.ReadRowsLimitInteractionTests.Reversed_limit_3 [FAIL]
+[xUnit.net 00:03:29.64]     InMemoryEmulator.Bigtable.Tests.ReadRowsLimitInteractionTests.Reversed_limit_with_range [FAIL]
+  Failed InMemoryEmulator.Bigtable.Tests.ReadRowsLimitInteractionTests.Reversed_limit_3 [50 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="Unimplemented", Detail="Client doesn't support reverse scans yet")
+  Stack Trace:
+     at Grpc.Net.Client.Internal.HttpContentClientStreamReader`2.MoveNextCore(CancellationToken cancellationToken)
+   at Google.Api.Gax.Grpc.Gcp.GcpClientResponseStream`2.MoveNext(CancellationToken token)
+   at Google.Api.Gax.Grpc.AsyncResponseStream`1.MoveNextAsync(CancellationToken cancellationToken)
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsLimitInteractionTests.CountRows(ReadRowsRequest request) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsLimitInteractionTests.cs:line 44
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsLimitInteractionTests.CountRows(ReadRowsRequest request) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsLimitInteractionTests.cs:line 44
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsLimitInteractionTests.Reversed_limit_3() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsLimitInteractionTests.cs:line 210
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.ReadRowsLimitInteractionTests.Reversed_limit_with_range [52 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="Unimplemented", Detail="Client doesn't support reverse scans yet")
+  Stack Trace:
+     at Grpc.Net.Client.Internal.HttpContentClientStreamReader`2.MoveNextCore(CancellationToken cancellationToken)
+   at Google.Api.Gax.Grpc.Gcp.GcpClientResponseStream`2.MoveNext(CancellationToken token)
+   at Google.Api.Gax.Grpc.AsyncResponseStream`1.MoveNextAsync(CancellationToken cancellationToken)
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsLimitInteractionTests.CountRows(ReadRowsRequest request) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsLimitInteractionTests.cs:line 44
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsLimitInteractionTests.CountRows(ReadRowsRequest request) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsLimitInteractionTests.cs:line 44
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsLimitInteractionTests.Reversed_limit_with_range() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsLimitInteractionTests.cs:line 220
+--- End of stack trace from previous location ---
+[xUnit.net 00:03:41.03]     InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.MaxVersions_1_overwrite_same_cell [FAIL]
+[xUnit.net 00:03:41.09]     InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.MaxAge_recent_data_kept [FAIL]
+  Failed InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.MaxVersions_1_overwrite_same_cell [54 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/gc-mv1ow" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.CreateTableWithGc(String table, String family, GcRule gcRule) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\GcRuleStressTests.cs:line 48
+   at InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.MaxVersions_1_overwrite_same_cell() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\GcRuleStressTests.cs:line 133
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.MaxAge_recent_data_kept [53 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/gc-marecent" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.CreateTableWithGc(String table, String family, GcRule gcRule) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\GcRuleStressTests.cs:line 48
+   at InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.MaxAge_recent_data_kept() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\GcRuleStressTests.cs:line 154
+--- End of stack trace from previous location ---
+[xUnit.net 00:03:41.14]     InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.GetTable_shows_maxversions_rule [FAIL]
+[xUnit.net 00:03:41.20]     InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.GetTable_shows_union_rule [FAIL]
+[xUnit.net 00:03:41.25]     InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.MaxVersions_under_limit_returns_all [FAIL]
+[xUnit.net 00:03:41.31]     InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.MaxAge_mixed_old_and_new [FAIL]
+[xUnit.net 00:03:41.33]     InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.Remove_gc_rule_retains_all_versions [FAIL]
+[xUnit.net 00:03:41.38]     InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.GetTable_shows_intersection_rule [FAIL]
+[xUnit.net 00:03:41.40]     InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.Union_two_maxversions_takes_smaller [FAIL]
+[xUnit.net 00:03:41.45]     InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.MaxVersions_3_keeps_newest_three [FAIL]
+[xUnit.net 00:03:41.50]     InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.MaxVersions_1_keeps_only_latest [FAIL]
+  Failed InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.GetTable_shows_maxversions_rule [49 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/gc-getmv" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.CreateTableWithGc(String table, String family, GcRule gcRule) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\GcRuleStressTests.cs:line 48
+   at InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.GetTable_shows_maxversions_rule() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\GcRuleStressTests.cs:line 428
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.GetTable_shows_union_rule [57 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/gc-getunion" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.CreateTableWithGc(String table, String family, GcRule gcRule) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\GcRuleStressTests.cs:line 48
+   at InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.GetTable_shows_union_rule() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\GcRuleStressTests.cs:line 437
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.MaxVersions_under_limit_returns_all [50 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/gc-mvul" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.CreateTableWithGc(String table, String family, GcRule gcRule) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\GcRuleStressTests.cs:line 48
+   at InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.MaxVersions_under_limit_returns_all() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\GcRuleStressTests.cs:line 118
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.MaxAge_mixed_old_and_new [50 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/gc-mamix" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.CreateTableWithGc(String table, String family, GcRule gcRule) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\GcRuleStressTests.cs:line 48
+   at InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.MaxAge_mixed_old_and_new() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\GcRuleStressTests.cs:line 191
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.Remove_gc_rule_retains_all_versions [18 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/gc-remove" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.CreateTableWithGc(String table, String family, GcRule gcRule) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\GcRuleStressTests.cs:line 48
+   at InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.Remove_gc_rule_retains_all_versions() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\GcRuleStressTests.cs:line 392
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.GetTable_shows_intersection_rule [52 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/gc-getisect" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.CreateTableWithGc(String table, String family, GcRule gcRule) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\GcRuleStressTests.cs:line 48
+   at InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.GetTable_shows_intersection_rule() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\GcRuleStressTests.cs:line 457
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.Union_two_maxversions_takes_smaller [17 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/gc-union-mv" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.CreateTableWithGc(String table, String family, GcRule gcRule) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\GcRuleStressTests.cs:line 48
+   at InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.Union_two_maxversions_takes_smaller() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\GcRuleStressTests.cs:line 249
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.MaxVersions_3_keeps_newest_three [51 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/gc-mv3" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.CreateTableWithGc(String table, String family, GcRule gcRule) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\GcRuleStressTests.cs:line 48
+   at InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.MaxVersions_3_keeps_newest_three() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\GcRuleStressTests.cs:line 82
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.MaxVersions_1_keeps_only_latest [50 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/gc-mv1" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.CreateTableWithGc(String table, String family, GcRule gcRule) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\GcRuleStressTests.cs:line 48
+   at InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.MaxVersions_1_keeps_only_latest() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\GcRuleStressTests.cs:line 65
+--- End of stack trace from previous location ---
+[xUnit.net 00:03:41.56]     InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.Update_gc_rule_affects_subsequent_reads [FAIL]
+[xUnit.net 00:03:41.61]     InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.MaxVersions_applies_per_column [FAIL]
+[xUnit.net 00:03:41.66]     InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.MaxAge_old_data_filtered [FAIL]
+[xUnit.net 00:03:41.71]     InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.Intersection_recent_cells_over_version_limit_not_gc [FAIL]
+[xUnit.net 00:03:41.76]     InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.Union_maxversions_or_maxage [FAIL]
+[xUnit.net 00:03:41.82]     InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.Intersection_maxversions_and_maxage [FAIL]
+  Failed InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.Update_gc_rule_affects_subsequent_reads [49 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/gc-update" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.Update_gc_rule_affects_subsequent_reads() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\GcRuleStressTests.cs:line 349
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.MaxVersions_applies_per_column [50 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/gc-mvpc" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.CreateTableWithGc(String table, String family, GcRule gcRule) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\GcRuleStressTests.cs:line 48
+   at InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.MaxVersions_applies_per_column() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\GcRuleStressTests.cs:line 99
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.MaxAge_old_data_filtered [50 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/gc-maold" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.CreateTableWithGc(String table, String family, GcRule gcRule) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\GcRuleStressTests.cs:line 48
+   at InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.MaxAge_old_data_filtered() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\GcRuleStressTests.cs:line 173
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.Intersection_recent_cells_over_version_limit_not_gc [50 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/gc-isect-recent" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.CreateTableWithGc(String table, String family, GcRule gcRule) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\GcRuleStressTests.cs:line 48
+   at InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.Intersection_recent_cells_over_version_limit_not_gc() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\GcRuleStressTests.cs:line 310
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.Union_maxversions_or_maxage [50 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/gc-union" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.CreateTableWithGc(String table, String family, GcRule gcRule) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\GcRuleStressTests.cs:line 48
+   at InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.Union_maxversions_or_maxage() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\GcRuleStressTests.cs:line 217
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.Intersection_maxversions_and_maxage [50 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/gc-isect" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.CreateTableWithGc(String table, String family, GcRule gcRule) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\GcRuleStressTests.cs:line 48
+   at InMemoryEmulator.Bigtable.Tests.GcRuleStressTests.Intersection_maxversions_and_maxage() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\GcRuleStressTests.cs:line 279
+--- End of stack trace from previous location ---
+[xUnit.net 00:03:44.22]     InMemoryEmulator.Bigtable.Tests.DeleteMutationStressTests.DeleteFromColumn_empty_time_range_is_noop [FAIL]
+  Failed InMemoryEmulator.Bigtable.Tests.DeleteMutationStressTests.DeleteFromColumn_empty_time_range_is_noop [60 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="Unknown", Detail="inverted or invalid timestamp range [5000000, 5000000]")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.Gcp.GcpCallInvoker.<>c__DisplayClass24_0`2.<<AsyncUnaryCall>g__PostProcessPropagateResult|3>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.DeleteMutationStressTests.DeleteFromColumn_empty_time_range_is_noop() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\DeleteMutationStressTests.cs:line 268
+--- End of stack trace from previous location ---
+[xUnit.net 00:03:46.46]     InMemoryEmulator.Bigtable.Tests.ChainFilterOrderingTests.Chain_single_filter_behaves_like_no_chain [FAIL]
+  Failed InMemoryEmulator.Bigtable.Tests.ChainFilterOrderingTests.Chain_single_filter_behaves_like_no_chain [65 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="InvalidArgument", Detail="Chain must contain at least two RowFilters")
+  Stack Trace:
+     at Grpc.Net.Client.Internal.HttpContentClientStreamReader`2.MoveNextCore(CancellationToken cancellationToken)
+   at Google.Api.Gax.Grpc.Gcp.GcpClientResponseStream`2.MoveNext(CancellationToken token)
+   at Google.Cloud.Bigtable.V2.RowAsyncEnumerator.MoveNextAsync()
+   at Google.Cloud.Bigtable.V2.BigtableClient.ReadRowAsync(TableName tableName, BigtableByteString rowKey, RowFilter filter, CallSettings callSettings)
+   at Google.Cloud.Bigtable.V2.BigtableClient.ReadRowAsync(TableName tableName, BigtableByteString rowKey, RowFilter filter, CallSettings callSettings)
+   at InMemoryEmulator.Bigtable.Tests.ChainFilterOrderingTests.Chain_single_filter_behaves_like_no_chain() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ChainFilterOrderingTests.cs:line 184
+--- End of stack trace from previous location ---
+[xUnit.net 00:03:50.47]     InMemoryEmulator.Bigtable.Tests.AdminValidationTests.Valid_family_names_accepted(familyName: "a_b_c") [FAIL]
+[xUnit.net 00:03:50.53]     InMemoryEmulator.Bigtable.Tests.AdminValidationTests.Valid_family_names_accepted(familyName: "a-b-c") [FAIL]
+[xUnit.net 00:03:50.59]     InMemoryEmulator.Bigtable.Tests.AdminValidationTests.Valid_family_names_accepted(familyName: "_private") [FAIL]
+[xUnit.net 00:03:50.64]     InMemoryEmulator.Bigtable.Tests.AdminValidationTests.Valid_family_names_accepted(familyName: "CF1") [FAIL]
+[xUnit.net 00:03:50.70]     InMemoryEmulator.Bigtable.Tests.AdminValidationTests.Valid_family_names_accepted(familyName: "a.b.c") [FAIL]
+[xUnit.net 00:03:50.80]     InMemoryEmulator.Bigtable.Tests.AdminValidationTests.Valid_family_names_accepted(familyName: "Abc123") [FAIL]
+[xUnit.net 00:03:50.90]     InMemoryEmulator.Bigtable.Tests.AdminValidationTests.Valid_family_names_accepted(familyName: "cf") [FAIL]
+  Failed InMemoryEmulator.Bigtable.Tests.AdminValidationTests.Valid_family_names_accepted(familyName: "a_b_c") [61 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/admin-vfn-aubuc" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.AdminValidationTests.Valid_family_names_accepted(String familyName) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AdminValidationTests.cs:line 49
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.AdminValidationTests.Valid_family_names_accepted(familyName: "a-b-c") [57 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/admin-vfn-a-b-c" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.AdminValidationTests.Valid_family_names_accepted(String familyName) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AdminValidationTests.cs:line 49
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.AdminValidationTests.Valid_family_names_accepted(familyName: "_private") [57 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/admin-vfn-uprivate" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.AdminValidationTests.Valid_family_names_accepted(String familyName) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AdminValidationTests.cs:line 49
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.AdminValidationTests.Valid_family_names_accepted(familyName: "CF1") [54 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/admin-vfn-CF1" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.AdminValidationTests.Valid_family_names_accepted(String familyName) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AdminValidationTests.cs:line 49
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.AdminValidationTests.Valid_family_names_accepted(familyName: "a.b.c") [54 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/admin-vfn-adbdc" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.AdminValidationTests.Valid_family_names_accepted(String familyName) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AdminValidationTests.cs:line 49
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.AdminValidationTests.Valid_family_names_accepted(familyName: "Abc123") [95 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/admin-vfn-Abc123" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.AdminValidationTests.Valid_family_names_accepted(String familyName) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AdminValidationTests.cs:line 49
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.AdminValidationTests.Valid_family_names_accepted(familyName: "cf") [106 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/admin-vfn-cf" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.AdminValidationTests.Valid_family_names_accepted(String familyName) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AdminValidationTests.cs:line 49
+--- End of stack trace from previous location ---
+[xUnit.net 00:03:51.10]     InMemoryEmulator.Bigtable.Tests.AdminValidationTests.Create_table_with_many_families [FAIL]
+[xUnit.net 00:03:51.18]     InMemoryEmulator.Bigtable.Tests.AdminValidationTests.Create_duplicate_table_throws_AlreadyExists [FAIL]
+[xUnit.net 00:03:51.34]     InMemoryEmulator.Bigtable.Tests.AdminValidationTests.Invalid_family_names_rejected(familyName: "-starts-with-hyphen") [FAIL]
+[xUnit.net 00:03:51.42]     InMemoryEmulator.Bigtable.Tests.AdminValidationTests.Invalid_family_names_rejected(familyName: ".starts-with-dot") [FAIL]
+[xUnit.net 00:03:51.45]     InMemoryEmulator.Bigtable.Tests.AdminValidationTests.Invalid_family_names_rejected(familyName: "") [FAIL]
+  Failed InMemoryEmulator.Bigtable.Tests.AdminValidationTests.Create_table_with_many_families [57 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/admin-many-fam" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.AdminValidationTests.Create_table_with_many_families() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AdminValidationTests.cs:line 161
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.AdminValidationTests.Create_duplicate_table_throws_AlreadyExists [82 ms]
+  Error Message:
+   Expected a <Grpc.Core.RpcException> to be thrown, but no exception was thrown.
+  Stack Trace:
+     at AwesomeAssertions.Execution.LateBoundTestFramework.Throw(String message)
+   at AwesomeAssertions.Specialized.DelegateAssertionsBase`2.<>c__DisplayClass8_0`1.<ThrowInternal>b__0(AssertionChain chain)
+   at AwesomeAssertions.Execution.AssertionChain.WithExpectation(String message, Action`1 chain, Object[] args)
+   at AwesomeAssertions.Specialized.DelegateAssertionsBase`2.ThrowInternal[TException](Exception exception, String because, Object[] becauseArgs)
+   at AwesomeAssertions.Specialized.AsyncFunctionAssertions`2.ThrowAsync[TException](String because, Object[] becauseArgs)
+   at InMemoryEmulator.Bigtable.Tests.AdminValidationTests.Create_duplicate_table_throws_AlreadyExists() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AdminValidationTests.cs:line 82
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.AdminValidationTests.Invalid_family_names_rejected(familyName: "-starts-with-hyphen") [54 ms]
+  Error Message:
+   Expected a <Grpc.Core.RpcException> to be thrown, but no exception was thrown.
+  Stack Trace:
+     at AwesomeAssertions.Execution.LateBoundTestFramework.Throw(String message)
+   at AwesomeAssertions.Specialized.DelegateAssertionsBase`2.<>c__DisplayClass8_0`1.<ThrowInternal>b__0(AssertionChain chain)
+   at AwesomeAssertions.Execution.AssertionChain.WithExpectation(String message, Action`1 chain, Object[] args)
+   at AwesomeAssertions.Specialized.DelegateAssertionsBase`2.ThrowInternal[TException](Exception exception, String because, Object[] becauseArgs)
+   at AwesomeAssertions.Specialized.AsyncFunctionAssertions`2.ThrowAsync[TException](String because, Object[] becauseArgs)
+   at InMemoryEmulator.Bigtable.Tests.AdminValidationTests.Invalid_family_names_rejected(String familyName) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AdminValidationTests.cs:line 70
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.AdminValidationTests.Invalid_family_names_rejected(familyName: ".starts-with-dot") [70 ms]
+  Error Message:
+   Expected a <Grpc.Core.RpcException> to be thrown, but no exception was thrown.
+  Stack Trace:
+     at AwesomeAssertions.Execution.LateBoundTestFramework.Throw(String message)
+   at AwesomeAssertions.Specialized.DelegateAssertionsBase`2.<>c__DisplayClass8_0`1.<ThrowInternal>b__0(AssertionChain chain)
+   at AwesomeAssertions.Execution.AssertionChain.WithExpectation(String message, Action`1 chain, Object[] args)
+   at AwesomeAssertions.Specialized.DelegateAssertionsBase`2.ThrowInternal[TException](Exception exception, String because, Object[] becauseArgs)
+   at AwesomeAssertions.Specialized.AsyncFunctionAssertions`2.ThrowAsync[TException](String because, Object[] becauseArgs)
+   at InMemoryEmulator.Bigtable.Tests.AdminValidationTests.Invalid_family_names_rejected(String familyName) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AdminValidationTests.cs:line 70
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.AdminValidationTests.Invalid_family_names_rejected(familyName: "") [23 ms]
+  Error Message:
+   Expected a <Grpc.Core.RpcException> to be thrown, but no exception was thrown.
+  Stack Trace:
+     at AwesomeAssertions.Execution.LateBoundTestFramework.Throw(String message)
+   at AwesomeAssertions.Specialized.DelegateAssertionsBase`2.<>c__DisplayClass8_0`1.<ThrowInternal>b__0(AssertionChain chain)
+   at AwesomeAssertions.Execution.AssertionChain.WithExpectation(String message, Action`1 chain, Object[] args)
+   at AwesomeAssertions.Specialized.DelegateAssertionsBase`2.ThrowInternal[TException](Exception exception, String because, Object[] becauseArgs)
+   at AwesomeAssertions.Specialized.AsyncFunctionAssertions`2.ThrowAsync[TException](String because, Object[] becauseArgs)
+   at InMemoryEmulator.Bigtable.Tests.AdminValidationTests.Invalid_family_names_rejected(String familyName) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AdminValidationTests.cs:line 70
+--- End of stack trace from previous location ---
+[xUnit.net 00:04:13.13]     InMemoryEmulator.Bigtable.Tests.RowKeyRegexFilterTests.RowKeyRegex_empty_pattern_matches_empty_key_only [FAIL]
+  Failed InMemoryEmulator.Bigtable.Tests.RowKeyRegexFilterTests.RowKeyRegex_empty_pattern_matches_empty_key_only [1 s]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="InvalidArgument", Detail="Error in field 'row_key_regex_filter' : argument must not be empty")
+  Stack Trace:
+     at Grpc.Net.Client.Internal.HttpContentClientStreamReader`2.MoveNextCore(CancellationToken cancellationToken)
+   at Google.Api.Gax.Grpc.Gcp.GcpClientResponseStream`2.MoveNext(CancellationToken token)
+   at Google.Cloud.Bigtable.V2.RowAsyncEnumerator.MoveNextAsync()
+   at InMemoryEmulator.Bigtable.Tests.RowKeyRegexFilterTests.ReadAll(RowSet rows, RowFilter filter) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\RowKeyRegexFilterTests.cs:line 49
+   at InMemoryEmulator.Bigtable.Tests.RowKeyRegexFilterTests.ReadAll(RowSet rows, RowFilter filter) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\RowKeyRegexFilterTests.cs:line 49
+   at InMemoryEmulator.Bigtable.Tests.RowKeyRegexFilterTests.RowKeyRegex_empty_pattern_matches_empty_key_only() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\RowKeyRegexFilterTests.cs:line 252
+--- End of stack trace from previous location ---
+[xUnit.net 00:05:30.06]     InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.Reversed_multiple_ranges [FAIL]
+[xUnit.net 00:05:30.18]     InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.Reversed_empty_range [FAIL]
+[xUnit.net 00:05:30.28]     InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.Reversed_closed_closed_range [FAIL]
+[xUnit.net 00:05:30.43]     InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.Reversed_keys_and_ranges [FAIL]
+[xUnit.net 00:05:30.55]     InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.Reversed_open_end_range [FAIL]
+[xUnit.net 00:05:30.70]     InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.Reversed_with_row_key_regex [FAIL]
+[xUnit.net 00:05:30.82]     InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.Reversed_block_all_empty [FAIL]
+[xUnit.net 00:05:31.18]     InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.Reversed_limit_exceeds_total [FAIL]
+  Failed InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.Reversed_multiple_ranges [165 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="Unimplemented", Detail="Client doesn't support reverse scans yet")
+  Stack Trace:
+     at Grpc.Net.Client.Internal.HttpContentClientStreamReader`2.MoveNextCore(CancellationToken cancellationToken)
+   at Google.Api.Gax.Grpc.Gcp.GcpClientResponseStream`2.MoveNext(CancellationToken token)
+   at Google.Api.Gax.Grpc.AsyncResponseStream`1.MoveNextAsync(CancellationToken cancellationToken)
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.ReadKeys(ReadRowsRequest request) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedAdvancedTests.cs:line 47
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.ReadKeys(ReadRowsRequest request) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedAdvancedTests.cs:line 47
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.Reversed_multiple_ranges() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedAdvancedTests.cs:line 126
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.Reversed_empty_range [114 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="Unimplemented", Detail="Client doesn't support reverse scans yet")
+  Stack Trace:
+     at Grpc.Net.Client.Internal.HttpContentClientStreamReader`2.MoveNextCore(CancellationToken cancellationToken)
+   at Google.Api.Gax.Grpc.Gcp.GcpClientResponseStream`2.MoveNext(CancellationToken token)
+   at Google.Api.Gax.Grpc.AsyncResponseStream`1.MoveNextAsync(CancellationToken cancellationToken)
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.ReadKeys(ReadRowsRequest request) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedAdvancedTests.cs:line 47
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.ReadKeys(ReadRowsRequest request) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedAdvancedTests.cs:line 47
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.Reversed_empty_range() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedAdvancedTests.cs:line 142
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.Reversed_closed_closed_range [95 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="Unimplemented", Detail="Client doesn't support reverse scans yet")
+  Stack Trace:
+     at Grpc.Net.Client.Internal.HttpContentClientStreamReader`2.MoveNextCore(CancellationToken cancellationToken)
+   at Google.Api.Gax.Grpc.Gcp.GcpClientResponseStream`2.MoveNext(CancellationToken token)
+   at Google.Api.Gax.Grpc.AsyncResponseStream`1.MoveNextAsync(CancellationToken cancellationToken)
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.ReadKeys(ReadRowsRequest request) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedAdvancedTests.cs:line 47
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.ReadKeys(ReadRowsRequest request) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedAdvancedTests.cs:line 47
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.Reversed_closed_closed_range() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedAdvancedTests.cs:line 92
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.Reversed_keys_and_ranges [119 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="Unimplemented", Detail="Client doesn't support reverse scans yet")
+  Stack Trace:
+     at Grpc.Net.Client.Internal.HttpContentClientStreamReader`2.MoveNextCore(CancellationToken cancellationToken)
+   at Google.Api.Gax.Grpc.Gcp.GcpClientResponseStream`2.MoveNext(CancellationToken token)
+   at Google.Api.Gax.Grpc.AsyncResponseStream`1.MoveNextAsync(CancellationToken cancellationToken)
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.ReadKeys(ReadRowsRequest request) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedAdvancedTests.cs:line 47
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.ReadKeys(ReadRowsRequest request) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedAdvancedTests.cs:line 47
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.Reversed_keys_and_ranges() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedAdvancedTests.cs:line 193
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.Reversed_open_end_range [101 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="Unimplemented", Detail="Client doesn't support reverse scans yet")
+  Stack Trace:
+     at Grpc.Net.Client.Internal.HttpContentClientStreamReader`2.MoveNextCore(CancellationToken cancellationToken)
+   at Google.Api.Gax.Grpc.Gcp.GcpClientResponseStream`2.MoveNext(CancellationToken token)
+   at Google.Api.Gax.Grpc.AsyncResponseStream`1.MoveNextAsync(CancellationToken cancellationToken)
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.ReadKeys(ReadRowsRequest request) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedAdvancedTests.cs:line 47
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.ReadKeys(ReadRowsRequest request) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedAdvancedTests.cs:line 47
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.Reversed_open_end_range() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedAdvancedTests.cs:line 79
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.Reversed_with_row_key_regex [132 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="Unimplemented", Detail="Client doesn't support reverse scans yet")
+  Stack Trace:
+     at Grpc.Net.Client.Internal.HttpContentClientStreamReader`2.MoveNextCore(CancellationToken cancellationToken)
+   at Google.Api.Gax.Grpc.Gcp.GcpClientResponseStream`2.MoveNext(CancellationToken token)
+   at Google.Api.Gax.Grpc.AsyncResponseStream`1.MoveNextAsync(CancellationToken cancellationToken)
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.ReadKeys(ReadRowsRequest request) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedAdvancedTests.cs:line 47
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.ReadKeys(ReadRowsRequest request) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedAdvancedTests.cs:line 47
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.Reversed_with_row_key_regex() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedAdvancedTests.cs:line 287
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.Reversed_block_all_empty [107 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="Unimplemented", Detail="Client doesn't support reverse scans yet")
+  Stack Trace:
+     at Grpc.Net.Client.Internal.HttpContentClientStreamReader`2.MoveNextCore(CancellationToken cancellationToken)
+   at Google.Api.Gax.Grpc.Gcp.GcpClientResponseStream`2.MoveNext(CancellationToken token)
+   at Google.Api.Gax.Grpc.AsyncResponseStream`1.MoveNextAsync(CancellationToken cancellationToken)
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.ReadKeys(ReadRowsRequest request) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedAdvancedTests.cs:line 47
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.ReadKeys(ReadRowsRequest request) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedAdvancedTests.cs:line 47
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.Reversed_block_all_empty() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedAdvancedTests.cs:line 300
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.Reversed_limit_exceeds_total [357 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="Unimplemented", Detail="Client doesn't support reverse scans yet")
+  Stack Trace:
+     at Grpc.Net.Client.Internal.HttpContentClientStreamReader`2.MoveNextCore(CancellationToken cancellationToken)
+   at Google.Api.Gax.Grpc.Gcp.GcpClientResponseStream`2.MoveNext(CancellationToken token)
+   at Google.Api.Gax.Grpc.AsyncResponseStream`1.MoveNextAsync(CancellationToken cancellationToken)
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.ReadKeys(ReadRowsRequest request) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedAdvancedTests.cs:line 47
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.ReadKeys(ReadRowsRequest request) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedAdvancedTests.cs:line 47
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.Reversed_limit_exceeds_total() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedAdvancedTests.cs:line 273
+--- End of stack trace from previous location ---
+[xUnit.net 00:05:31.62]     InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.Reversed_single_key [FAIL]
+[xUnit.net 00:05:31.80]     InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.Reversed_nonexistent_key_skipped [FAIL]
+[xUnit.net 00:05:31.96]     InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.Reversed_filter_range_and_limit [FAIL]
+[xUnit.net 00:05:32.13]     InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.Reversed_specific_keys_desc [FAIL]
+[xUnit.net 00:05:32.45]     InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.Reversed_start_open_end_closed [FAIL]
+  Failed InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.Reversed_single_key [436 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="Unimplemented", Detail="Client doesn't support reverse scans yet")
+  Stack Trace:
+     at Grpc.Net.Client.Internal.HttpContentClientStreamReader`2.MoveNextCore(CancellationToken cancellationToken)
+   at Google.Api.Gax.Grpc.Gcp.GcpClientResponseStream`2.MoveNext(CancellationToken token)
+   at Google.Api.Gax.Grpc.AsyncResponseStream`1.MoveNextAsync(CancellationToken cancellationToken)
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.ReadKeys(ReadRowsRequest request) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedAdvancedTests.cs:line 47
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.ReadKeys(ReadRowsRequest request) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedAdvancedTests.cs:line 47
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.Reversed_single_key() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedAdvancedTests.cs:line 220
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.Reversed_nonexistent_key_skipped [170 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="Unimplemented", Detail="Client doesn't support reverse scans yet")
+  Stack Trace:
+     at Grpc.Net.Client.Internal.HttpContentClientStreamReader`2.MoveNextCore(CancellationToken cancellationToken)
+   at Google.Api.Gax.Grpc.Gcp.GcpClientResponseStream`2.MoveNext(CancellationToken token)
+   at Google.Api.Gax.Grpc.AsyncResponseStream`1.MoveNextAsync(CancellationToken cancellationToken)
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.ReadKeys(ReadRowsRequest request) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedAdvancedTests.cs:line 47
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.ReadKeys(ReadRowsRequest request) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedAdvancedTests.cs:line 47
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.Reversed_nonexistent_key_skipped() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedAdvancedTests.cs:line 209
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.Reversed_filter_range_and_limit [153 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="Unimplemented", Detail="Client doesn't support reverse scans yet")
+  Stack Trace:
+     at Grpc.Net.Client.Internal.HttpContentClientStreamReader`2.MoveNextCore(CancellationToken cancellationToken)
+   at Google.Api.Gax.Grpc.Gcp.GcpClientResponseStream`2.MoveNext(CancellationToken token)
+   at Google.Api.Gax.Grpc.AsyncResponseStream`1.MoveNextAsync(CancellationToken cancellationToken)
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.ReadKeys(ReadRowsRequest request) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedAdvancedTests.cs:line 47
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.ReadKeys(ReadRowsRequest request) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedAdvancedTests.cs:line 47
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.Reversed_filter_range_and_limit() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedAdvancedTests.cs:line 335
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.Reversed_specific_keys_desc [157 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="Unimplemented", Detail="Client doesn't support reverse scans yet")
+  Stack Trace:
+     at Grpc.Net.Client.Internal.HttpContentClientStreamReader`2.MoveNextCore(CancellationToken cancellationToken)
+   at Google.Api.Gax.Grpc.Gcp.GcpClientResponseStream`2.MoveNext(CancellationToken token)
+   at Google.Api.Gax.Grpc.AsyncResponseStream`1.MoveNextAsync(CancellationToken cancellationToken)
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.ReadKeys(ReadRowsRequest request) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedAdvancedTests.cs:line 47
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.ReadKeys(ReadRowsRequest request) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedAdvancedTests.cs:line 47
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.Reversed_specific_keys_desc() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedAdvancedTests.cs:line 178
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.Reversed_start_open_end_closed [317 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="Unimplemented", Detail="Client doesn't support reverse scans yet")
+  Stack Trace:
+     at Grpc.Net.Client.Internal.HttpContentClientStreamReader`2.MoveNextCore(CancellationToken cancellationToken)
+   at Google.Api.Gax.Grpc.Gcp.GcpClientResponseStream`2.MoveNext(CancellationToken token)
+   at Google.Api.Gax.Grpc.AsyncResponseStream`1.MoveNextAsync(CancellationToken cancellationToken)
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.ReadKeys(ReadRowsRequest request) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedAdvancedTests.cs:line 47
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.ReadKeys(ReadRowsRequest request) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedAdvancedTests.cs:line 47
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.Reversed_start_open_end_closed() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedAdvancedTests.cs:line 157
+--- End of stack trace from previous location ---
+[xUnit.net 00:05:33.14]     InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.Reversed_open_start_range [FAIL]
+[xUnit.net 00:05:33.34]     InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.Reversed_open_open_range [FAIL]
+[xUnit.net 00:05:33.58]     InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.Reversed_limit_1 [FAIL]
+[xUnit.net 00:05:34.11]     InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.Reversed_filter_and_limit [FAIL]
+  Failed InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.Reversed_open_start_range [673 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="Unimplemented", Detail="Client doesn't support reverse scans yet")
+  Stack Trace:
+     at Grpc.Net.Client.Internal.HttpContentClientStreamReader`2.MoveNextCore(CancellationToken cancellationToken)
+   at Google.Api.Gax.Grpc.Gcp.GcpClientResponseStream`2.MoveNext(CancellationToken token)
+   at Google.Api.Gax.Grpc.AsyncResponseStream`1.MoveNextAsync(CancellationToken cancellationToken)
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.ReadKeys(ReadRowsRequest request) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedAdvancedTests.cs:line 47
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.ReadKeys(ReadRowsRequest request) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedAdvancedTests.cs:line 47
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.Reversed_open_start_range() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedAdvancedTests.cs:line 66
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.Reversed_open_open_range [192 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="Unimplemented", Detail="Client doesn't support reverse scans yet")
+  Stack Trace:
+     at Grpc.Net.Client.Internal.HttpContentClientStreamReader`2.MoveNextCore(CancellationToken cancellationToken)
+   at Google.Api.Gax.Grpc.Gcp.GcpClientResponseStream`2.MoveNext(CancellationToken token)
+   at Google.Api.Gax.Grpc.AsyncResponseStream`1.MoveNextAsync(CancellationToken cancellationToken)
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.ReadKeys(ReadRowsRequest request) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedAdvancedTests.cs:line 47
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.ReadKeys(ReadRowsRequest request) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedAdvancedTests.cs:line 47
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.Reversed_open_open_range() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedAdvancedTests.cs:line 109
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.Reversed_limit_1 [223 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="Unimplemented", Detail="Client doesn't support reverse scans yet")
+  Stack Trace:
+     at Grpc.Net.Client.Internal.HttpContentClientStreamReader`2.MoveNextCore(CancellationToken cancellationToken)
+   at Google.Api.Gax.Grpc.Gcp.GcpClientResponseStream`2.MoveNext(CancellationToken token)
+   at Google.Api.Gax.Grpc.AsyncResponseStream`1.MoveNextAsync(CancellationToken cancellationToken)
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.ReadKeys(ReadRowsRequest request) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedAdvancedTests.cs:line 47
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.ReadKeys(ReadRowsRequest request) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedAdvancedTests.cs:line 47
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.Reversed_limit_1() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedAdvancedTests.cs:line 247
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.Reversed_filter_and_limit [519 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="Unimplemented", Detail="Client doesn't support reverse scans yet")
+  Stack Trace:
+     at Grpc.Net.Client.Internal.HttpContentClientStreamReader`2.MoveNextCore(CancellationToken cancellationToken)
+   at Google.Api.Gax.Grpc.Gcp.GcpClientResponseStream`2.MoveNext(CancellationToken token)
+   at Google.Api.Gax.Grpc.AsyncResponseStream`1.MoveNextAsync(CancellationToken cancellationToken)
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.ReadKeys(ReadRowsRequest request) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedAdvancedTests.cs:line 47
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.ReadKeys(ReadRowsRequest request) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedAdvancedTests.cs:line 47
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.Reversed_filter_and_limit() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedAdvancedTests.cs:line 323
+--- End of stack trace from previous location ---
+[xUnit.net 00:05:34.56]     InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.Reversed_limit_with_range [FAIL]
+[xUnit.net 00:05:35.00]     InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.Reversed_limit_5 [FAIL]
+[xUnit.net 00:05:35.19]     InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.Reversed_pass_all_returns_all [FAIL]
+  Failed InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.Reversed_limit_with_range [397 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="Unimplemented", Detail="Client doesn't support reverse scans yet")
+  Stack Trace:
+     at Grpc.Net.Client.Internal.HttpContentClientStreamReader`2.MoveNextCore(CancellationToken cancellationToken)
+   at Google.Api.Gax.Grpc.Gcp.GcpClientResponseStream`2.MoveNext(CancellationToken token)
+   at Google.Api.Gax.Grpc.AsyncResponseStream`1.MoveNextAsync(CancellationToken cancellationToken)
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.ReadKeys(ReadRowsRequest request) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedAdvancedTests.cs:line 47
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.ReadKeys(ReadRowsRequest request) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedAdvancedTests.cs:line 47
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.Reversed_limit_with_range() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedAdvancedTests.cs:line 257
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.Reversed_limit_5 [424 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="Unimplemented", Detail="Client doesn't support reverse scans yet")
+  Stack Trace:
+     at Grpc.Net.Client.Internal.HttpContentClientStreamReader`2.MoveNextCore(CancellationToken cancellationToken)
+   at Google.Api.Gax.Grpc.Gcp.GcpClientResponseStream`2.MoveNext(CancellationToken token)
+   at Google.Api.Gax.Grpc.AsyncResponseStream`1.MoveNextAsync(CancellationToken cancellationToken)
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.ReadKeys(ReadRowsRequest request) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedAdvancedTests.cs:line 47
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.ReadKeys(ReadRowsRequest request) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedAdvancedTests.cs:line 47
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.Reversed_limit_5() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedAdvancedTests.cs:line 235
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.Reversed_pass_all_returns_all [181 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="Unimplemented", Detail="Client doesn't support reverse scans yet")
+  Stack Trace:
+     at Grpc.Net.Client.Internal.HttpContentClientStreamReader`2.MoveNextCore(CancellationToken cancellationToken)
+   at Google.Api.Gax.Grpc.Gcp.GcpClientResponseStream`2.MoveNext(CancellationToken token)
+   at Google.Api.Gax.Grpc.AsyncResponseStream`1.MoveNextAsync(CancellationToken cancellationToken)
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.ReadKeys(ReadRowsRequest request) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedAdvancedTests.cs:line 47
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.ReadKeys(ReadRowsRequest request) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedAdvancedTests.cs:line 47
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedAdvancedTests.Reversed_pass_all_returns_all() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedAdvancedTests.cs:line 311
+--- End of stack trace from previous location ---
+[xUnit.net 00:05:37.11]     InMemoryEmulator.Bigtable.Tests.AggregateFamilyTests.Max_larger_value_replaces [FAIL]
+[xUnit.net 00:05:37.22]     InMemoryEmulator.Bigtable.Tests.AggregateFamilyTests.Sum_add_zero [FAIL]
+[xUnit.net 00:05:37.29]     InMemoryEmulator.Bigtable.Tests.AggregateFamilyTests.Delete_and_re_aggregate [FAIL]
+[xUnit.net 00:05:37.41]     InMemoryEmulator.Bigtable.Tests.AggregateFamilyTests.Sum_negative_values [FAIL]
+[xUnit.net 00:05:37.51]     InMemoryEmulator.Bigtable.Tests.AggregateFamilyTests.Sum_multiple_adds [FAIL]
+  Failed InMemoryEmulator.Bigtable.Tests.AggregateFamilyTests.Max_larger_value_replaces [103 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/agg-test" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.AggregateFamilyTests.InitializeAsync() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AggregateFamilyTests.cs:line 111
+  Failed InMemoryEmulator.Bigtable.Tests.AggregateFamilyTests.Sum_add_zero [94 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/agg-test" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.AggregateFamilyTests.InitializeAsync() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AggregateFamilyTests.cs:line 111
+  Failed InMemoryEmulator.Bigtable.Tests.AggregateFamilyTests.Delete_and_re_aggregate [72 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/agg-test" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.AggregateFamilyTests.InitializeAsync() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AggregateFamilyTests.cs:line 111
+  Failed InMemoryEmulator.Bigtable.Tests.AggregateFamilyTests.Sum_negative_values [105 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/agg-test" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.AggregateFamilyTests.InitializeAsync() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AggregateFamilyTests.cs:line 111
+  Failed InMemoryEmulator.Bigtable.Tests.AggregateFamilyTests.Sum_multiple_adds [87 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/agg-test" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.AggregateFamilyTests.InitializeAsync() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AggregateFamilyTests.cs:line 111
+[xUnit.net 00:05:37.61]     InMemoryEmulator.Bigtable.Tests.AggregateFamilyTests.Sum_from_zero [FAIL]
+[xUnit.net 00:05:37.74]     InMemoryEmulator.Bigtable.Tests.AggregateFamilyTests.Read_aggregate_with_filter [FAIL]
+[xUnit.net 00:05:37.83]     InMemoryEmulator.Bigtable.Tests.AggregateFamilyTests.Min_smaller_value_replaces [FAIL]
+[xUnit.net 00:05:37.88]     InMemoryEmulator.Bigtable.Tests.AggregateFamilyTests.Sum_multiple_columns [FAIL]
+[xUnit.net 00:05:37.93]     InMemoryEmulator.Bigtable.Tests.AggregateFamilyTests.SetCell_on_aggregate_family_throws [FAIL]
+[xUnit.net 00:05:37.98]     InMemoryEmulator.Bigtable.Tests.AggregateFamilyTests.Mixed_aggregate_and_regular_in_same_row [FAIL]
+[xUnit.net 00:05:38.04]     InMemoryEmulator.Bigtable.Tests.AggregateFamilyTests.Max_negative_values [FAIL]
+[xUnit.net 00:05:38.12]     InMemoryEmulator.Bigtable.Tests.AggregateFamilyTests.DeleteFromRow_removes_aggregate_cells [FAIL]
+[xUnit.net 00:05:38.20]     InMemoryEmulator.Bigtable.Tests.AggregateFamilyTests.Min_equal_values [FAIL]
+  Failed InMemoryEmulator.Bigtable.Tests.AggregateFamilyTests.Sum_from_zero [88 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/agg-test" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.AggregateFamilyTests.InitializeAsync() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AggregateFamilyTests.cs:line 111
+  Failed InMemoryEmulator.Bigtable.Tests.AggregateFamilyTests.Read_aggregate_with_filter [128 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/agg-test" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.AggregateFamilyTests.InitializeAsync() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AggregateFamilyTests.cs:line 111
+  Failed InMemoryEmulator.Bigtable.Tests.AggregateFamilyTests.Min_smaller_value_replaces [79 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/agg-test" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.AggregateFamilyTests.InitializeAsync() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AggregateFamilyTests.cs:line 111
+  Failed InMemoryEmulator.Bigtable.Tests.AggregateFamilyTests.Sum_multiple_columns [50 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/agg-test" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.AggregateFamilyTests.InitializeAsync() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AggregateFamilyTests.cs:line 111
+  Failed InMemoryEmulator.Bigtable.Tests.AggregateFamilyTests.SetCell_on_aggregate_family_throws [39 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/agg-test" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.AggregateFamilyTests.InitializeAsync() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AggregateFamilyTests.cs:line 111
+  Failed InMemoryEmulator.Bigtable.Tests.AggregateFamilyTests.Mixed_aggregate_and_regular_in_same_row [50 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/agg-test" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.AggregateFamilyTests.InitializeAsync() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AggregateFamilyTests.cs:line 111
+  Failed InMemoryEmulator.Bigtable.Tests.AggregateFamilyTests.Max_negative_values [59 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/agg-test" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.AggregateFamilyTests.InitializeAsync() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AggregateFamilyTests.cs:line 111
+  Failed InMemoryEmulator.Bigtable.Tests.AggregateFamilyTests.DeleteFromRow_removes_aggregate_cells [67 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/agg-test" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.AggregateFamilyTests.InitializeAsync() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AggregateFamilyTests.cs:line 111
+  Failed InMemoryEmulator.Bigtable.Tests.AggregateFamilyTests.Min_equal_values [75 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/agg-test" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.AggregateFamilyTests.InitializeAsync() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AggregateFamilyTests.cs:line 111
+[xUnit.net 00:05:38.28]     InMemoryEmulator.Bigtable.Tests.AggregateFamilyTests.Min_larger_value_does_not_replace [FAIL]
+[xUnit.net 00:05:38.38]     InMemoryEmulator.Bigtable.Tests.AggregateFamilyTests.Min_single_value [FAIL]
+[xUnit.net 00:05:38.49]     InMemoryEmulator.Bigtable.Tests.AggregateFamilyTests.DeleteFromFamily_on_aggregate_family [FAIL]
+[xUnit.net 00:05:38.57]     InMemoryEmulator.Bigtable.Tests.AggregateFamilyTests.Batch_add_to_cell [FAIL]
+[xUnit.net 00:05:38.65]     InMemoryEmulator.Bigtable.Tests.AggregateFamilyTests.Sum_single_add [FAIL]
+[xUnit.net 00:05:38.76]     InMemoryEmulator.Bigtable.Tests.AggregateFamilyTests.Max_single_value [FAIL]
+[xUnit.net 00:05:38.85]     InMemoryEmulator.Bigtable.Tests.AggregateFamilyTests.Min_negative_values [FAIL]
+[xUnit.net 00:05:38.93]     InMemoryEmulator.Bigtable.Tests.AggregateFamilyTests.Max_smaller_value_does_not_replace [FAIL]
+  Failed InMemoryEmulator.Bigtable.Tests.AggregateFamilyTests.Min_larger_value_does_not_replace [76 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/agg-test" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.AggregateFamilyTests.InitializeAsync() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AggregateFamilyTests.cs:line 111
+  Failed InMemoryEmulator.Bigtable.Tests.AggregateFamilyTests.Min_single_value [91 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/agg-test" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.AggregateFamilyTests.InitializeAsync() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AggregateFamilyTests.cs:line 111
+  Failed InMemoryEmulator.Bigtable.Tests.AggregateFamilyTests.DeleteFromFamily_on_aggregate_family [104 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/agg-test" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.AggregateFamilyTests.InitializeAsync() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AggregateFamilyTests.cs:line 111
+  Failed InMemoryEmulator.Bigtable.Tests.AggregateFamilyTests.Batch_add_to_cell [76 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/agg-test" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.AggregateFamilyTests.InitializeAsync() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AggregateFamilyTests.cs:line 111
+  Failed InMemoryEmulator.Bigtable.Tests.AggregateFamilyTests.Sum_single_add [66 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/agg-test" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.AggregateFamilyTests.InitializeAsync() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AggregateFamilyTests.cs:line 111
+  Failed InMemoryEmulator.Bigtable.Tests.AggregateFamilyTests.Max_single_value [108 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/agg-test" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.AggregateFamilyTests.InitializeAsync() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AggregateFamilyTests.cs:line 111
+  Failed InMemoryEmulator.Bigtable.Tests.AggregateFamilyTests.Min_negative_values [59 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/agg-test" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.AggregateFamilyTests.InitializeAsync() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AggregateFamilyTests.cs:line 111
+  Failed InMemoryEmulator.Bigtable.Tests.AggregateFamilyTests.Max_smaller_value_does_not_replace [72 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/agg-test" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.AggregateFamilyTests.InitializeAsync() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AggregateFamilyTests.cs:line 111
+[xUnit.net 00:05:44.60]     InMemoryEmulator.Bigtable.Tests.InterleaveFilterAdvancedTests.Interleave_single_branch_acts_as_filter [FAIL]
+  Failed InMemoryEmulator.Bigtable.Tests.InterleaveFilterAdvancedTests.Interleave_single_branch_acts_as_filter [162 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="InvalidArgument", Detail="Interleave must contain at least two RowFilters")
+  Stack Trace:
+     at Grpc.Net.Client.Internal.HttpContentClientStreamReader`2.MoveNextCore(CancellationToken cancellationToken)
+   at Google.Api.Gax.Grpc.Gcp.GcpClientResponseStream`2.MoveNext(CancellationToken token)
+   at Google.Cloud.Bigtable.V2.RowAsyncEnumerator.MoveNextAsync()
+   at InMemoryEmulator.Bigtable.Tests.InterleaveFilterAdvancedTests.ReadCells(String rowKey, RowFilter filter) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\InterleaveFilterAdvancedTests.cs:line 46
+   at InMemoryEmulator.Bigtable.Tests.InterleaveFilterAdvancedTests.ReadCells(String rowKey, RowFilter filter) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\InterleaveFilterAdvancedTests.cs:line 46
+   at InMemoryEmulator.Bigtable.Tests.InterleaveFilterAdvancedTests.Interleave_single_branch_acts_as_filter() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\InterleaveFilterAdvancedTests.cs:line 208
+--- End of stack trace from previous location ---
+[xUnit.net 00:05:47.00]     InMemoryEmulator.Bigtable.Tests.RowSetCompositionVariationTests.Range_no_match [FAIL]
+  Failed InMemoryEmulator.Bigtable.Tests.RowSetCompositionVariationTests.Range_no_match [123 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="InvalidArgument", Detail="Error in element #0: start_key_closed must be less than end_key_closed")
+  Stack Trace:
+     at Grpc.Net.Client.Internal.HttpContentClientStreamReader`2.MoveNextCore(CancellationToken cancellationToken)
+   at Google.Api.Gax.Grpc.Gcp.GcpClientResponseStream`2.MoveNext(CancellationToken token)
+   at Google.Cloud.Bigtable.V2.RowAsyncEnumerator.MoveNextAsync()
+   at InMemoryEmulator.Bigtable.Tests.RowSetCompositionVariationTests.ReadAll(RowSet rowSet) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\RowSetCompositionVariationTests.cs:line 37
+   at InMemoryEmulator.Bigtable.Tests.RowSetCompositionVariationTests.ReadAll(RowSet rowSet) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\RowSetCompositionVariationTests.cs:line 37
+   at InMemoryEmulator.Bigtable.Tests.RowSetCompositionVariationTests.Range_no_match() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\RowSetCompositionVariationTests.cs:line 236
+--- End of stack trace from previous location ---
+[xUnit.net 00:05:52.83]     InMemoryEmulator.Bigtable.Tests.AdminApiStressTests.Multiple_adds_in_single_call [FAIL]
+[xUnit.net 00:05:53.08]     InMemoryEmulator.Bigtable.Tests.AdminApiStressTests.Add_family_and_write [FAIL]
+[xUnit.net 00:05:53.25]     InMemoryEmulator.Bigtable.Tests.AdminApiStressTests.Drop_family_removes_data [FAIL]
+[xUnit.net 00:05:53.50]     InMemoryEmulator.Bigtable.Tests.AdminApiStressTests.Data_in_remaining_family_after_drop [FAIL]
+[xUnit.net 00:05:53.84]     InMemoryEmulator.Bigtable.Tests.AdminApiStressTests.ListTables_includes_created_table [FAIL]
+  Failed InMemoryEmulator.Bigtable.Tests.AdminApiStressTests.Multiple_adds_in_single_call [158 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/admin-s-madd" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.AdminApiStressTests.CreateSimpleTable(String table, String[] families) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AdminApiStressTests.cs:line 37
+   at InMemoryEmulator.Bigtable.Tests.AdminApiStressTests.Multiple_adds_in_single_call() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AdminApiStressTests.cs:line 245
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.AdminApiStressTests.Add_family_and_write [230 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/admin-s-af" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.AdminApiStressTests.CreateSimpleTable(String table, String[] families) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AdminApiStressTests.cs:line 37
+   at InMemoryEmulator.Bigtable.Tests.AdminApiStressTests.Add_family_and_write() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AdminApiStressTests.cs:line 178
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.AdminApiStressTests.Drop_family_removes_data [160 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/admin-s-df" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.AdminApiStressTests.CreateSimpleTable(String table, String[] families) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AdminApiStressTests.cs:line 37
+   at InMemoryEmulator.Bigtable.Tests.AdminApiStressTests.Drop_family_removes_data() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AdminApiStressTests.cs:line 198
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.AdminApiStressTests.Data_in_remaining_family_after_drop [237 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/admin-s-dremain" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.AdminApiStressTests.CreateSimpleTable(String table, String[] families) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AdminApiStressTests.cs:line 37
+   at InMemoryEmulator.Bigtable.Tests.AdminApiStressTests.Data_in_remaining_family_after_drop() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AdminApiStressTests.cs:line 288
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.AdminApiStressTests.ListTables_includes_created_table [137 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/admin-s-list" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.AdminApiStressTests.CreateSimpleTable(String table, String[] families) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AdminApiStressTests.cs:line 37
+   at InMemoryEmulator.Bigtable.Tests.AdminApiStressTests.ListTables_includes_created_table() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AdminApiStressTests.cs:line 265
+--- End of stack trace from previous location ---
+[xUnit.net 00:05:54.42]     InMemoryEmulator.Bigtable.Tests.AdminApiStressTests.SampleRowKeys_empty_table [FAIL]
+[xUnit.net 00:05:54.55]     InMemoryEmulator.Bigtable.Tests.AdminApiStressTests.Tables_3_tables_coexist [FAIL]
+[xUnit.net 00:05:54.67]     InMemoryEmulator.Bigtable.Tests.AdminApiStressTests.Write_to_new_family_after_add [FAIL]
+[xUnit.net 00:05:54.78]     InMemoryEmulator.Bigtable.Tests.AdminApiStressTests.DeleteTable_recreate_different_schema [FAIL]
+[xUnit.net 00:05:54.87]     InMemoryEmulator.Bigtable.Tests.AdminApiStressTests.Delete_one_table_does_not_affect_another [FAIL]
+[xUnit.net 00:05:55.00]     InMemoryEmulator.Bigtable.Tests.AdminApiStressTests.DeleteTable_data_is_gone [FAIL]
+[xUnit.net 00:05:55.09]     InMemoryEmulator.Bigtable.Tests.AdminApiStressTests.SampleRowKeys_returns_at_least_one_entry [FAIL]
+[xUnit.net 00:05:55.16]     InMemoryEmulator.Bigtable.Tests.AdminApiStressTests.Two_tables_have_independent_data [FAIL]
+  Failed InMemoryEmulator.Bigtable.Tests.AdminApiStressTests.SampleRowKeys_empty_table [209 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/admin-s-srke" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.AdminApiStressTests.CreateSimpleTable(String table, String[] families) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AdminApiStressTests.cs:line 37
+   at InMemoryEmulator.Bigtable.Tests.AdminApiStressTests.SampleRowKeys_empty_table() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AdminApiStressTests.cs:line 350
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.AdminApiStressTests.Tables_3_tables_coexist [111 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/admin-s-3a" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.AdminApiStressTests.CreateSimpleTable(String table, String[] families) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AdminApiStressTests.cs:line 37
+   at InMemoryEmulator.Bigtable.Tests.AdminApiStressTests.Tables_3_tables_coexist() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AdminApiStressTests.cs:line 156
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.AdminApiStressTests.Write_to_new_family_after_add [104 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/admin-s-addwrite" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.AdminApiStressTests.CreateSimpleTable(String table, String[] families) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AdminApiStressTests.cs:line 37
+   at InMemoryEmulator.Bigtable.Tests.AdminApiStressTests.Write_to_new_family_after_add() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AdminApiStressTests.cs:line 307
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.AdminApiStressTests.DeleteTable_recreate_different_schema [104 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/admin-s-rec" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.AdminApiStressTests.CreateSimpleTable(String table, String[] families) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AdminApiStressTests.cs:line 37
+   at InMemoryEmulator.Bigtable.Tests.AdminApiStressTests.DeleteTable_recreate_different_schema() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AdminApiStressTests.cs:line 103
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.AdminApiStressTests.Delete_one_table_does_not_affect_another [83 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/admin-s-iso1" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.AdminApiStressTests.CreateSimpleTable(String table, String[] families) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AdminApiStressTests.cs:line 37
+   at InMemoryEmulator.Bigtable.Tests.AdminApiStressTests.Delete_one_table_does_not_affect_another() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AdminApiStressTests.cs:line 116
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.AdminApiStressTests.DeleteTable_data_is_gone [98 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/admin-s-deld" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.AdminApiStressTests.CreateSimpleTable(String table, String[] families) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AdminApiStressTests.cs:line 37
+   at InMemoryEmulator.Bigtable.Tests.AdminApiStressTests.DeleteTable_data_is_gone() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AdminApiStressTests.cs:line 87
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.AdminApiStressTests.SampleRowKeys_returns_at_least_one_entry [87 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/admin-s-srk" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.AdminApiStressTests.CreateSimpleTable(String table, String[] families) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AdminApiStressTests.cs:line 37
+   at InMemoryEmulator.Bigtable.Tests.AdminApiStressTests.SampleRowKeys_returns_at_least_one_entry() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AdminApiStressTests.cs:line 331
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.AdminApiStressTests.Two_tables_have_independent_data [64 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/admin-s-ind1" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.AdminApiStressTests.CreateSimpleTable(String table, String[] families) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AdminApiStressTests.cs:line 37
+   at InMemoryEmulator.Bigtable.Tests.AdminApiStressTests.Two_tables_have_independent_data() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AdminApiStressTests.cs:line 136
+--- End of stack trace from previous location ---
+[xUnit.net 00:05:55.30]     InMemoryEmulator.Bigtable.Tests.AdminApiStressTests.CreateTable_GetTable_roundtrip [FAIL]
+[xUnit.net 00:05:55.41]     InMemoryEmulator.Bigtable.Tests.AdminApiStressTests.CreateTable_multiple_families [FAIL]
+[xUnit.net 00:05:55.47]     InMemoryEmulator.Bigtable.Tests.AdminApiStressTests.Add_and_drop_in_single_call [FAIL]
+  Failed InMemoryEmulator.Bigtable.Tests.AdminApiStressTests.CreateTable_GetTable_roundtrip [130 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/admin-s-cg" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.AdminApiStressTests.CreateSimpleTable(String table, String[] families) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AdminApiStressTests.cs:line 37
+   at InMemoryEmulator.Bigtable.Tests.AdminApiStressTests.CreateTable_GetTable_roundtrip() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AdminApiStressTests.cs:line 59
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.AdminApiStressTests.CreateTable_multiple_families [92 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/admin-s-mf" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.AdminApiStressTests.CreateSimpleTable(String table, String[] families) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AdminApiStressTests.cs:line 37
+   at InMemoryEmulator.Bigtable.Tests.AdminApiStressTests.CreateTable_multiple_families() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AdminApiStressTests.cs:line 68
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.AdminApiStressTests.Add_and_drop_in_single_call [58 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/admin-s-adrop" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.AdminApiStressTests.CreateSimpleTable(String table, String[] families) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AdminApiStressTests.cs:line 37
+   at InMemoryEmulator.Bigtable.Tests.AdminApiStressTests.Add_and_drop_in_single_call() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AdminApiStressTests.cs:line 221
+--- End of stack trace from previous location ---
+[xUnit.net 00:06:01.31]     InMemoryEmulator.Bigtable.Tests.RowSetCompositionTests.RowRange_from_key_to_end [FAIL]
+  Failed InMemoryEmulator.Bigtable.Tests.RowSetCompositionTests.RowRange_from_key_to_end [2 s]
+  Error Message:
+   Expected rows.Select(r => r.Key.ToStringUtf8()) {empty} to contain "x".
+  Stack Trace:
+     at AwesomeAssertions.Execution.LateBoundTestFramework.Throw(String message)
+   at AwesomeAssertions.Collections.GenericCollectionAssertions`3.Contain(T expected, String because, Object[] becauseArgs)
+   at InMemoryEmulator.Bigtable.Tests.RowSetCompositionTests.RowRange_from_key_to_end() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\RowSetCompositionTests.cs:line 155
+--- End of stack trace from previous location ---
+[xUnit.net 00:07:18.84]     InMemoryEmulator.Bigtable.Tests.ReadRowsReversedPatternTests.Reversed_specific_keys [FAIL]
+  Failed InMemoryEmulator.Bigtable.Tests.ReadRowsReversedPatternTests.Reversed_specific_keys [130 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="Unimplemented", Detail="Client doesn't support reverse scans yet")
+  Stack Trace:
+     at Grpc.Net.Client.Internal.HttpContentClientStreamReader`2.MoveNextCore(CancellationToken cancellationToken)
+   at Google.Api.Gax.Grpc.Gcp.GcpClientResponseStream`2.MoveNext(CancellationToken token)
+   at Google.Api.Gax.Grpc.AsyncResponseStream`1.MoveNextAsync(CancellationToken cancellationToken)
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedPatternTests.Reversed_specific_keys() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedPatternTests.cs:line 100
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedPatternTests.Reversed_specific_keys() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedPatternTests.cs:line 100
+--- End of stack trace from previous location ---
+[xUnit.net 00:07:18.93]     InMemoryEmulator.Bigtable.Tests.ReadRowsReversedPatternTests.Reversed_empty_result [FAIL]
+[xUnit.net 00:07:19.02]     InMemoryEmulator.Bigtable.Tests.ReadRowsReversedPatternTests.Reversed_with_filter [FAIL]
+[xUnit.net 00:07:19.16]     InMemoryEmulator.Bigtable.Tests.ReadRowsReversedPatternTests.Reversed_with_limit [FAIL]
+[xUnit.net 00:07:19.25]     InMemoryEmulator.Bigtable.Tests.ReadRowsReversedPatternTests.Reversed_range_returns_descending [FAIL]
+[xUnit.net 00:07:19.37]     InMemoryEmulator.Bigtable.Tests.ReadRowsOrderingTests.Empty_scan_returns_no_rows [FAIL]
+  Failed InMemoryEmulator.Bigtable.Tests.ReadRowsReversedPatternTests.Reversed_empty_result [83 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="Unimplemented", Detail="Client doesn't support reverse scans yet")
+  Stack Trace:
+     at Grpc.Net.Client.Internal.HttpContentClientStreamReader`2.MoveNextCore(CancellationToken cancellationToken)
+   at Google.Api.Gax.Grpc.Gcp.GcpClientResponseStream`2.MoveNext(CancellationToken token)
+   at Google.Api.Gax.Grpc.AsyncResponseStream`1.MoveNextAsync(CancellationToken cancellationToken)
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedPatternTests.Reversed_empty_result() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedPatternTests.cs:line 148
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedPatternTests.Reversed_empty_result() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedPatternTests.cs:line 148
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.ReadRowsReversedPatternTests.Reversed_with_filter [85 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="Unimplemented", Detail="Client doesn't support reverse scans yet")
+  Stack Trace:
+     at Grpc.Net.Client.Internal.HttpContentClientStreamReader`2.MoveNextCore(CancellationToken cancellationToken)
+   at Google.Api.Gax.Grpc.Gcp.GcpClientResponseStream`2.MoveNext(CancellationToken token)
+   at Google.Api.Gax.Grpc.AsyncResponseStream`1.MoveNextAsync(CancellationToken cancellationToken)
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedPatternTests.Reversed_with_filter() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedPatternTests.cs:line 127
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedPatternTests.Reversed_with_filter() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedPatternTests.cs:line 127
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.ReadRowsReversedPatternTests.Reversed_with_limit [127 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="Unimplemented", Detail="Client doesn't support reverse scans yet")
+  Stack Trace:
+     at Grpc.Net.Client.Internal.HttpContentClientStreamReader`2.MoveNextCore(CancellationToken cancellationToken)
+   at Google.Api.Gax.Grpc.Gcp.GcpClientResponseStream`2.MoveNext(CancellationToken token)
+   at Google.Api.Gax.Grpc.AsyncResponseStream`1.MoveNextAsync(CancellationToken cancellationToken)
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedPatternTests.Reversed_with_limit() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedPatternTests.cs:line 78
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedPatternTests.Reversed_with_limit() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedPatternTests.cs:line 78
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.ReadRowsReversedPatternTests.Reversed_range_returns_descending [77 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="Unimplemented", Detail="Client doesn't support reverse scans yet")
+  Stack Trace:
+     at Grpc.Net.Client.Internal.HttpContentClientStreamReader`2.MoveNextCore(CancellationToken cancellationToken)
+   at Google.Api.Gax.Grpc.Gcp.GcpClientResponseStream`2.MoveNext(CancellationToken token)
+   at Google.Api.Gax.Grpc.AsyncResponseStream`1.MoveNextAsync(CancellationToken cancellationToken)
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedPatternTests.Reversed_range_returns_descending() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedPatternTests.cs:line 51
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedPatternTests.Reversed_range_returns_descending() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedPatternTests.cs:line 51
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.ReadRowsOrderingTests.Empty_scan_returns_no_rows [43 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="InvalidArgument", Detail="Error in element #0: start_key_closed must be less than end_key_closed")
+  Stack Trace:
+     at Grpc.Net.Client.Internal.HttpContentClientStreamReader`2.MoveNextCore(CancellationToken cancellationToken)
+   at Google.Api.Gax.Grpc.Gcp.GcpClientResponseStream`2.MoveNext(CancellationToken token)
+   at Google.Cloud.Bigtable.V2.RowAsyncEnumerator.MoveNextAsync()
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsOrderingTests.Empty_scan_returns_no_rows() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsOrderingTests.cs:line 146
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsOrderingTests.Empty_scan_returns_no_rows() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsOrderingTests.cs:line 146
+--- End of stack trace from previous location ---
+[xUnit.net 00:07:27.79]     InMemoryEmulator.Bigtable.Tests.EdgeCaseBoundaryTests.CellsPerColumnLimit_0_returns_no_cells [FAIL]
+  Failed InMemoryEmulator.Bigtable.Tests.EdgeCaseBoundaryTests.CellsPerColumnLimit_0_returns_no_cells [80 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="InvalidArgument", Detail="Error in field 'cells_per_column_limit_filter' : argument must be > 0")
+  Stack Trace:
+     at Grpc.Net.Client.Internal.HttpContentClientStreamReader`2.MoveNextCore(CancellationToken cancellationToken)
+   at Google.Api.Gax.Grpc.Gcp.GcpClientResponseStream`2.MoveNext(CancellationToken token)
+   at Google.Cloud.Bigtable.V2.RowAsyncEnumerator.MoveNextAsync()
+   at InMemoryEmulator.Bigtable.Tests.EdgeCaseBoundaryTests.ReadAll(RowSet rows, RowFilter filter, Nullable`1 limit) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\EdgeCaseBoundaryTests.cs:line 30
+   at InMemoryEmulator.Bigtable.Tests.EdgeCaseBoundaryTests.ReadAll(RowSet rows, RowFilter filter, Nullable`1 limit) in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\EdgeCaseBoundaryTests.cs:line 30
+   at InMemoryEmulator.Bigtable.Tests.EdgeCaseBoundaryTests.CellsPerColumnLimit_0_returns_no_cells() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\EdgeCaseBoundaryTests.cs:line 241
+--- End of stack trace from previous location ---
+[xUnit.net 00:08:13.85]     InMemoryEmulator.Bigtable.Tests.ApplyLabelTransformerTests.Chain_with_two_labels_throws [FAIL]
+[xUnit.net 00:08:14.35]     InMemoryEmulator.Bigtable.Tests.ApplyLabelTransformerTests.Label_with_uppercase_throws [FAIL]
+  Failed InMemoryEmulator.Bigtable.Tests.ApplyLabelTransformerTests.Chain_with_two_labels_throws [204 ms]
+  Error Message:
+   Expected a <Grpc.Core.RpcException> to be thrown, but no exception was thrown.
+  Stack Trace:
+     at AwesomeAssertions.Execution.LateBoundTestFramework.Throw(String message)
+   at AwesomeAssertions.Specialized.DelegateAssertionsBase`2.<>c__DisplayClass8_0`1.<ThrowInternal>b__0(AssertionChain chain)
+   at AwesomeAssertions.Execution.AssertionChain.WithExpectation(String message, Action`1 chain, Object[] args)
+   at AwesomeAssertions.Specialized.DelegateAssertionsBase`2.ThrowInternal[TException](Exception exception, String because, Object[] becauseArgs)
+   at AwesomeAssertions.Specialized.AsyncFunctionAssertions`2.ThrowAsync[TException](String because, Object[] becauseArgs)
+   at InMemoryEmulator.Bigtable.Tests.ApplyLabelTransformerTests.Chain_with_two_labels_throws() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ApplyLabelTransformerTests.cs:line 207
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.ApplyLabelTransformerTests.Label_with_uppercase_throws [93 ms]
+  Error Message:
+   Expected a <Grpc.Core.RpcException> to be thrown, but no exception was thrown.
+  Stack Trace:
+     at AwesomeAssertions.Execution.LateBoundTestFramework.Throw(String message)
+   at AwesomeAssertions.Specialized.DelegateAssertionsBase`2.<>c__DisplayClass8_0`1.<ThrowInternal>b__0(AssertionChain chain)
+   at AwesomeAssertions.Execution.AssertionChain.WithExpectation(String message, Action`1 chain, Object[] args)
+   at AwesomeAssertions.Specialized.DelegateAssertionsBase`2.ThrowInternal[TException](Exception exception, String because, Object[] becauseArgs)
+   at AwesomeAssertions.Specialized.AsyncFunctionAssertions`2.ThrowAsync[TException](String because, Object[] becauseArgs)
+   at InMemoryEmulator.Bigtable.Tests.ApplyLabelTransformerTests.Label_with_uppercase_throws() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ApplyLabelTransformerTests.cs:line 119
+--- End of stack trace from previous location ---
+[xUnit.net 00:08:14.73]     InMemoryEmulator.Bigtable.Tests.ApplyLabelTransformerTests.Label_with_underscore_throws [FAIL]
+[xUnit.net 00:08:14.93]     InMemoryEmulator.Bigtable.Tests.ApplyLabelTransformerTests.Label_with_space_throws [FAIL]
+[xUnit.net 00:08:15.95]     InMemoryEmulator.Bigtable.Tests.ApplyLabelTransformerTests.Label_too_long_throws [FAIL]
+  Failed InMemoryEmulator.Bigtable.Tests.ApplyLabelTransformerTests.Label_with_underscore_throws [229 ms]
+  Error Message:
+   Expected a <Grpc.Core.RpcException> to be thrown, but no exception was thrown.
+  Stack Trace:
+     at AwesomeAssertions.Execution.LateBoundTestFramework.Throw(String message)
+   at AwesomeAssertions.Specialized.DelegateAssertionsBase`2.<>c__DisplayClass8_0`1.<ThrowInternal>b__0(AssertionChain chain)
+   at AwesomeAssertions.Execution.AssertionChain.WithExpectation(String message, Action`1 chain, Object[] args)
+   at AwesomeAssertions.Specialized.DelegateAssertionsBase`2.ThrowInternal[TException](Exception exception, String because, Object[] becauseArgs)
+   at AwesomeAssertions.Specialized.AsyncFunctionAssertions`2.ThrowAsync[TException](String because, Object[] becauseArgs)
+   at InMemoryEmulator.Bigtable.Tests.ApplyLabelTransformerTests.Label_with_underscore_throws() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ApplyLabelTransformerTests.cs:line 130
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.ApplyLabelTransformerTests.Label_with_space_throws [174 ms]
+  Error Message:
+   Expected a <Grpc.Core.RpcException> to be thrown, but no exception was thrown.
+  Stack Trace:
+     at AwesomeAssertions.Execution.LateBoundTestFramework.Throw(String message)
+   at AwesomeAssertions.Specialized.DelegateAssertionsBase`2.<>c__DisplayClass8_0`1.<ThrowInternal>b__0(AssertionChain chain)
+   at AwesomeAssertions.Execution.AssertionChain.WithExpectation(String message, Action`1 chain, Object[] args)
+   at AwesomeAssertions.Specialized.DelegateAssertionsBase`2.ThrowInternal[TException](Exception exception, String because, Object[] becauseArgs)
+   at AwesomeAssertions.Specialized.AsyncFunctionAssertions`2.ThrowAsync[TException](String because, Object[] becauseArgs)
+   at InMemoryEmulator.Bigtable.Tests.ApplyLabelTransformerTests.Label_with_space_throws() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ApplyLabelTransformerTests.cs:line 141
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.ApplyLabelTransformerTests.Label_too_long_throws [165 ms]
+  Error Message:
+   Expected a <Grpc.Core.RpcException> to be thrown, but no exception was thrown.
+  Stack Trace:
+     at AwesomeAssertions.Execution.LateBoundTestFramework.Throw(String message)
+   at AwesomeAssertions.Specialized.DelegateAssertionsBase`2.<>c__DisplayClass8_0`1.<ThrowInternal>b__0(AssertionChain chain)
+   at AwesomeAssertions.Execution.AssertionChain.WithExpectation(String message, Action`1 chain, Object[] args)
+   at AwesomeAssertions.Specialized.DelegateAssertionsBase`2.ThrowInternal[TException](Exception exception, String because, Object[] becauseArgs)
+   at AwesomeAssertions.Specialized.AsyncFunctionAssertions`2.ThrowAsync[TException](String because, Object[] becauseArgs)
+   at InMemoryEmulator.Bigtable.Tests.ApplyLabelTransformerTests.Label_too_long_throws() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ApplyLabelTransformerTests.cs:line 107
+--- End of stack trace from previous location ---
+[xUnit.net 00:08:18.45]     InMemoryEmulator.Bigtable.Tests.MutationValidationTests.Row_key_over_4KB_throws [FAIL]
+[xUnit.net 00:08:18.60]     InMemoryEmulator.Bigtable.Tests.AdminApiIntegrationTests.ModifyColumnFamilies_adds_family [FAIL]
+[xUnit.net 00:08:18.67]     InMemoryEmulator.Bigtable.Tests.AdminApiIntegrationTests.CreateTable_with_gc_rule [FAIL]
+[xUnit.net 00:08:18.70]     InMemoryEmulator.Bigtable.Tests.AdminApiIntegrationTests.Admin_created_table_is_usable_for_data [FAIL]
+  Failed InMemoryEmulator.Bigtable.Tests.MutationValidationTests.Row_key_over_4KB_throws [164 ms]
+  Error Message:
+   Expected a <Grpc.Core.RpcException> to be thrown, but no exception was thrown.
+  Stack Trace:
+     at AwesomeAssertions.Execution.LateBoundTestFramework.Throw(String message)
+   at AwesomeAssertions.Specialized.DelegateAssertionsBase`2.<>c__DisplayClass8_0`1.<ThrowInternal>b__0(AssertionChain chain)
+   at AwesomeAssertions.Execution.AssertionChain.WithExpectation(String message, Action`1 chain, Object[] args)
+   at AwesomeAssertions.Specialized.DelegateAssertionsBase`2.ThrowInternal[TException](Exception exception, String because, Object[] becauseArgs)
+   at AwesomeAssertions.Specialized.AsyncFunctionAssertions`2.ThrowAsync[TException](String because, Object[] becauseArgs)
+   at InMemoryEmulator.Bigtable.Tests.MutationValidationTests.Row_key_over_4KB_throws() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\MutationValidationTests.cs:line 158
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.AdminApiIntegrationTests.ModifyColumnFamilies_adds_family [77 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/admin-mod" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.AdminApiIntegrationTests.ModifyColumnFamilies_adds_family() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AdminApiIntegrationTests.cs:line 114
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.AdminApiIntegrationTests.CreateTable_with_gc_rule [67 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/admin-gc" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.AdminApiIntegrationTests.CreateTable_with_gc_rule() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AdminApiIntegrationTests.cs:line 55
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.AdminApiIntegrationTests.Admin_created_table_is_usable_for_data [30 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/admin-data" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.AdminApiIntegrationTests.Admin_created_table_is_usable_for_data() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AdminApiIntegrationTests.cs:line 140
+--- End of stack trace from previous location ---
+[xUnit.net 00:08:19.04]     InMemoryEmulator.Bigtable.Tests.AdminApiIntegrationTests.CreateTable_and_GetTable_round_trip [FAIL]
+  Failed InMemoryEmulator.Bigtable.Tests.AdminApiIntegrationTests.CreateTable_and_GetTable_round_trip [87 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/admin-create" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.AdminApiIntegrationTests.CreateTable_and_GetTable_round_trip() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AdminApiIntegrationTests.cs:line 33
+--- End of stack trace from previous location ---
+[xUnit.net 00:08:23.40]     InMemoryEmulator.Bigtable.Tests.GcRuleEnforcementTests.MaxVersions_enforced_across_mutations [FAIL]
+  Failed InMemoryEmulator.Bigtable.Tests.GcRuleEnforcementTests.MaxVersions_enforced_across_mutations [219 ms]
+  Error Message:
+   Expected cells to contain 2 item(s), but found 3: {{ "timestampMicros": "3000000", "value": "djM=" }, { "timestampMicros": "2000000", "value": "djI=" }, { "timestampMicros": "1000000", "value": "djE=" }}.
+  Stack Trace:
+     at AwesomeAssertions.Execution.LateBoundTestFramework.Throw(String message)
+   at AwesomeAssertions.Collections.GenericCollectionAssertions`3.HaveCount(Int32 expected, String because, Object[] becauseArgs)
+   at InMemoryEmulator.Bigtable.Tests.GcRuleEnforcementTests.MaxVersions_enforced_across_mutations() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\GcRuleEnforcementTests.cs:line 122
+--- End of stack trace from previous location ---
+[xUnit.net 00:08:23.60]     InMemoryEmulator.Bigtable.Tests.GcRuleEnforcementTests.MaxVersions_2_keeps_two_latest [FAIL]
+[xUnit.net 00:08:23.97]     InMemoryEmulator.Bigtable.Tests.GcRuleEnforcementTests.MaxVersions_applied_per_column [FAIL]
+[xUnit.net 00:08:24.30]     InMemoryEmulator.Bigtable.Tests.GcRuleEnforcementTests.Union_gc_maxversions_2_or_3 [FAIL]
+[xUnit.net 00:08:24.73]     InMemoryEmulator.Bigtable.Tests.GcRuleEnforcementTests.MaxVersions_independent_per_column_multiple_writes [FAIL]
+  Failed InMemoryEmulator.Bigtable.Tests.GcRuleEnforcementTests.MaxVersions_2_keeps_two_latest [193 ms]
+  Error Message:
+   Expected cells to contain 2 item(s), but found 3: {{ "timestampMicros": "3000000", "value": "djM=" }, { "timestampMicros": "2000000", "value": "djI=" }, { "timestampMicros": "1000000", "value": "djE=" }}.
+  Stack Trace:
+     at AwesomeAssertions.Execution.LateBoundTestFramework.Throw(String message)
+   at AwesomeAssertions.Collections.GenericCollectionAssertions`3.HaveCount(Int32 expected, String because, Object[] becauseArgs)
+   at InMemoryEmulator.Bigtable.Tests.GcRuleEnforcementTests.MaxVersions_2_keeps_two_latest() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\GcRuleEnforcementTests.cs:line 73
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.GcRuleEnforcementTests.MaxVersions_applied_per_column [223 ms]
+  Error Message:
+   Expected col.Cells to contain a single item, but found {{ "timestampMicros": "2000000", "value": "YTI=" }, { "timestampMicros": "1000000", "value": "YTE=" }}.
+  Stack Trace:
+     at AwesomeAssertions.Execution.LateBoundTestFramework.Throw(String message)
+   at AwesomeAssertions.Collections.GenericCollectionAssertions`3.ContainSingle(String because, Object[] becauseArgs)
+   at InMemoryEmulator.Bigtable.Tests.GcRuleEnforcementTests.MaxVersions_applied_per_column() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\GcRuleEnforcementTests.cs:line 104
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.GcRuleEnforcementTests.Union_gc_maxversions_2_or_3 [322 ms]
+  Error Message:
+   Expected row!.Families[0].Columns[0].Cells to contain 2 item(s), but found 5: {{ "timestampMicros": "5000000", "value": "djU=" }, { "timestampMicros": "4000000", "value": "djQ=" }, { "timestampMicros": "3000000", "value": "djM=" }, { "timestampMicros": "2000000", "value": "djI=" }, { "timestampMicros": "1000000", "value": "djE=" }}.
+  Stack Trace:
+     at AwesomeAssertions.Execution.LateBoundTestFramework.Throw(String message)
+   at AwesomeAssertions.Collections.GenericCollectionAssertions`3.HaveCount(Int32 expected, String because, Object[] becauseArgs)
+   at InMemoryEmulator.Bigtable.Tests.GcRuleEnforcementTests.Union_gc_maxversions_2_or_3() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\GcRuleEnforcementTests.cs:line 203
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.GcRuleEnforcementTests.MaxVersions_independent_per_column_multiple_writes [428 ms]
+  Error Message:
+   Expected colA.Cells to contain 2 item(s), but found 4: {{ "timestampMicros": "4000000", "value": "YTQ=" }, { "timestampMicros": "3000000", "value": "YTM=" }, { "timestampMicros": "2000000", "value": "YTI=" }, { "timestampMicros": "1000000", "value": "YTE=" }}.
+  Stack Trace:
+     at AwesomeAssertions.Execution.LateBoundTestFramework.Throw(String message)
+   at AwesomeAssertions.Collections.GenericCollectionAssertions`3.HaveCount(Int32 expected, String because, Object[] becauseArgs)
+   at InMemoryEmulator.Bigtable.Tests.GcRuleEnforcementTests.MaxVersions_independent_per_column_multiple_writes() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\GcRuleEnforcementTests.cs:line 254
+--- End of stack trace from previous location ---
+[xUnit.net 00:08:25.64]     InMemoryEmulator.Bigtable.Tests.GcRuleEnforcementTests.Intersection_gc_maxversions_2_and_3 [FAIL]
+[xUnit.net 00:08:26.00]     InMemoryEmulator.Bigtable.Tests.GcRuleEnforcementTests.MaxVersions_1_keeps_only_latest [FAIL]
+[xUnit.net 00:08:26.33]     InMemoryEmulator.Bigtable.Tests.GcRuleEnforcementTests.GcRule_update_applies_retroactively [FAIL]
+  Failed InMemoryEmulator.Bigtable.Tests.GcRuleEnforcementTests.Intersection_gc_maxversions_2_and_3 [282 ms]
+  Error Message:
+   Expected row!.Families[0].Columns[0].Cells to contain 3 item(s), but found 5: {{ "timestampMicros": "5000000", "value": "djU=" }, { "timestampMicros": "4000000", "value": "djQ=" }, { "timestampMicros": "3000000", "value": "djM=" }, { "timestampMicros": "2000000", "value": "djI=" }, { "timestampMicros": "1000000", "value": "djE=" }}.
+  Stack Trace:
+     at AwesomeAssertions.Execution.LateBoundTestFramework.Throw(String message)
+   at AwesomeAssertions.Collections.GenericCollectionAssertions`3.HaveCount(Int32 expected, String because, Object[] becauseArgs)
+   at InMemoryEmulator.Bigtable.Tests.GcRuleEnforcementTests.Intersection_gc_maxversions_2_and_3() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\GcRuleEnforcementTests.cs:line 232
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.GcRuleEnforcementTests.MaxVersions_1_keeps_only_latest [353 ms]
+  Error Message:
+   Expected row!.Families[0].Columns[0].Cells to contain a single item, but found {{ "timestampMicros": "3000000", "value": "djM=" }, { "timestampMicros": "2000000", "value": "djI=" }, { "timestampMicros": "1000000", "value": "djE=" }}.
+  Stack Trace:
+     at AwesomeAssertions.Execution.LateBoundTestFramework.Throw(String message)
+   at AwesomeAssertions.Collections.GenericCollectionAssertions`3.ContainSingle(String because, Object[] becauseArgs)
+   at InMemoryEmulator.Bigtable.Tests.GcRuleEnforcementTests.MaxVersions_1_keeps_only_latest() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\GcRuleEnforcementTests.cs:line 57
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.GcRuleEnforcementTests.GcRule_update_applies_retroactively [307 ms]
+  Error Message:
+   Expected row!.Families[0].Columns[0].Cells to contain 2 item(s), but found 5: {{ "timestampMicros": "5000000", "value": "djU=" }, { "timestampMicros": "4000000", "value": "djQ=" }, { "timestampMicros": "3000000", "value": "djM=" }, { "timestampMicros": "2000000", "value": "djI=" }, { "timestampMicros": "1000000", "value": "djE=" }}.
+  Stack Trace:
+     at AwesomeAssertions.Execution.LateBoundTestFramework.Throw(String message)
+   at AwesomeAssertions.Collections.GenericCollectionAssertions`3.HaveCount(Int32 expected, String because, Object[] becauseArgs)
+   at InMemoryEmulator.Bigtable.Tests.GcRuleEnforcementTests.GcRule_update_applies_retroactively() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\GcRuleEnforcementTests.cs:line 174
+--- End of stack trace from previous location ---
+[xUnit.net 00:09:03.18]     InMemoryEmulator.Bigtable.Tests.ReadRowsReversedTests.Reversed_single_row_returns_that_row [FAIL]
+  Failed InMemoryEmulator.Bigtable.Tests.ReadRowsReversedTests.Reversed_single_row_returns_that_row [433 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="Unimplemented", Detail="Client doesn't support reverse scans yet")
+  Stack Trace:
+     at Grpc.Net.Client.Internal.HttpContentClientStreamReader`2.MoveNextCore(CancellationToken cancellationToken)
+   at Google.Api.Gax.Grpc.Gcp.GcpClientResponseStream`2.MoveNext(CancellationToken token)
+   at Google.Api.Gax.Grpc.AsyncResponseStream`1.MoveNextAsync(CancellationToken cancellationToken)
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedTests.Reversed_single_row_returns_that_row() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedTests.cs:line 253
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedTests.Reversed_single_row_returns_that_row() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedTests.cs:line 253
+--- End of stack trace from previous location ---
+[xUnit.net 00:09:03.67]     InMemoryEmulator.Bigtable.Tests.ReadRowsReversedTests.Reversed_full_scan_returns_descending_order [FAIL]
+[xUnit.net 00:09:04.12]     InMemoryEmulator.Bigtable.Tests.ReadRowsReversedTests.Reversed_empty_table_returns_nothing [FAIL]
+[xUnit.net 00:09:04.46]     InMemoryEmulator.Bigtable.Tests.ReadRowsReversedTests.Reversed_with_specific_row_keys [FAIL]
+  Failed InMemoryEmulator.Bigtable.Tests.ReadRowsReversedTests.Reversed_full_scan_returns_descending_order [481 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="Unimplemented", Detail="Client doesn't support reverse scans yet")
+  Stack Trace:
+     at Grpc.Net.Client.Internal.HttpContentClientStreamReader`2.MoveNextCore(CancellationToken cancellationToken)
+   at Google.Api.Gax.Grpc.Gcp.GcpClientResponseStream`2.MoveNext(CancellationToken token)
+   at Google.Api.Gax.Grpc.AsyncResponseStream`1.MoveNextAsync(CancellationToken cancellationToken)
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedTests.Reversed_full_scan_returns_descending_order() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedTests.cs:line 66
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedTests.Reversed_full_scan_returns_descending_order() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedTests.cs:line 66
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.ReadRowsReversedTests.Reversed_empty_table_returns_nothing [447 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="Unimplemented", Detail="Client doesn't support reverse scans yet")
+  Stack Trace:
+     at Grpc.Net.Client.Internal.HttpContentClientStreamReader`2.MoveNextCore(CancellationToken cancellationToken)
+   at Google.Api.Gax.Grpc.Gcp.GcpClientResponseStream`2.MoveNext(CancellationToken token)
+   at Google.Api.Gax.Grpc.AsyncResponseStream`1.MoveNextAsync(CancellationToken cancellationToken)
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedTests.Reversed_empty_table_returns_nothing() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedTests.cs:line 227
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedTests.Reversed_empty_table_returns_nothing() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedTests.cs:line 227
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.ReadRowsReversedTests.Reversed_with_specific_row_keys [330 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="Unimplemented", Detail="Client doesn't support reverse scans yet")
+  Stack Trace:
+     at Grpc.Net.Client.Internal.HttpContentClientStreamReader`2.MoveNextCore(CancellationToken cancellationToken)
+   at Google.Api.Gax.Grpc.Gcp.GcpClientResponseStream`2.MoveNext(CancellationToken token)
+   at Google.Api.Gax.Grpc.AsyncResponseStream`1.MoveNextAsync(CancellationToken cancellationToken)
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedTests.Reversed_with_specific_row_keys() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedTests.cs:line 169
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedTests.Reversed_with_specific_row_keys() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedTests.cs:line 169
+--- End of stack trace from previous location ---
+[xUnit.net 00:09:04.76]     InMemoryEmulator.Bigtable.Tests.ReadRowsReversedTests.Reversed_with_filter [FAIL]
+[xUnit.net 00:09:05.11]     InMemoryEmulator.Bigtable.Tests.ReadRowsReversedTests.Reversed_with_row_range_returns_descending [FAIL]
+[xUnit.net 00:09:05.44]     InMemoryEmulator.Bigtable.Tests.ReadRowsReversedTests.Reversed_with_rows_limit [FAIL]
+  Failed InMemoryEmulator.Bigtable.Tests.ReadRowsReversedTests.Reversed_with_filter [293 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="Unimplemented", Detail="Client doesn't support reverse scans yet")
+  Stack Trace:
+     at Grpc.Net.Client.Internal.HttpContentClientStreamReader`2.MoveNextCore(CancellationToken cancellationToken)
+   at Google.Api.Gax.Grpc.Gcp.GcpClientResponseStream`2.MoveNext(CancellationToken token)
+   at Google.Api.Gax.Grpc.AsyncResponseStream`1.MoveNextAsync(CancellationToken cancellationToken)
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedTests.Reversed_with_filter() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedTests.cs:line 198
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedTests.Reversed_with_filter() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedTests.cs:line 198
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.ReadRowsReversedTests.Reversed_with_row_range_returns_descending [351 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="Unimplemented", Detail="Client doesn't support reverse scans yet")
+  Stack Trace:
+     at Grpc.Net.Client.Internal.HttpContentClientStreamReader`2.MoveNextCore(CancellationToken cancellationToken)
+   at Google.Api.Gax.Grpc.Gcp.GcpClientResponseStream`2.MoveNext(CancellationToken token)
+   at Google.Api.Gax.Grpc.AsyncResponseStream`1.MoveNextAsync(CancellationToken cancellationToken)
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedTests.Reversed_with_row_range_returns_descending() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedTests.cs:line 106
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedTests.Reversed_with_row_range_returns_descending() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedTests.cs:line 106
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.ReadRowsReversedTests.Reversed_with_rows_limit [321 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="Unimplemented", Detail="Client doesn't support reverse scans yet")
+  Stack Trace:
+     at Grpc.Net.Client.Internal.HttpContentClientStreamReader`2.MoveNextCore(CancellationToken cancellationToken)
+   at Google.Api.Gax.Grpc.Gcp.GcpClientResponseStream`2.MoveNext(CancellationToken token)
+   at Google.Api.Gax.Grpc.AsyncResponseStream`1.MoveNextAsync(CancellationToken cancellationToken)
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedTests.Reversed_with_rows_limit() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedTests.cs:line 135
+   at InMemoryEmulator.Bigtable.Tests.ReadRowsReversedTests.Reversed_with_rows_limit() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ReadRowsReversedTests.cs:line 135
+--- End of stack trace from previous location ---
+[xUnit.net 00:09:40.77]     InMemoryEmulator.Bigtable.Tests.FilterLimitTests.Deeply_nested_interleave_exceeds_limit [FAIL]
+[xUnit.net 00:09:40.85]     InMemoryEmulator.Bigtable.Tests.FilterLimitTests.Deeply_nested_condition_exceeds_limit [FAIL]
+[xUnit.net 00:09:41.14]     InMemoryEmulator.Bigtable.Tests.FilterLimitTests.Deep_nesting_exceeding_limit_throws [FAIL]
+  Failed InMemoryEmulator.Bigtable.Tests.FilterLimitTests.Deeply_nested_interleave_exceeds_limit [55 ms]
+  Error Message:
+   Expected a <Grpc.Core.RpcException> to be thrown, but no exception was thrown.
+  Stack Trace:
+     at AwesomeAssertions.Execution.LateBoundTestFramework.Throw(String message)
+   at AwesomeAssertions.Specialized.DelegateAssertionsBase`2.<>c__DisplayClass8_0`1.<ThrowInternal>b__0(AssertionChain chain)
+   at AwesomeAssertions.Execution.AssertionChain.WithExpectation(String message, Action`1 chain, Object[] args)
+   at AwesomeAssertions.Specialized.DelegateAssertionsBase`2.ThrowInternal[TException](Exception exception, String because, Object[] becauseArgs)
+   at AwesomeAssertions.Specialized.AsyncFunctionAssertions`2.ThrowAsync[TException](String because, Object[] becauseArgs)
+   at InMemoryEmulator.Bigtable.Tests.FilterLimitTests.Deeply_nested_interleave_exceeds_limit() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\FilterLimitTests.cs:line 75
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.FilterLimitTests.Deeply_nested_condition_exceeds_limit [76 ms]
+  Error Message:
+   Expected a <Grpc.Core.RpcException> to be thrown, but no exception was thrown.
+  Stack Trace:
+     at AwesomeAssertions.Execution.LateBoundTestFramework.Throw(String message)
+   at AwesomeAssertions.Specialized.DelegateAssertionsBase`2.<>c__DisplayClass8_0`1.<ThrowInternal>b__0(AssertionChain chain)
+   at AwesomeAssertions.Execution.AssertionChain.WithExpectation(String message, Action`1 chain, Object[] args)
+   at AwesomeAssertions.Specialized.DelegateAssertionsBase`2.ThrowInternal[TException](Exception exception, String because, Object[] becauseArgs)
+   at AwesomeAssertions.Specialized.AsyncFunctionAssertions`2.ThrowAsync[TException](String because, Object[] becauseArgs)
+   at InMemoryEmulator.Bigtable.Tests.FilterLimitTests.Deeply_nested_condition_exceeds_limit() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\FilterLimitTests.cs:line 89
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.FilterLimitTests.Deep_nesting_exceeding_limit_throws [79 ms]
+  Error Message:
+   Expected a <Grpc.Core.RpcException> to be thrown, but no exception was thrown.
+  Stack Trace:
+     at AwesomeAssertions.Execution.LateBoundTestFramework.Throw(String message)
+   at AwesomeAssertions.Specialized.DelegateAssertionsBase`2.<>c__DisplayClass8_0`1.<ThrowInternal>b__0(AssertionChain chain)
+   at AwesomeAssertions.Execution.AssertionChain.WithExpectation(String message, Action`1 chain, Object[] args)
+   at AwesomeAssertions.Specialized.DelegateAssertionsBase`2.ThrowInternal[TException](Exception exception, String because, Object[] becauseArgs)
+   at AwesomeAssertions.Specialized.AsyncFunctionAssertions`2.ThrowAsync[TException](String because, Object[] becauseArgs)
+   at InMemoryEmulator.Bigtable.Tests.FilterLimitTests.Deep_nesting_exceeding_limit_throws() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\FilterLimitTests.cs:line 61
+--- End of stack trace from previous location ---
+[xUnit.net 00:11:00.65]     InMemoryEmulator.Bigtable.Tests.MutateRowErrorHandlingTests.DeleteFromFamily_nonexistent_throws [FAIL]
+  Failed InMemoryEmulator.Bigtable.Tests.MutateRowErrorHandlingTests.DeleteFromFamily_nonexistent_throws [47 ms]
+  Error Message:
+   Expected a <Grpc.Core.RpcException> to be thrown, but no exception was thrown.
+  Stack Trace:
+     at AwesomeAssertions.Execution.LateBoundTestFramework.Throw(String message)
+   at AwesomeAssertions.Specialized.DelegateAssertionsBase`2.<>c__DisplayClass8_0`1.<ThrowInternal>b__0(AssertionChain chain)
+   at AwesomeAssertions.Execution.AssertionChain.WithExpectation(String message, Action`1 chain, Object[] args)
+   at AwesomeAssertions.Specialized.DelegateAssertionsBase`2.ThrowInternal[TException](Exception exception, String because, Object[] becauseArgs)
+   at AwesomeAssertions.Specialized.AsyncFunctionAssertions`2.ThrowAsync[TException](String because, Object[] becauseArgs)
+   at InMemoryEmulator.Bigtable.Tests.MutateRowErrorHandlingTests.DeleteFromFamily_nonexistent_throws() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\MutateRowErrorHandlingTests.cs:line 43
+--- End of stack trace from previous location ---
+[xUnit.net 00:11:18.25]     InMemoryEmulator.Bigtable.Tests.GcRuleInteractionTests.V1_multiple_columns_each_keep_one [FAIL]
+[xUnit.net 00:11:18.34]     InMemoryEmulator.Bigtable.Tests.GcRuleInteractionTests.Same_data_different_families_different_retention [FAIL]
+[xUnit.net 00:11:18.46]     InMemoryEmulator.Bigtable.Tests.GcRuleInteractionTests.V1_overwrite_replaces_value [FAIL]
+[xUnit.net 00:11:18.53]     InMemoryEmulator.Bigtable.Tests.GcRuleInteractionTests.V3_exactly_at_limit [FAIL]
+[xUnit.net 00:11:18.61]     InMemoryEmulator.Bigtable.Tests.GcRuleInteractionTests.V5_under_limit_keeps_all [FAIL]
+[xUnit.net 00:11:18.69]     InMemoryEmulator.Bigtable.Tests.GcRuleInteractionTests.V5_keeps_latest_5_of_8 [FAIL]
+[xUnit.net 00:11:18.76]     InMemoryEmulator.Bigtable.Tests.GcRuleInteractionTests.V3_keeps_all_when_under_limit [FAIL]
+  Failed InMemoryEmulator.Bigtable.Tests.GcRuleInteractionTests.V1_multiple_columns_each_keep_one [93 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/gc-interact" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.GcRuleInteractionTests.InitializeAsync() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\GcRuleInteractionTests.cs:line 46
+  Failed InMemoryEmulator.Bigtable.Tests.GcRuleInteractionTests.Same_data_different_families_different_retention [90 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/gc-interact" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.GcRuleInteractionTests.InitializeAsync() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\GcRuleInteractionTests.cs:line 46
+  Failed InMemoryEmulator.Bigtable.Tests.GcRuleInteractionTests.V1_overwrite_replaces_value [110 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/gc-interact" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.GcRuleInteractionTests.InitializeAsync() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\GcRuleInteractionTests.cs:line 46
+  Failed InMemoryEmulator.Bigtable.Tests.GcRuleInteractionTests.V3_exactly_at_limit [68 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/gc-interact" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.GcRuleInteractionTests.InitializeAsync() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\GcRuleInteractionTests.cs:line 46
+  Failed InMemoryEmulator.Bigtable.Tests.GcRuleInteractionTests.V5_under_limit_keeps_all [76 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/gc-interact" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.GcRuleInteractionTests.InitializeAsync() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\GcRuleInteractionTests.cs:line 46
+  Failed InMemoryEmulator.Bigtable.Tests.GcRuleInteractionTests.V5_keeps_latest_5_of_8 [71 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/gc-interact" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.GcRuleInteractionTests.InitializeAsync() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\GcRuleInteractionTests.cs:line 46
+  Failed InMemoryEmulator.Bigtable.Tests.GcRuleInteractionTests.V3_keeps_all_when_under_limit [64 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/gc-interact" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.GcRuleInteractionTests.InitializeAsync() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\GcRuleInteractionTests.cs:line 46
+[xUnit.net 00:11:18.85]     InMemoryEmulator.Bigtable.Tests.GcRuleInteractionTests.V3_delete_then_rewrite_keeps_new_versions [FAIL]
+[xUnit.net 00:11:18.91]     InMemoryEmulator.Bigtable.Tests.GcRuleInteractionTests.V3_ten_writes_keeps_3 [FAIL]
+[xUnit.net 00:11:18.99]     InMemoryEmulator.Bigtable.Tests.GcRuleInteractionTests.V3_keeps_latest_3_of_5 [FAIL]
+[xUnit.net 00:11:19.04]     InMemoryEmulator.Bigtable.Tests.GcRuleInteractionTests.V1_delete_row_then_rewrite [FAIL]
+[xUnit.net 00:11:19.11]     InMemoryEmulator.Bigtable.Tests.GcRuleInteractionTests.V1_keeps_only_latest_version [FAIL]
+[xUnit.net 00:11:19.20]     InMemoryEmulator.Bigtable.Tests.GcRuleInteractionTests.Delete_from_one_family_preserves_others [FAIL]
+  Failed InMemoryEmulator.Bigtable.Tests.GcRuleInteractionTests.V3_delete_then_rewrite_keeps_new_versions [65 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/gc-interact" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.GcRuleInteractionTests.InitializeAsync() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\GcRuleInteractionTests.cs:line 46
+  Failed InMemoryEmulator.Bigtable.Tests.GcRuleInteractionTests.V3_ten_writes_keeps_3 [58 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/gc-interact" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.GcRuleInteractionTests.InitializeAsync() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\GcRuleInteractionTests.cs:line 46
+  Failed InMemoryEmulator.Bigtable.Tests.GcRuleInteractionTests.V3_keeps_latest_3_of_5 [74 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/gc-interact" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.GcRuleInteractionTests.InitializeAsync() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\GcRuleInteractionTests.cs:line 46
+  Failed InMemoryEmulator.Bigtable.Tests.GcRuleInteractionTests.V1_delete_row_then_rewrite [44 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/gc-interact" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.GcRuleInteractionTests.InitializeAsync() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\GcRuleInteractionTests.cs:line 46
+  Failed InMemoryEmulator.Bigtable.Tests.GcRuleInteractionTests.V1_keeps_only_latest_version [65 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/gc-interact" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.GcRuleInteractionTests.InitializeAsync() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\GcRuleInteractionTests.cs:line 46
+  Failed InMemoryEmulator.Bigtable.Tests.GcRuleInteractionTests.Delete_from_one_family_preserves_others [76 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/gc-interact" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.GcRuleInteractionTests.InitializeAsync() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\GcRuleInteractionTests.cs:line 46
+[xUnit.net 00:13:43.16]     InMemoryEmulator.Bigtable.Tests.ErrorConditionDetailTests.DeleteFromFamily_nonexistent_family_throws [FAIL]
+  Failed InMemoryEmulator.Bigtable.Tests.ErrorConditionDetailTests.DeleteFromFamily_nonexistent_family_throws [82 ms]
+  Error Message:
+   Expected a <Grpc.Core.RpcException> to be thrown, but no exception was thrown.
+  Stack Trace:
+     at AwesomeAssertions.Execution.LateBoundTestFramework.Throw(String message)
+   at AwesomeAssertions.Specialized.DelegateAssertionsBase`2.<>c__DisplayClass8_0`1.<ThrowInternal>b__0(AssertionChain chain)
+   at AwesomeAssertions.Execution.AssertionChain.WithExpectation(String message, Action`1 chain, Object[] args)
+   at AwesomeAssertions.Specialized.DelegateAssertionsBase`2.ThrowInternal[TException](Exception exception, String because, Object[] becauseArgs)
+   at AwesomeAssertions.Specialized.AsyncFunctionAssertions`2.ThrowAsync[TException](String because, Object[] becauseArgs)
+   at InMemoryEmulator.Bigtable.Tests.ErrorConditionDetailTests.DeleteFromFamily_nonexistent_family_throws() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ErrorConditionDetailTests.cs:line 183
+--- End of stack trace from previous location ---
+[xUnit.net 00:13:43.78]     InMemoryEmulator.Bigtable.Tests.ErrorConditionDetailTests.ReadRow_empty_range_returns_empty [FAIL]
+  Failed InMemoryEmulator.Bigtable.Tests.ErrorConditionDetailTests.ReadRow_empty_range_returns_empty [49 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="InvalidArgument", Detail="Error in element #0: start_key_closed must be less than end_key_open")
+  Stack Trace:
+     at Grpc.Net.Client.Internal.HttpContentClientStreamReader`2.MoveNextCore(CancellationToken cancellationToken)
+   at Google.Api.Gax.Grpc.Gcp.GcpClientResponseStream`2.MoveNext(CancellationToken token)
+   at Google.Cloud.Bigtable.V2.RowAsyncEnumerator.MoveNextAsync()
+   at InMemoryEmulator.Bigtable.Tests.ErrorConditionDetailTests.ReadRow_empty_range_returns_empty() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ErrorConditionDetailTests.cs:line 145
+   at InMemoryEmulator.Bigtable.Tests.ErrorConditionDetailTests.ReadRow_empty_range_returns_empty() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\ErrorConditionDetailTests.cs:line 145
+--- End of stack trace from previous location ---
+[xUnit.net 00:16:34.09]     InMemoryEmulator.Bigtable.Tests.AdminColumnFamilyTests.Add_column_family_to_existing_table [FAIL]
+[xUnit.net 00:16:34.22]     InMemoryEmulator.Bigtable.Tests.AdminColumnFamilyTests.Create_table_with_single_family [FAIL]
+[xUnit.net 00:16:34.28]     InMemoryEmulator.Bigtable.Tests.AdminColumnFamilyTests.Create_table_with_multiple_families [FAIL]
+[xUnit.net 00:16:34.38]     InMemoryEmulator.Bigtable.Tests.AdminColumnFamilyTests.Create_table_with_gc_rule [FAIL]
+[xUnit.net 00:16:34.45]     InMemoryEmulator.Bigtable.Tests.AdminColumnFamilyTests.GetTable_returns_column_families [FAIL]
+[xUnit.net 00:16:34.47]     InMemoryEmulator.Bigtable.Tests.AdminColumnFamilyTests.Add_family_with_gc_rule [FAIL]
+[xUnit.net 00:16:34.54]     InMemoryEmulator.Bigtable.Tests.AdminColumnFamilyTests.Drop_column_family [FAIL]
+  Failed InMemoryEmulator.Bigtable.Tests.AdminColumnFamilyTests.Add_column_family_to_existing_table [56 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/admin-cf-add" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.AdminColumnFamilyTests.Add_column_family_to_existing_table() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AdminColumnFamilyTests.cs:line 89
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.AdminColumnFamilyTests.Create_table_with_single_family [56 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/admin-cf-1fam" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.AdminColumnFamilyTests.Create_table_with_single_family() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AdminColumnFamilyTests.cs:line 38
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.AdminColumnFamilyTests.Create_table_with_multiple_families [59 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/admin-cf-3fam" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.AdminColumnFamilyTests.Create_table_with_multiple_families() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AdminColumnFamilyTests.cs:line 54
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.AdminColumnFamilyTests.Create_table_with_gc_rule [96 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/admin-cf-gc" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.AdminColumnFamilyTests.Create_table_with_gc_rule() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AdminColumnFamilyTests.cs:line 71
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.AdminColumnFamilyTests.GetTable_returns_column_families [60 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/admin-cf-get" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.AdminColumnFamilyTests.GetTable_returns_column_families() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AdminColumnFamilyTests.cs:line 222
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.AdminColumnFamilyTests.Add_family_with_gc_rule [24 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/admin-cf-add-gc" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.AdminColumnFamilyTests.Add_family_with_gc_rule() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AdminColumnFamilyTests.cs:line 117
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.AdminColumnFamilyTests.Drop_column_family [59 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="AlreadyExists", Detail="table "projects/fake-project/instances/fake-instance/tables/admin-cf-drop" already exists")
+  Stack Trace:
+     at Google.Api.Gax.Grpc.ApiCallRetryExtensions.<>c__DisplayClass0_0`2.<<WithRetry>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at InMemoryEmulator.Bigtable.Tests.AdminColumnFamilyTests.Drop_column_family() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\AdminColumnFamilyTests.cs:line 153
+--- End of stack trace from previous location ---
+[xUnit.net 00:17:24.06]     InMemoryEmulator.Bigtable.Tests.RowSampleFilterTests.Sample_preserves_cell_data [FAIL]
+[xUnit.net 00:17:24.11]     InMemoryEmulator.Bigtable.Tests.RowSampleFilterTests.Sample_1_0_returns_all_rows [FAIL]
+  Failed InMemoryEmulator.Bigtable.Tests.RowSampleFilterTests.Sample_preserves_cell_data [46 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="InvalidArgument", Detail="row_sample_filter argument must be between 0.0 and 1.0")
+  Stack Trace:
+     at Grpc.Net.Client.Internal.HttpContentClientStreamReader`2.MoveNextCore(CancellationToken cancellationToken)
+   at Google.Api.Gax.Grpc.Gcp.GcpClientResponseStream`2.MoveNext(CancellationToken token)
+   at Google.Cloud.Bigtable.V2.RowAsyncEnumerator.MoveNextAsync()
+   at InMemoryEmulator.Bigtable.Tests.RowSampleFilterTests.Sample_preserves_cell_data() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\RowSampleFilterTests.cs:line 79
+   at InMemoryEmulator.Bigtable.Tests.RowSampleFilterTests.Sample_preserves_cell_data() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\RowSampleFilterTests.cs:line 79
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.RowSampleFilterTests.Sample_1_0_returns_all_rows [50 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="InvalidArgument", Detail="row_sample_filter argument must be between 0.0 and 1.0")
+  Stack Trace:
+     at Grpc.Net.Client.Internal.HttpContentClientStreamReader`2.MoveNextCore(CancellationToken cancellationToken)
+   at Google.Api.Gax.Grpc.Gcp.GcpClientResponseStream`2.MoveNext(CancellationToken token)
+   at Google.Cloud.Bigtable.V2.RowAsyncEnumerator.MoveNextAsync()
+   at InMemoryEmulator.Bigtable.Tests.RowSampleFilterTests.Sample_1_0_returns_all_rows() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\RowSampleFilterTests.cs:line 46
+   at InMemoryEmulator.Bigtable.Tests.RowSampleFilterTests.Sample_1_0_returns_all_rows() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\RowSampleFilterTests.cs:line 46
+--- End of stack trace from previous location ---
+[xUnit.net 00:17:24.17]     InMemoryEmulator.Bigtable.Tests.RowSampleFilterTests.Sample_with_chain_filter [FAIL]
+[xUnit.net 00:17:24.24]     InMemoryEmulator.Bigtable.Tests.RowSampleFilterTests.Sample_zero_returns_no_rows [FAIL]
+  Failed InMemoryEmulator.Bigtable.Tests.RowSampleFilterTests.Sample_with_chain_filter [59 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="InvalidArgument", Detail="row_sample_filter argument must be between 0.0 and 1.0")
+  Stack Trace:
+     at Grpc.Net.Client.Internal.HttpContentClientStreamReader`2.MoveNextCore(CancellationToken cancellationToken)
+   at Google.Api.Gax.Grpc.Gcp.GcpClientResponseStream`2.MoveNext(CancellationToken token)
+   at Google.Cloud.Bigtable.V2.RowAsyncEnumerator.MoveNextAsync()
+   at InMemoryEmulator.Bigtable.Tests.RowSampleFilterTests.Sample_with_chain_filter() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\RowSampleFilterTests.cs:line 97
+   at InMemoryEmulator.Bigtable.Tests.RowSampleFilterTests.Sample_with_chain_filter() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\RowSampleFilterTests.cs:line 97
+--- End of stack trace from previous location ---
+  Failed InMemoryEmulator.Bigtable.Tests.RowSampleFilterTests.Sample_zero_returns_no_rows [61 ms]
+  Error Message:
+   Grpc.Core.RpcException : Status(StatusCode="InvalidArgument", Detail="row_sample_filter argument must be between 0.0 and 1.0")
+  Stack Trace:
+     at Grpc.Net.Client.Internal.HttpContentClientStreamReader`2.MoveNextCore(CancellationToken cancellationToken)
+   at Google.Api.Gax.Grpc.Gcp.GcpClientResponseStream`2.MoveNext(CancellationToken token)
+   at Google.Cloud.Bigtable.V2.RowAsyncEnumerator.MoveNextAsync()
+   at InMemoryEmulator.Bigtable.Tests.RowSampleFilterTests.Sample_zero_returns_no_rows() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\RowSampleFilterTests.cs:line 108
+   at InMemoryEmulator.Bigtable.Tests.RowSampleFilterTests.Sample_zero_returns_no_rows() in C:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\RowSampleFilterTests.cs:line 108
+--- End of stack trace from previous location ---
+
+Failed!  - Failed:   167, Passed:  2734, Skipped:     0, Total:  2901, Duration: 17 m 18 s - InMemoryEmulator.Bigtable.Tests.Integration.dll (net8.0)

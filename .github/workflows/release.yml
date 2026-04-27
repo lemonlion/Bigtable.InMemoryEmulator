@@ -32,10 +32,10 @@ jobs:
           fi
 
       - name: Build
-        run: dotnet build Bigtable.InMemoryEmulator.sln --configuration Release -p:Version=${{ steps.version.outputs.VERSION }}
+        run: dotnet build InMemoryEmulator.Bigtable.sln --configuration Release -p:Version=${{ steps.version.outputs.VERSION }}
 
       - name: Pack
-        run: dotnet pack Bigtable.InMemoryEmulator.sln --configuration Release --no-build --output ./nupkgs -p:Version=${{ steps.version.outputs.VERSION }}
+        run: dotnet pack InMemoryEmulator.Bigtable.sln --configuration Release --no-build --output ./nupkgs -p:Version=${{ steps.version.outputs.VERSION }}
 
       - name: Push to NuGet
         run: dotnet nuget push ./nupkgs/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate

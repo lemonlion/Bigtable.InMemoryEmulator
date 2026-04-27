@@ -29,7 +29,7 @@ New-Item -ItemType Directory -Path $resultsDir -Force | Out-Null
 # 2. Build
 if (-not $SkipBuild) {
     Write-Host "`n=== Building ===" -ForegroundColor Cyan
-    dotnet build Bigtable.InMemoryEmulator.sln --configuration Release
+    dotnet build InMemoryEmulator.Bigtable.sln --configuration Release
     if ($LASTEXITCODE -ne 0) { Write-Error "Build failed"; exit 1 }
 }
 

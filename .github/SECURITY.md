@@ -5,7 +5,7 @@
 If you discover a security vulnerability in this project, please report it responsibly:
 
 - **Email**: security@lemonlion.dev
-- **GitHub**: Open a [private security advisory](https://github.com/lemonlion/Bigtable.InMemoryEmulator/security/advisories/new)
+- **GitHub**: Open a [private security advisory](https://github.com/lemonlion/InMemoryEmulator.Bigtable/security/advisories/new)
 
 ## Response Timeline
 

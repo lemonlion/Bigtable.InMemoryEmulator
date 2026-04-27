@@ -23,7 +23,7 @@ What you expected to happen (and what real GCP Bigtable does).
 What actually happened with the in-memory emulator.
 
 **Environment**
-- Bigtable.InMemoryEmulator version:
+- InMemoryEmulator.Bigtable version:
 - .NET version:
 - OS:
 

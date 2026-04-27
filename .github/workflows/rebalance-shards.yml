@@ -24,7 +24,7 @@ jobs:
       - name: Run unit tests with TRX logging
         shell: pwsh
         run: |
-          dotnet test tests/Bigtable.InMemoryEmulator.Tests.Unit `
+          dotnet test tests/InMemoryEmulator.Bigtable.Tests.Unit `
             --configuration Release --no-build `
             --framework net8.0 `
             --logger "trx;LogFileName=unit-timings.trx" `

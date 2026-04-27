@@ -1,0 +1,5 @@
+Test run for c:\git\InMemoryEmulator.Bigtable\tests\InMemoryEmulator.Bigtable.Tests.Integration\bin\Debug\net8.0\InMemoryEmulator.Bigtable.Tests.Integration.dll (.NETCoreApp,Version=v8.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:02:09.88]     InMemoryEmulator.Bigtable.Tests.ReadRowsRowSetAdvancedTests.Range_beyond_data_returns_empty [FAIL]
+
+Failed!  - Failed:     1, Passed:  2929, Skipped:     0, Total:  2930, Duration: 19 m 28 s - InMemoryEmulator.Bigtable.Tests.Integration.dll (net8.0)

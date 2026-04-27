@@ -29,4 +29,4 @@ runs:
     - name: Build
       if: inputs.build == 'true'
       shell: bash
-      run: dotnet build Bigtable.InMemoryEmulator.sln --configuration Release ${{ inputs.build-args }}
+      run: dotnet build InMemoryEmulator.Bigtable.sln --configuration Release ${{ inputs.build-args }}

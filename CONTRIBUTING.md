@@ -1,4 +1,4 @@
-# Contributing to Bigtable.InMemoryEmulator
+# Contributing to InMemoryEmulator.Bigtable
 
 Thank you for your interest in contributing!
 
@@ -19,17 +19,17 @@ Thank you for your interest in contributing!
 ## Building
 
 ```bash
-dotnet build Bigtable.InMemoryEmulator.sln
+dotnet build InMemoryEmulator.Bigtable.sln
 ```
 
 ## Running Tests
 
 ```powershell
 # Unit tests only
-dotnet test tests/Bigtable.InMemoryEmulator.Tests.Unit
+dotnet test tests/InMemoryEmulator.Bigtable.Tests.Unit
 
 # Integration tests (in-memory)
-dotnet test tests/Bigtable.InMemoryEmulator.Tests.Integration
+dotnet test tests/InMemoryEmulator.Bigtable.Tests.Integration
 
 # Full parity validation (requires Docker)
 ./scripts/validate-parity.ps1

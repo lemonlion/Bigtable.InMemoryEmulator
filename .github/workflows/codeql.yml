@@ -28,7 +28,7 @@ jobs:
           languages: csharp
 
       - name: Build
-        run: dotnet build Bigtable.InMemoryEmulator.sln --configuration Release
+        run: dotnet build InMemoryEmulator.Bigtable.sln --configuration Release
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3

@@ -56,7 +56,7 @@ jobs:
       - name: Unit Tests
         run: |
           filter=$(jq -r '.shard_profiles[${{ matrix.shard_index }}].filter' scripts/shard-profile.json)
-          dotnet test tests/Bigtable.InMemoryEmulator.Tests.Unit \
+          dotnet test tests/InMemoryEmulator.Bigtable.Tests.Unit \
             --configuration Release --no-build --verbosity normal \
             --framework ${{ matrix.framework }} \
             --filter "$filter"
@@ -84,4 +84,4 @@ jobs:
         run: find . -path '*/bin/Release/*' -type f -exec chmod +x {} +
 
       - name: Integration Tests
-        run: dotnet test tests/Bigtable.InMemoryEmulator.Tests.Integration --configuration Release --no-build --verbosity normal --framework ${{ matrix.framework }}
+        run: dotnet test tests/InMemoryEmulator.Bigtable.Tests.Integration --configuration Release --no-build --verbosity normal --framework ${{ matrix.framework }}

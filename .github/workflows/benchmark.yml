@@ -73,7 +73,7 @@ jobs:
           LOAD_TEST_RPS: ${{ inputs.rps || '50' }}
           LOAD_TEST_DURATION_SECONDS: ${{ inputs.duration || '60' }}
         run: |
-          dotnet test tests/Bigtable.InMemoryEmulator.Tests.Performance \
+          dotnet test tests/InMemoryEmulator.Bigtable.Tests.Performance \
             --configuration Release --no-build --verbosity normal \
             --logger "console;verbosity=detailed" \
             --framework ${{ inputs.framework || 'net8.0' }} \

@@ -33,7 +33,7 @@
 .NOTES
     To regenerate shard-profile.json after adding new test classes:
 
-        dotnet test tests/Bigtable.InMemoryEmulator.Tests.Unit `
+        dotnet test tests/InMemoryEmulator.Bigtable.Tests.Unit `
             --logger "trx;LogFileName=unit-timings.trx" `
             --results-directory ./test-results
 

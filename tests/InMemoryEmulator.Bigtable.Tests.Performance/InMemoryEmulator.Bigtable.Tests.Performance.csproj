@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<ItemGroup>
+		<PackageReference Include="AwesomeAssertions" Version="9.4.0" />
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.3.0" />
+		<PackageReference Include="xunit.runner.visualstudio" Version="3.1.5">
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+			<PrivateAssets>all</PrivateAssets>
+		</PackageReference>
+		<PackageReference Include="xunit.v3" Version="3.2.2" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\src\InMemoryEmulator.Bigtable\InMemoryEmulator.Bigtable.csproj" />
+		<ProjectReference Include="..\InMemoryEmulator.Bigtable.Tests.Shared\InMemoryEmulator.Bigtable.Tests.Shared.csproj" />
+	</ItemGroup>
+
+</Project>

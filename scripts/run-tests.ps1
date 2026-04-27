@@ -69,11 +69,11 @@ New-Item -ItemType Directory -Path $OutputDir -Force | Out-Null
 
 # Determine which projects to run
 $projects = switch ($Project) {
-    'unit'        { @(@{ Path = 'tests/Bigtable.InMemoryEmulator.Tests.Unit';        Label = 'unit' }) }
-    'integration' { @(@{ Path = 'tests/Bigtable.InMemoryEmulator.Tests.Integration'; Label = 'integration' }) }
+    'unit'        { @(@{ Path = 'tests/InMemoryEmulator.Bigtable.Tests.Unit';        Label = 'unit' }) }
+    'integration' { @(@{ Path = 'tests/InMemoryEmulator.Bigtable.Tests.Integration'; Label = 'integration' }) }
     'both'        { @(
-        @{ Path = 'tests/Bigtable.InMemoryEmulator.Tests.Unit';        Label = 'unit' }
-        @{ Path = 'tests/Bigtable.InMemoryEmulator.Tests.Integration'; Label = 'integration' }
+        @{ Path = 'tests/InMemoryEmulator.Bigtable.Tests.Unit';        Label = 'unit' }
+        @{ Path = 'tests/InMemoryEmulator.Bigtable.Tests.Integration'; Label = 'integration' }
     )}
 }
 
